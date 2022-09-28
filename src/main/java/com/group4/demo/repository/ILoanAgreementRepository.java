@@ -1,4 +1,4 @@
-package repository;
+package com.group4.demo.repository;
 
 import com.group4.demo.entity.LoanAgreement;
 import org.springframework.data.jpa.repository.JpaRepository;
