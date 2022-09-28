@@ -30,9 +30,6 @@ public class Admin extends User {
 
     }
 
-    public Admin() {
-    }
-
     public String getAdminName() {
         return adminName;
     }

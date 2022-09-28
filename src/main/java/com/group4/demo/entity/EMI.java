@@ -19,10 +19,6 @@ public class EMI {
 		super();
 	}
 
-
-//hello
-
-	//hekllo 2
 	public EMI(long eMIId, LocalDate deuDate, double emiAmount, double loanAmount, double interestAmount,
 			long loanAgreementId) {
 		super();
