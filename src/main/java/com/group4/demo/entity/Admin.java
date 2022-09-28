@@ -24,28 +24,4 @@ public class Admin extends User {
 
 
 
-    public Admin(String adminName, String adminContact) {
-        this.adminName = adminName;
-        this.adminContact = adminContact;
-
-    }
-
-    public Admin() {
-    }
-
-    public String getAdminName() {
-        return adminName;
-    }
-
-    public void setAdminName(String adminName) {
-        this.adminName = adminName;
-    }
-
-    public String getAdminContact() {
-        return adminContact;
-    }
-
-    public void setAdminContact(String adminContact) {
-        this.adminContact = adminContact;
-    }
 }
