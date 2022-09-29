@@ -18,8 +18,11 @@ public class LoanApplicationServiceImpl implements ILoanApplicationService {
     @Override
     public LoanApplication deleteLoanApplicationId(long loanApplicationId) {
         Optional<LoanApplication> application = loanRepo.findById(loanApplicationId);
-        loanRepo.delete(application.get());
-        return application.get();
+        if(application.isPresent()) {
+            loanRepo.delete(application.get());
+            return application.get();
+        }
+        return null;
     }
 
     @Override
@@ -29,7 +32,11 @@ public class LoanApplicationServiceImpl implements ILoanApplicationService {
 
     @Override
     public LoanApplication retriveLoanApplicationById(long loanApplicationId) {
-        return loanRepo.findById(loanApplicationId).get();
+        Optional<LoanApplication> application = loanRepo.findById(loanApplicationId);
+        if(application.isPresent()){
+           return application.get();
+        }
+        return null;
     }
 
     @Override
@@ -39,15 +46,10 @@ public class LoanApplicationServiceImpl implements ILoanApplicationService {
 
     @Override
     public LoanApplication updateLoanApplication(LoanApplication loanApplication) {
-
-        LoanApplication application = loanRepo.findById(loanApplication.getApplicationId()).get();
-        application.setApplicationDate(loanApplication.getApplicationDate());
-        application.setAdminApproval(loanApplication.isAdminApproval());
-        application.setLoanAppliedAmount(loanApplication.getLoanAppliedAmount());
-        application.setLoanApprovedAmount(loanApplication.getLoanApprovedAmount());
-        application.setFinanceVerificationApproval(loanApplication.isFinanceVerificationApproval());
-        application.setLandVerificationApproval(loanApplication.isLandVerificationApproval());
-        application.setStatus(loanApplication.getStatus());
-        return loanRepo.save(application);
+        Optional<LoanApplication> application = loanRepo.findById(loanApplication.getApplicationId());
+        if(application.isPresent()){
+            return application.get();
+        }
+        return null;
     }
 }
