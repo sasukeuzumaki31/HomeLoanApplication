@@ -7,6 +7,8 @@ import lombok.Setter;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 
 @Getter
@@ -14,10 +16,16 @@ import javax.persistence.Id;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class FinanceVerificationOfficer extends  User{
+public class FinanceVerificationOfficer extends User {
     @Id
     private int userId;
+
+    @NotNull
+    @NotEmpty
     private String finOfficerName;
+
+    @NotNull
+    @NotEmpty
     private String finOfficerContact;
 
 

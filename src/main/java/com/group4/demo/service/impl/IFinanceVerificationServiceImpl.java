@@ -6,9 +6,8 @@ import com.group4.demo.service.IFinanceVerificationService;
 public class IFinanceVerificationServiceImpl implements IFinanceVerificationService {
     @Override
     public void updateStatus(LoanApplication loanApplication) {
-        /*
-        update Status logic here
-         */
+
+        loanApplication.setFinanceVerificationApproval(true);
 
 
     }
