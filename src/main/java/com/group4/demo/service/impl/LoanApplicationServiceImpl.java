@@ -39,6 +39,7 @@ public class LoanApplicationServiceImpl implements ILoanApplicationService {
 
     @Override
     public LoanApplication updateLoanApplication(LoanApplication loanApplication) {
+
         LoanApplication application = loanRepo.findById(loanApplication.getApplicationId()).get();
         application.setApplicationDate(loanApplication.getApplicationDate());
         application.setAdminApproval(loanApplication.isAdminApproval());

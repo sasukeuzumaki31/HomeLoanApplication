@@ -10,6 +10,6 @@ import java.util.List;
 public interface ICustomerRepository extends JpaRepository<Customer, Integer> {
 
     @Query("select c from Customer c, LoanApplication l where l.loanApplicationId = c.loanApplicationId " +
-            "and l.applicationDate = :dateofApplication")
+            "and l.applicationDate = :dateOfApplication")
     List<Customer> findByDateOfApplication(LocalDate dateOfApplication);
 }

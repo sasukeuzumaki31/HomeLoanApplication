@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
@@ -16,8 +15,7 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 @Entity
 public class LandVerificationOfficer extends User {
-    @Id
-    private int userId;
+
 
     @NotNull
     @NotEmpty
