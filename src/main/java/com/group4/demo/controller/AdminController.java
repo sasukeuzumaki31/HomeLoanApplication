@@ -24,6 +24,11 @@ public class AdminController {
     @Autowired
     ILoanApplicationService loanApplicationService;
 
+    @GetMapping("/users")
+    public ResponseEntity<List<Customer>> getUsers(){
+        List<Customer> customers = customerService.viewAllCustomers();
+        return new ResponseEntity<>(customers, HttpStatus.OK);
+    }
     @GetMapping("/user/{id}")
     public ResponseEntity<Customer> viewCustomer(@PathVariable int id){
         Customer customer = customerService.viewCustomer(id);
@@ -40,6 +45,24 @@ public class AdminController {
     public ResponseEntity<List<LoanApplication>> retriveAllLoanApplication(){
         List<LoanApplication> applications = loanApplicationService.retriveAllLoanApplication();
         return new ResponseEntity<>(applications, HttpStatus.OK);
+    }
+
+    @GetMapping("/application/{id}")
+    public ResponseEntity<LoanApplication> getApplicationById(@PathVariable long id){
+        LoanApplication loanApplication = loanApplicationService.retriveLoanApplicationById(id);
+        return new ResponseEntity<>(loanApplication, HttpStatus.OK);
+    }
+
+    @PutMapping("/application/{id}")
+    public ResponseEntity<LoanApplication> updateApplicationById(@RequestBody LoanApplication loanApplication){
+        LoanApplication loanApplication1 = loanApplicationService.updateLoanApplication(loanApplication);
+        return new ResponseEntity<>(loanApplication1, HttpStatus.OK);
+    }
+
+    @GetMapping("/application/pending")
+    public ResponseEntity<List<LoanApplication>> getPendingApplications(){
+        List<LoanApplication> pendingApplications = loanApplicationService.retrieveLoanApplicationByStatus("PENDING");
+        return new ResponseEntity<>(pendingApplications, HttpStatus.OK);
     }
 
 }

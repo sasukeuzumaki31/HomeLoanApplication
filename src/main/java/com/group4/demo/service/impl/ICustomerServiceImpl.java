@@ -39,8 +39,8 @@ public class ICustomerServiceImpl implements ICustomerService {
     }
 
     @Override
-    public Customer updateCustomer(Customer customer) {
-        Optional<Customer> customerOp = custRepo.findById(customer.getUserId());
+    public Customer updateCustomer(int id, Customer customer) {
+        Optional<Customer> customerOp = custRepo.findById(id);
         if(!customerOp.isPresent()){
             return null;
         }
@@ -48,8 +48,8 @@ public class ICustomerServiceImpl implements ICustomerService {
     }
 
     @Override
-    public Customer deleteCustomer(Customer customer) {
-        Optional<Customer> customerOp = custRepo.findById(customer.getUserId());
+    public Customer deleteCustomer(int id, Customer customer) {
+        Optional<Customer> customerOp = custRepo.findById(id);
         if(!customerOp.isPresent()){
             return null;
         }
