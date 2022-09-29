@@ -4,8 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Data
 @AllArgsConstructor
@@ -14,6 +13,8 @@ import javax.persistence.Id;
 public  class LoanAgreement {
     @Id
     private long loanAgreementId;
-    private long loanApplicationId;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "fk_loan_id",referencedColumnName = "applicationId")
+    LoanApplication loanApplication;
 }
