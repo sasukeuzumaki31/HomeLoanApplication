@@ -5,11 +5,12 @@ import com.group4.demo.repository.ICustomerRepository;
 import com.group4.demo.repository.ILoanApplicationRepository;
 import com.group4.demo.service.ICustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
-
+@Service
 public class ICustomerServiceImpl implements ICustomerService {
 
     @Autowired
@@ -60,5 +61,15 @@ public class ICustomerServiceImpl implements ICustomerService {
     public List<Customer> viewCustomerList(LocalDate dateOfApplication) {
 //        return custRepo.findByDateOfApplication(dateOfApplication);
         return null;
+    }
+
+    @Override
+    public Customer deleteCustomerById(int custId) {
+        Optional<Customer> customerOp = custRepo.findById(custId);
+        if(!customerOp.isPresent()) {
+            return null;
+        }
+        custRepo.delete(customerOp.get());
+        return customerOp.get();
     }
 }

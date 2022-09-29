@@ -1,6 +1,7 @@
 package com.group4.demo.service.impl;
 
 import com.group4.demo.entity.LoanApplication;
+import com.group4.demo.entity.Status;
 import com.group4.demo.repository.ILoanApplicationRepository;
 import com.group4.demo.service.ILoanApplicationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,7 @@ public class LoanApplicationServiceImpl implements ILoanApplicationService {
     }
 
     @Override
-    public LoanApplication retriveLoanApplicationById(long loanApplicationId) {
+    public LoanApplication retriveLoanApplicationById(Long loanApplicationId) {
         Optional<LoanApplication> application = loanRepo.findById(loanApplicationId);
         if(application.isPresent()){
            return application.get();
@@ -48,7 +49,18 @@ public class LoanApplicationServiceImpl implements ILoanApplicationService {
     public LoanApplication updateLoanApplication(LoanApplication loanApplication) {
         Optional<LoanApplication> application = loanRepo.findById(loanApplication.getApplicationId());
         if(application.isPresent()){
-            return application.get();
+            return loanRepo.save(loanApplication);
+        }
+        return null;
+    }
+
+    @Override
+    public LoanApplication updateStatusOfLoanApplication(Long loanApplicationId, Status status) {
+        Optional<LoanApplication> application = loanRepo.findById(loanApplicationId);
+        if(application.isPresent()){
+            LoanApplication loanApplication = application.get();
+            loanApplication.setStatus(String.valueOf(status));
+            return loanRepo.save(loanApplication);
         }
         return null;
     }
