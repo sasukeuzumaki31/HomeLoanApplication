@@ -18,4 +18,5 @@ public interface ICustomerService {
     Customer deleteCustomer(Customer customer);
 
     List<Customer> viewCustomerList(LocalDate dateOfApplication);
+    Customer deleteCustomerById(int custId);
 }
