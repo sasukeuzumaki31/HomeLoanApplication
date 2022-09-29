@@ -1,18 +1,15 @@
 package com.group4.demo.service.impl;
 
 import com.group4.demo.entity.Customer;
-import com.group4.demo.entity.LoanApplication;
 import com.group4.demo.repository.ICustomerRepository;
 import com.group4.demo.repository.ILoanApplicationRepository;
-import com.group4.demo.service.ICustomerService;
-import com.group4.demo.service.ILoanApplicationService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
-public class CustomerService implements ICustomerService {
+public class ICustomerService implements com.group4.demo.service.ICustomerService {
 
     @Autowired
     ICustomerRepository custRepo;
@@ -49,6 +46,7 @@ public class CustomerService implements ICustomerService {
 
     @Override
     public List<Customer> viewCustomerList(LocalDate dateOfApplication) {
-        return custRepo.findByDateOfApplication(dateOfApplication);
+//        return custRepo.findByDateOfApplication(dateOfApplication);
+        return null;
     }
 }
