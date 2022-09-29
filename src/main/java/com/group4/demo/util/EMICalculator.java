@@ -52,20 +52,10 @@ public class EMICalculator {
 		double emi = 0;
 		
 		double r = (rateOfInterest/12)/100;
-		double t = tenure*12;
+		double t = (double) tenure*12;
 		double temp = (Math.pow(1+r, t));
 		emi = ((loanAmount * r)*temp)/(temp-1);
 		
 		return emi;
 	}
-	
-	
-	
-	//Trial
-	public static void main(String args[]) {
-		EMICalculator e = new EMICalculator(5000000, 12, 10);
-		System.out.println(e.getEMIAmount());
-	}
-	
-	
 }
