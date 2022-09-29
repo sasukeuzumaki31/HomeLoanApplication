@@ -82,15 +82,9 @@ public class HomeLoanBorrowingAmountCalculator {
 	
 	//function
 	public double getHomeLoanBorrowingAmount() {
-		double e = 0;
-		return e;
+		double res = 0.0;
+		res += 5;
+		return res;
 	}
-
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-	}
-
-	
 
 }

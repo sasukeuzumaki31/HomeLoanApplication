@@ -49,8 +49,6 @@ public class CustomerService implements ICustomerService {
 
     @Override
     public List<Customer> viewCustomerList(LocalDate dateOfApplication) {
-//        List<LoanApplication> l = loanRepo.findAllByLoanApplicationDate(dateOfApplication);
-        List<Customer> customers = custRepo.findByDateOfApplication(dateOfApplication);
-        return customers;
+        return custRepo.findByDateOfApplication(dateOfApplication);
     }
 }
