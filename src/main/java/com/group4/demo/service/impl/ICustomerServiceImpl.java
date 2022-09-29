@@ -3,13 +3,14 @@ package com.group4.demo.service.impl;
 import com.group4.demo.entity.Customer;
 import com.group4.demo.repository.ICustomerRepository;
 import com.group4.demo.repository.ILoanApplicationRepository;
+import com.group4.demo.service.ICustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
-public class ICustomerService implements com.group4.demo.service.ICustomerService {
+public class ICustomerServiceImpl implements ICustomerService {
 
     @Autowired
     ICustomerRepository custRepo;
@@ -20,6 +21,9 @@ public class ICustomerService implements com.group4.demo.service.ICustomerServic
     @Override
     public Customer viewCustomer(int custid) {
         Optional<Customer> customer = custRepo.findById(custid);
+        if(!customer.isPresent()){
+            return null;
+        }
         return customer.get();
     }
 
@@ -35,13 +39,21 @@ public class ICustomerService implements com.group4.demo.service.ICustomerServic
 
     @Override
     public Customer updateCustomer(Customer customer) {
+        Optional<Customer> customerOp = custRepo.findById(customer.getUserId());
+        if(!customerOp.isPresent()){
+            return null;
+        }
         return custRepo.save(customer);
     }
 
     @Override
     public Customer deleteCustomer(Customer customer) {
+        Optional<Customer> customerOp = custRepo.findById(customer.getUserId());
+        if(!customerOp.isPresent()){
+            return null;
+        }
         custRepo.delete(customer);
-        return customer;
+        return customerOp.get();
     }
 
     @Override
