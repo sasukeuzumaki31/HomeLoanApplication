@@ -50,8 +50,12 @@ public class CustomerService implements ICustomerService {
 
     @Override
     public Customer deleteCustomer(Customer customer) {
+        Optional<Customer> customerOp = custRepo.findById(customer.getUserId());
+        if(!customerOp.isPresent()){
+            return null;
+        }
         custRepo.delete(customer);
-        return customer;
+        return customerOp.get();
     }
 
     @Override
