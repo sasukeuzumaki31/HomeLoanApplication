@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Getter
@@ -15,8 +17,12 @@ import javax.persistence.*;
 public class Admin extends User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int  userId;
+    private int userId;
 
+   @NotNull
+    @NotEmpty
     private String adminName;
+
+    @NotNull
     private String adminContact;
 }
