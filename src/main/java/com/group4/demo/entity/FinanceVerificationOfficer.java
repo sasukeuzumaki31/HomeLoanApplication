@@ -17,8 +17,7 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 @Entity
 public class FinanceVerificationOfficer extends User {
-    @Id
-    private int userId;
+
 
     @NotNull
     @NotEmpty

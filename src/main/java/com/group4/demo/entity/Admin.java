@@ -15,9 +15,7 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Admin extends User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int userId;
+
 
    @NotNull
     @NotEmpty
