@@ -18,8 +18,13 @@ public class ILoanAgreementServiceImpl implements ILoanAgreementService {
     @Override
     public LoanAgreement deleteLoanAgreement(long loanAgreementId) {
         Optional<LoanAgreement> agreement=loanAggRepo.findById(loanAgreementId);
-        loanAggRepo.delete(agreement.get());
-        return agreement.get();
+        if(agreement.isPresent())
+        {
+            loanAggRepo.delete(agreement.get());
+            return agreement.get();
+        }
+        else
+            return null;
     }
 
     @Override
@@ -30,7 +35,12 @@ public class ILoanAgreementServiceImpl implements ILoanAgreementService {
     @Override
     public LoanAgreement retrieveAgreementById(long loanAgreementId) {
         Optional<LoanAgreement> agreement=loanAggRepo.findById(loanAgreementId);
-        return agreement.get();
+        if(agreement.isPresent())
+        {
+            return agreement.get();
+        }
+        else
+            return null;
     }
 
     @Override
