@@ -23,6 +23,9 @@ public class CustomerService implements ICustomerService {
     @Override
     public Customer viewCustomer(int custid) {
         Optional<Customer> customer = custRepo.findById(custid);
+        if(!customer.isPresent()){
+            return null;
+        }
         return customer.get();
     }
 
@@ -38,6 +41,10 @@ public class CustomerService implements ICustomerService {
 
     @Override
     public Customer updateCustomer(Customer customer) {
+        Optional<Customer> customerOp = custRepo.findById(customer.getUserId());
+        if(!customerOp.isPresent()){
+            return null;
+        }
         return custRepo.save(customer);
     }
 
