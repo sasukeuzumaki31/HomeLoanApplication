@@ -81,19 +81,25 @@ public class LoanApplicationServiceImpl implements ILoanApplicationService {
 
     //updating loanApplication
     @Override
-    public LoanApplication updateLoanApplication(long id, LoanApplicationDto loanApplicationDto) {
+    public LoanApplication updateLoanApplication(long id) {
         Optional<LoanApplication> loanApplicationOp = loanRepo.findById(id);
 
         if (loanApplicationOp.isPresent()) {
             LoanApplication loanApplication = loanApplicationOp.get();
-            loanApplication.setLoanApprovedAmount(loanApplicationDto.getLoanApprovedAmount());
-            loanApplication.setStatus(loanApplicationDto.getStatus());
-            loanApplication.setAdminApproval(loanApplicationDto.isAdminApproval());
-            loanApplication.setFinanceVerificationApproval(loanApplicationDto.isFinanceVerificationApproval());
-            loanApplication.setLandVerificationApproval(loanApplication.isLandVerificationApproval());
+           // loanApplication.setLoanApprovedAmount(loanApplication.getLoanApprovedAmount());
+            //loanApplication.setStatus(loanApplicationDto.getStatus());
+            //loanApplication.setAdminApproval(loanApplicationDto.isAdminApproval());
+            //loanApplication.setFinanceVerificationApproval(loanApplicationDto.isFinanceVerificationApproval());
+            //loanApplication.setLandVerificationApproval(loanApplication.isLandVerificationApproval());
+
+            boolean verify = loanApplication.isLandVerificationApproval() && loanApplication.isFinanceVerificationApproval();
+            loanApplication.setAdminApproval(verify);
+            loanApplication.setStatus(String.valueOf(verify? Status.APPROVED:Status.REJECTED));
+
             /*
                  Making Loan Agreement with Customer  after loan is aprroved
              */
+
             LoanAgreement loanAgreement = new LoanAgreement();
             loanAgreement.setLoanApplication(loanApplication);
 
@@ -111,7 +117,6 @@ public class LoanApplicationServiceImpl implements ILoanApplicationService {
             emi.setInterestAmount(interestAmount);
 
             emi.setLoanAgreement(loanAgreement);
-
             /*
             Saving EMI Object into Repo
              */
@@ -129,6 +134,7 @@ public class LoanApplicationServiceImpl implements ILoanApplicationService {
         if (application.isPresent()) {
             LoanApplication loanApplication = application.get();
             loanApplication.setStatus(String.valueOf(status));
+            loanApplication.setLandVerificationApproval(true);
             return loanRepo.save(loanApplication);
         }
         return null;
