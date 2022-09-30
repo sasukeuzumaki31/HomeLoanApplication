@@ -1,5 +1,6 @@
 package com.group4.demo.Dto;
 
+import com.group4.demo.entity.Customer;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,4 +21,5 @@ public class LoanApplicatonDto {
     private boolean financeVerificationApproval;
     private boolean adminApproval;
     private String status;
+    private int customerId;
 }

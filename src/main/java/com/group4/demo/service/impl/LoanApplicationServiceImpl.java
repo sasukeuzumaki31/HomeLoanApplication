@@ -1,8 +1,10 @@
 package com.group4.demo.service.impl;
 
 import com.group4.demo.Dto.LoanApplicatonDto;
+import com.group4.demo.entity.Customer;
 import com.group4.demo.entity.LoanApplication;
 import com.group4.demo.entity.Status;
+import com.group4.demo.repository.ICustomerRepository;
 import com.group4.demo.repository.ILoanApplicationRepository;
 import com.group4.demo.service.ILoanApplicationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,9 @@ import java.util.Optional;
 public class LoanApplicationServiceImpl implements ILoanApplicationService {
     @Autowired
     ILoanApplicationRepository loanRepo;
+
+    @Autowired
+    private ICustomerRepository customerRepository;
 
 
     @Override
@@ -47,7 +52,16 @@ public class LoanApplicationServiceImpl implements ILoanApplicationService {
         loanApplication1.setLoanAppliedAmount(loanApplication.getLoanAppliedAmount());
         loanApplication1.setApplicationDate(loanApplication.getApplicationDate());
         loanApplication1.setStatus(String.valueOf(Status.PENDING));
+        /*
+        Find Customer by Id and save loan save it into Customer object
+         */
+        Customer customer = customerRepository.findById(loanApplication.getCustomerId()).get();
+        loanApplication1.setCustomer(customer);
 
+
+        /*
+        Find Customer and  save it into Loan object
+         */
         return loanRepo.save(loanApplication1);
     }
 

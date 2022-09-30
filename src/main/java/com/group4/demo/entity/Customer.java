@@ -5,10 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 import javax.validation.constraints.*;
 import java.time.LocalDate;
 
@@ -46,8 +43,5 @@ public class Customer extends User {
     @Pattern(regexp = "[A-Z]{5}[0-9]{4}[A-Z]{1}")
     String panNumber;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "fk_loan_id",referencedColumnName = "applicationId")
-    LoanApplication loanApplication;
 
 }
