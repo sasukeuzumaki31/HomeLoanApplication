@@ -30,19 +30,19 @@ public class AdminController {
         return new ResponseEntity<>(customers, HttpStatus.OK);
     }
     @GetMapping("/user/{id}")
-    public ResponseEntity<Customer> viewCustomer(@PathVariable int id){
+    public ResponseEntity<Customer> viewCustomer(@PathVariable int id) {
         Customer customer = customerService.viewCustomer(id);
         return new ResponseEntity<>(customer, HttpStatus.OK);
     }
 
     @DeleteMapping("/user/{id}")
-    public ResponseEntity<Customer> deleteCustomerById(@PathVariable int id){
+    public ResponseEntity<Customer> deleteCustomerById(@PathVariable int id) {
         Customer customer = customerService.deleteCustomerById(id);
         return new ResponseEntity<>(customer, HttpStatus.OK);
     }
 
     @GetMapping("/applications")
-    public ResponseEntity<List<LoanApplication>> retriveAllLoanApplication(){
+    public ResponseEntity<List<LoanApplication>> retriveAllLoanApplication() {
         List<LoanApplication> applications = loanApplicationService.retriveAllLoanApplication();
         return new ResponseEntity<>(applications, HttpStatus.OK);
     }

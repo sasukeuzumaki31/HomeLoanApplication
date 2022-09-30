@@ -1,5 +1,6 @@
 package com.group4.demo.service.impl;
 
+import com.group4.demo.Dto.LoanApplicatonDto;
 import com.group4.demo.entity.LoanApplication;
 import com.group4.demo.entity.Status;
 import com.group4.demo.repository.ILoanApplicationRepository;
@@ -41,8 +42,15 @@ public class LoanApplicationServiceImpl implements ILoanApplicationService {
     }
 
     @Override
-    public LoanApplication addLoanApplication(LoanApplication loanApplication) {
-        return loanRepo.save(loanApplication);
+    public LoanApplication addLoanApplication(LoanApplicatonDto loanApplication) {
+
+        LoanApplication loanApplication1 = new LoanApplication();
+
+        loanApplication1.setLoanAppliedAmount(loanApplication.getLoanAppliedAmount());
+        loanApplication1.setApplicationDate(loanApplication.getApplicationDate());
+        loanApplication1.setStatus(String.valueOf(Status.PENDING));
+
+        return loanRepo.save(loanApplication1);
     }
 
     @Override
