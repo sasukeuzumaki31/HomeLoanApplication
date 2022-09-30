@@ -61,9 +61,9 @@ public class AdminController {
     }
 
     @PutMapping("/application/{id}")
-    public ResponseEntity<LoanApplication> updateApplicationById(@RequestBody LoanApplication loanApplication){
-        LoanApplication loanApplication1 = loanApplicationService.updateLoanApplication(loanApplication);
-        return new ResponseEntity<>(loanApplication1, HttpStatus.OK);
+    public ResponseEntity<LoanApplication> updateApplicationById(@PathVariable long id, @RequestBody LoanApplicatonDto loanApplicatonDto){
+        LoanApplication  savedLoanApplication = loanApplicationService.updateLoanApplication(id, loanApplicatonDto);
+        return new ResponseEntity<>( savedLoanApplication, HttpStatus.OK);
     }
 
     @GetMapping("/application/pending")
