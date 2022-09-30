@@ -16,7 +16,6 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Entity
 public class LoanApplication {
-
 	@Id
 	private long applicationId;
 	private LocalDate applicationDate;
