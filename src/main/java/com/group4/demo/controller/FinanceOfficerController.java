@@ -36,7 +36,7 @@ public class FinanceOfficerController {
         return new ResponseEntity<>(newFinanceVerificationOfficer, HttpStatus.CREATED);
     }
 
-    @GetMapping("/loan/{id}")
+    @GetMapping("/loans/{id}")
     public ResponseEntity<LoanApplication> retrieveLoanApplicationById(@PathVariable Long id)
     {
         LoanApplication loanApplication = loanApplicationService.retrieveLoanApplicationById(id);
@@ -50,7 +50,7 @@ public class FinanceOfficerController {
         return new ResponseEntity<>(loanApplication, HttpStatus.OK);
     }
 
-    @GetMapping("/loan/pending")
+    @GetMapping("/loans/pending")
     public ResponseEntity<List<LoanApplication>> getPendingApplications()
     {
         List<LoanApplication> pendingApplications = loanApplicationService.retrieveLoanApplicationByStatus("WAITING_FOR_FINANCE_APPROVAL");
