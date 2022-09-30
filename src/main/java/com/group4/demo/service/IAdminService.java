@@ -1,11 +1,8 @@
 package com.group4.demo.service;
 
 import com.group4.demo.Dto.AdminDto;
-import com.group4.demo.Dto.CustomerDto;
 import com.group4.demo.entity.Admin;
-import com.group4.demo.entity.Customer;
 
-import java.time.LocalDate;
 import java.util.List;
 
 public interface IAdminService {
