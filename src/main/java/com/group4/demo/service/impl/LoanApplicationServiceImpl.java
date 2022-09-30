@@ -28,17 +28,15 @@ public class LoanApplicationServiceImpl implements ILoanApplicationService {
     }
 
     @Override
-    public List<LoanApplication> retriveAllLoanApplication() {
+    public List<LoanApplication> retrieveAllLoanApplication() {
         return loanRepo.findAll();
     }
 
     @Override
-    public LoanApplication retriveLoanApplicationById(Long loanApplicationId) {
+    public LoanApplication retrieveLoanApplicationById(Long loanApplicationId) {
         Optional<LoanApplication> application = loanRepo.findById(loanApplicationId);
-        if (application.isPresent()) {
-            return application.get();
-        }
-        return null;
+        return application.isPresent() ? application.get() : null;
+
     }
 
     @Override

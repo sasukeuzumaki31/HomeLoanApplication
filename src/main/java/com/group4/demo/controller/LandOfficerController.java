@@ -1,7 +1,10 @@
 package com.group4.demo.controller;
 
+import com.group4.demo.Dto.LandVerificationOfficerDto;
+import com.group4.demo.entity.LandVerificationOfficer;
 import com.group4.demo.entity.LoanApplication;
 import com.group4.demo.entity.Status;
+import com.group4.demo.service.ILLandVerificationService;
 import com.group4.demo.service.ILoanApplicationService;
 import org.apache.juli.logging.Log;
 import org.apache.juli.logging.LogFactory;
@@ -20,9 +23,13 @@ public class LandOfficerController {
     @Autowired
     ILoanApplicationService loanApplicationService;
 
+    @Autowired
+    ILLandVerificationService landVerificationService;
+
+
     @GetMapping("/loan/{id}")
-    public ResponseEntity<LoanApplication> retriveLoanApplicationById(@PathVariable Long id){
-        LoanApplication loanApplication = loanApplicationService.retriveLoanApplicationById(id);
+    public ResponseEntity<LoanApplication> retrieveLoanApplicationById(@PathVariable Long id){
+        LoanApplication loanApplication = loanApplicationService.retrieveLoanApplicationById(id);
         return new ResponseEntity<>(loanApplication, HttpStatus.OK);
     }
 
@@ -38,6 +45,12 @@ public class LandOfficerController {
                 "WAITING_FOR_LAND_VERIFICATION_OFFICE_APPROVAL"
         );
         return new ResponseEntity<>(pendingApplications, HttpStatus.OK);
+    }
+
+    @PostMapping("/signup")
+    public ResponseEntity<LandVerificationOfficer> createNewCustomer(@RequestBody LandVerificationOfficerDto landVerificationOfficerDto) {
+        LandVerificationOfficer newLandOfficer = landVerificationService.addLandVerificationOfficer(landVerificationOfficerDto);
+        return new ResponseEntity<>(newLandOfficer, HttpStatus.CREATED);
     }
 }
 

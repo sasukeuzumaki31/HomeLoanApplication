@@ -1,8 +1,11 @@
 package com.group4.demo.controller;
 
 
+import com.group4.demo.Dto.FinanceVerificationDto;
+import com.group4.demo.entity.FinanceVerificationOfficer;
 import com.group4.demo.entity.LoanApplication;
 import com.group4.demo.entity.Status;
+import com.group4.demo.service.IFinanceVerificationService;
 import com.group4.demo.service.ILoanApplicationService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -20,10 +23,21 @@ public class FinanceOfficerController {
     @Autowired
     ILoanApplicationService loanApplicationService;
 
+    @Autowired
+    IFinanceVerificationService financeVerificationService;
+
+
+    @PostMapping("/signup")
+    public ResponseEntity<FinanceVerificationOfficer> createNewFinanceVerificationOfficer(@RequestBody FinanceVerificationDto financeOfficerDto)
+    {
+        FinanceVerificationOfficer newFinanceVerificationOfficer = financeVerificationService.addFinanceVerificationOfficer(financeOfficerDto);
+        return new ResponseEntity<>(newFinanceVerificationOfficer, HttpStatus.CREATED);
+    }
+
     @GetMapping("/loan/{id}")
     public ResponseEntity<LoanApplication> retrieveLoanApplicationById(@PathVariable Long id)
     {
-        LoanApplication loanApplication = loanApplicationService.retriveLoanApplicationById(id);
+        LoanApplication loanApplication = loanApplicationService.retrieveLoanApplicationById(id);
         return new ResponseEntity<>(loanApplication, HttpStatus.OK);
     }
 
