@@ -4,25 +4,34 @@ import com.group4.demo.Dto.CustomerDto;
 import com.group4.demo.Dto.LoanApplicatonDto;
 import com.group4.demo.entity.Customer;
 import com.group4.demo.entity.LoanApplication;
-import com.group4.demo.service.ICustomerService;
+import com.group4.demo.entity.Scheme;
 import com.group4.demo.service.impl.ICustomerServiceImpl;
+import com.group4.demo.service.impl.ISchemeServiceImpl;
 import com.group4.demo.service.impl.LoanApplicationServiceImpl;
+import com.group4.demo.util.EMICalculator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @RestController
 @RequestMapping("/customer")
 public class CustomerController {
+    Logger logger = LoggerFactory.getLogger(CustomerController.class);
 
     @Autowired
     private LoanApplicationServiceImpl loanApplicationService;
 
     @Autowired
     private ICustomerServiceImpl customerService;
+
+    @Autowired
+    private ISchemeServiceImpl iSchemeService;
 
 
     /*
@@ -48,7 +57,7 @@ public class CustomerController {
     }
 
     /*
-       Get Loan by Id - /customer/loan/{id}
+       GET  Loan by Id - /customer/loan/{id}
     */
     @GetMapping("/loan/{loanApplicationId}")
     public ResponseEntity<LoanApplication> retrieveLoanApplicationById(@PathVariable Long loanApplicationId) {
@@ -58,5 +67,25 @@ public class CustomerController {
         return new ResponseEntity<>(loanApplication, HttpStatus.OK);
     }
 
+    @GetMapping("/schemes")
+
+    public ResponseEntity<List<Scheme>> getAllSchemes() {
+
+        List<Scheme> schemesList = iSchemeService.getAllSchemes();
+        return new ResponseEntity<>(schemesList, HttpStatus.OK);
+    }
+
+
+    /*
+      POST calculate EMI - /customer/emi
+   */
+    @PostMapping("/emi")
+    public ResponseEntity<Double> getEMIAmount(@RequestBody EMICalculator emiCalculator) {
+
+
+        EMICalculator calc = new EMICalculator(emiCalculator.getLoanAmount(), emiCalculator.getRateOfInterest(), emiCalculator.getTenure());
+        double amount = calc.getEMIAmount();
+        return new ResponseEntity<>(amount, HttpStatus.OK);
+    }
 
 }
