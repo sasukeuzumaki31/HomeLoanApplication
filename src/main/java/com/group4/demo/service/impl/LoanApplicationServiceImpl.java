@@ -1,5 +1,6 @@
 package com.group4.demo.service.impl;
 
+import com.group4.demo.Dto.LoanApplicatonDto;
 import com.group4.demo.entity.LoanApplication;
 import com.group4.demo.entity.Status;
 import com.group4.demo.repository.ILoanApplicationRepository;
@@ -19,7 +20,7 @@ public class LoanApplicationServiceImpl implements ILoanApplicationService {
     @Override
     public LoanApplication deleteLoanApplicationId(long loanApplicationId) {
         Optional<LoanApplication> application = loanRepo.findById(loanApplicationId);
-        if(application.isPresent()) {
+        if (application.isPresent()) {
             loanRepo.delete(application.get());
             return application.get();
         }
@@ -34,21 +35,28 @@ public class LoanApplicationServiceImpl implements ILoanApplicationService {
     @Override
     public LoanApplication retriveLoanApplicationById(Long loanApplicationId) {
         Optional<LoanApplication> application = loanRepo.findById(loanApplicationId);
-        if(application.isPresent()){
-           return application.get();
+        if (application.isPresent()) {
+            return application.get();
         }
         return null;
     }
 
     @Override
-    public LoanApplication addLoanApplication(LoanApplication loanApplication) {
-        return loanRepo.save(loanApplication);
+    public LoanApplication addLoanApplication(LoanApplicatonDto loanApplication) {
+
+        LoanApplication loanApplication1 = new LoanApplication();
+
+        loanApplication1.setLoanAppliedAmount(loanApplication.getLoanAppliedAmount());
+        loanApplication1.setApplicationDate(loanApplication.getApplicationDate());
+        loanApplication1.setStatus(String.valueOf(Status.PENDING));
+
+        return loanRepo.save(loanApplication1);
     }
 
     @Override
     public LoanApplication updateLoanApplication(LoanApplication loanApplication) {
         Optional<LoanApplication> application = loanRepo.findById(loanApplication.getApplicationId());
-        if(application.isPresent()){
+        if (application.isPresent()) {
             return loanRepo.save(loanApplication);
         }
         return null;
@@ -57,7 +65,7 @@ public class LoanApplicationServiceImpl implements ILoanApplicationService {
     @Override
     public LoanApplication updateStatusOfLoanApplication(Long loanApplicationId, Status status) {
         Optional<LoanApplication> application = loanRepo.findById(loanApplicationId);
-        if(application.isPresent()){
+        if (application.isPresent()) {
             LoanApplication loanApplication = application.get();
             loanApplication.setStatus(String.valueOf(status));
             return loanRepo.save(loanApplication);

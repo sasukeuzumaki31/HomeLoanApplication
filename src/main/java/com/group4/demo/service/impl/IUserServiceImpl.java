@@ -2,7 +2,9 @@ package com.group4.demo.service.impl;
 
 import com.group4.demo.entity.User;
 import com.group4.demo.service.IUserService;
+import org.springframework.stereotype.Service;
 
+@Service
 public class IUserServiceImpl implements IUserService {
 
 
