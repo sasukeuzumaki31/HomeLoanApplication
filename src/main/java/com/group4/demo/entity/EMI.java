@@ -16,12 +16,12 @@ import javax.persistence.*;
 @Entity
 public class EMI {
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long EMIId;
 	private LocalDate deuDate;
 	private double emiAmount;
 	private double loanAmount;
 	private double interestAmount;
-	private long loanAgreementId;
 
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "fk_loanagrmnt_id",referencedColumnName = "loanAgreementId")

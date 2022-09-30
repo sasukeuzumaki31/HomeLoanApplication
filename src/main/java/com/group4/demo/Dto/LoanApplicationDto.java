@@ -1,17 +1,17 @@
 package com.group4.demo.Dto;
 
-import com.group4.demo.entity.Customer;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class LoanApplicatonDto {
+public class LoanApplicationDto {
 
     private long applicationId;
     private LocalDate applicationDate;
@@ -22,4 +22,5 @@ public class LoanApplicatonDto {
     private boolean adminApproval;
     private String status;
     private int customerId;
+    private int schemeId;
 }
