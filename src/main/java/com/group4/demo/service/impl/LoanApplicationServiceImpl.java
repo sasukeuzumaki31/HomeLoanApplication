@@ -7,6 +7,7 @@ import com.group4.demo.repository.IEMIRepository;
 import com.group4.demo.repository.ILoanApplicationRepository;
 import com.group4.demo.repository.ISchemeRepository;
 import com.group4.demo.service.ILoanApplicationService;
+import com.group4.demo.util.EMICalculator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -97,11 +98,14 @@ public class LoanApplicationServiceImpl implements ILoanApplicationService {
             loanAgreement.setLoanApplication(loanApplication);
 
             EMI emi = new EMI();
-            emi.setDeuDate(LocalDate.of(2030, 12, 15)); //caluclat due date
-
-            emi.setEmiAmount(1000); // find EMI using EMiclass
+            LocalDate dueDate = loanApplication.getApplicationDate().plusYears(loanApplication.getScheme().getTenure());
+            emi.setDeuDate(dueDate); //calculate due date
 
             emi.setLoanAmount(loanApplication.getLoanApprovedAmount());
+
+            EMICalculator emiCalculator = new EMICalculator(loanApplication.getLoanApprovedAmount(), loanApplication.getScheme().getInterestRate(), loanApplication.getScheme().getTenure());
+
+            emi.setEmiAmount(emiCalculator.getEMIAmount()); // find EMI using EMiclass
 
             int interestAmount = 2000; //find interest
             emi.setInterestAmount(interestAmount);
