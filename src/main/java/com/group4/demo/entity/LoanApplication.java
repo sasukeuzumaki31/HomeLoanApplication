@@ -23,6 +23,11 @@ public class LoanApplication {
     private boolean financeVerificationApproval;
     private boolean adminApproval;
     private String status;
+
+    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @JoinColumn(name = "scheme_scheme_id", referencedColumnName = "schemeId")
+     Scheme scheme;
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "fk_customer_id", referencedColumnName = "userId")
     @JsonBackReference

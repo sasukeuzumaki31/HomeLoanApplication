@@ -10,11 +10,12 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public  class LoanAgreement {
+public class LoanAgreement {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long loanAgreementId;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "fk_loan_id",referencedColumnName = "applicationId")
+    @JoinColumn(name = "fk_loan_id", referencedColumnName = "applicationId")
     LoanApplication loanApplication;
 }

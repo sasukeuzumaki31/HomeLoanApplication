@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("landofficer")
+@RequestMapping("/landofficer")
 public class LandOfficerController {
     Log logger = LogFactory.getLog(LandOfficerController.class);
 

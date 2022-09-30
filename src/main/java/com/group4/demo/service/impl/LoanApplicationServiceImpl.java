@@ -1,15 +1,16 @@
 package com.group4.demo.service.impl;
 
-import com.group4.demo.Dto.LoanApplicatonDto;
-import com.group4.demo.entity.Customer;
-import com.group4.demo.entity.LoanApplication;
-import com.group4.demo.entity.Status;
+import com.group4.demo.Dto.LoanApplicationDto;
+import com.group4.demo.entity.*;
 import com.group4.demo.repository.ICustomerRepository;
+import com.group4.demo.repository.IEMIRepository;
 import com.group4.demo.repository.ILoanApplicationRepository;
+import com.group4.demo.repository.ISchemeRepository;
 import com.group4.demo.service.ILoanApplicationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,6 +21,12 @@ public class LoanApplicationServiceImpl implements ILoanApplicationService {
 
     @Autowired
     private ICustomerRepository customerRepository;
+
+    @Autowired
+    private ISchemeRepository schemeRepository;
+
+    @Autowired
+    private IEMIRepository repository;
 
 
     @Override
@@ -45,19 +52,25 @@ public class LoanApplicationServiceImpl implements ILoanApplicationService {
     }
 
     @Override
-    public LoanApplication addLoanApplication(LoanApplicatonDto loanApplication) {
+    public LoanApplication addLoanApplication(LoanApplicationDto loanApplication) {
 
         LoanApplication loanApplication1 = new LoanApplication();
 
         loanApplication1.setLoanAppliedAmount(loanApplication.getLoanAppliedAmount());
         loanApplication1.setApplicationDate(loanApplication.getApplicationDate());
-        loanApplication1.setStatus(String.valueOf(Status.PENDING));
+        loanApplication1.setStatus(String.valueOf(Status.WAITING_FOR_LAND_VERIFICATION_OFFICE_APPROVAL));
+
         /*
         Find Customer by Id and save loan save it into Customer object
          */
         Customer customer = customerRepository.findById(loanApplication.getCustomerId()).get();
         loanApplication1.setCustomer(customer);
 
+        /*
+        fetch scheme and append it to Loan application object
+         */
+        Scheme scheme = schemeRepository.findById(loanApplication.getSchemeId()).get();
+        loanApplication1.setScheme(scheme);
 
         /*
         Find Customer and  save it into Loan object
@@ -67,7 +80,7 @@ public class LoanApplicationServiceImpl implements ILoanApplicationService {
 
     //updating loanApplication
     @Override
-    public LoanApplication updateLoanApplication(long id, LoanApplicatonDto loanApplicationDto) {
+    public LoanApplication updateLoanApplication(long id, LoanApplicationDto loanApplicationDto) {
         Optional<LoanApplication> loanApplicationOp = loanRepo.findById(id);
 
         if (loanApplicationOp.isPresent()) {
@@ -77,6 +90,30 @@ public class LoanApplicationServiceImpl implements ILoanApplicationService {
             loanApplication.setAdminApproval(loanApplicationDto.isAdminApproval());
             loanApplication.setFinanceVerificationApproval(loanApplicationDto.isFinanceVerificationApproval());
             loanApplication.setLandVerificationApproval(loanApplication.isLandVerificationApproval());
+            /*
+                 Making Loan Agreement with Customer  after loan is aprroved
+             */
+            LoanAgreement loanAgreement = new LoanAgreement();
+            loanAgreement.setLoanApplication(loanApplication);
+
+            EMI emi = new EMI();
+            emi.setDeuDate(LocalDate.of(2030, 12, 15)); //caluclat due date
+
+            emi.setEmiAmount(1000); // find EMI using EMiclass
+
+            emi.setLoanAmount(loanApplication.getLoanApprovedAmount());
+
+            int interestAmount = 2000; //find interest
+            emi.setInterestAmount(interestAmount);
+
+            emi.setLoanAgreement(loanAgreement);
+
+            /*
+            Saving EMI Object into Repo
+             */
+            repository.save(emi);
+
+
             return loanRepo.save(loanApplication);
         }
         return null;

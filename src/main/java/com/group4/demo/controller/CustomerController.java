@@ -1,7 +1,7 @@
 package com.group4.demo.controller;
 
 import com.group4.demo.Dto.CustomerDto;
-import com.group4.demo.Dto.LoanApplicatonDto;
+import com.group4.demo.Dto.LoanApplicationDto;
 import com.group4.demo.entity.Customer;
 import com.group4.demo.entity.LoanApplication;
 import com.group4.demo.entity.Scheme;
@@ -38,7 +38,7 @@ public class CustomerController {
         Applying for a New Loan - /customer/apply
      */
     @PostMapping("/apply")
-    public ResponseEntity<LoanApplication> createNewLoanApplication(@RequestBody LoanApplicatonDto loanApplicatonDto) {
+    public ResponseEntity<LoanApplication> createNewLoanApplication(@RequestBody LoanApplicationDto loanApplicatonDto) {
 
         loanApplicatonDto.setApplicationDate(LocalDate.now());
         LoanApplication savedLoanApplication = loanApplicationService.addLoanApplication(loanApplicatonDto);

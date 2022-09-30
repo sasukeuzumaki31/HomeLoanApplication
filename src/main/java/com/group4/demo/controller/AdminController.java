@@ -2,7 +2,7 @@ package com.group4.demo.controller;
 
 import com.group4.demo.Dto.AdminDto;
 import com.group4.demo.Dto.SchemeDto;
-import com.group4.demo.Dto.LoanApplicatonDto;
+import com.group4.demo.Dto.LoanApplicationDto;
 import com.group4.demo.entity.Admin;
 import com.group4.demo.entity.Customer;
 import com.group4.demo.entity.LoanApplication;
@@ -67,7 +67,7 @@ public class AdminController {
     }
 
     @PutMapping("/application/{id}")
-    public ResponseEntity<LoanApplication> updateApplicationById(@PathVariable long id, @RequestBody LoanApplicatonDto loanApplicatonDto){
+    public ResponseEntity<LoanApplication> updateApplicationById(@PathVariable long id, @RequestBody LoanApplicationDto loanApplicatonDto){
         LoanApplication  savedLoanApplication = loanApplicationService.updateLoanApplication(id, loanApplicatonDto);
         return new ResponseEntity<>( savedLoanApplication, HttpStatus.OK);
     }
