@@ -50,13 +50,13 @@ public class AdminController {
 
     @GetMapping("/applications")
     public ResponseEntity<List<LoanApplication>> retriveAllLoanApplication() {
-        List<LoanApplication> applications = loanApplicationService.retriveAllLoanApplication();
+        List<LoanApplication> applications = loanApplicationService.retrieveAllLoanApplication();
         return new ResponseEntity<>(applications, HttpStatus.OK);
     }
 
     @GetMapping("/application/{id}")
     public ResponseEntity<LoanApplication> getApplicationById(@PathVariable long id){
-        LoanApplication loanApplication = loanApplicationService.retriveLoanApplicationById(id);
+        LoanApplication loanApplication = loanApplicationService.retrieveLoanApplicationById(id);
         return new ResponseEntity<>(loanApplication, HttpStatus.OK);
     }
 
