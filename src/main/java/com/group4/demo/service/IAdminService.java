@@ -2,7 +2,6 @@ package com.group4.demo.service;
 
 import com.group4.demo.Dto.AdminDto;
 import com.group4.demo.entity.Admin;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
