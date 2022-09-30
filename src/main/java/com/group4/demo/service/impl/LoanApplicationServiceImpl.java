@@ -53,10 +53,18 @@ public class LoanApplicationServiceImpl implements ILoanApplicationService {
         return loanRepo.save(loanApplication1);
     }
 
+    //updating loanApplication
     @Override
-    public LoanApplication updateLoanApplication(LoanApplication loanApplication) {
-        Optional<LoanApplication> application = loanRepo.findById(loanApplication.getApplicationId());
-        if (application.isPresent()) {
+    public LoanApplication updateLoanApplication(long id, LoanApplicatonDto loanApplicationDto) {
+        Optional<LoanApplication> loanApplicationOp = loanRepo.findById(id);
+
+        if (loanApplicationOp.isPresent()) {
+            LoanApplication loanApplication = loanApplicationOp.get();
+            loanApplication.setLoanApprovedAmount(loanApplicationDto.getLoanApprovedAmount());
+            loanApplication.setStatus(loanApplicationDto.getStatus());
+            loanApplication.setAdminApproval(loanApplicationDto.isAdminApproval());
+            loanApplication.setFinanceVerificationApproval(loanApplicationDto.isFinanceVerificationApproval());
+            loanApplication.setLandVerificationApproval(loanApplication.isLandVerificationApproval());
             return loanRepo.save(loanApplication);
         }
         return null;
