@@ -1,10 +1,13 @@
 package com.group4.demo.controller;
 
+import com.group4.demo.Dto.AdminDto;
 import com.group4.demo.Dto.SchemeDto;
 import com.group4.demo.Dto.LoanApplicatonDto;
+import com.group4.demo.entity.Admin;
 import com.group4.demo.entity.Customer;
 import com.group4.demo.entity.LoanApplication;
 import com.group4.demo.entity.Scheme;
+import com.group4.demo.service.IAdminService;
 import com.group4.demo.service.ICustomerService;
 import com.group4.demo.service.ILoanApplicationService;
 import com.group4.demo.service.ISchemeService;
@@ -30,6 +33,9 @@ public class AdminController {
 
     @Autowired
     ISchemeService schemeService;
+
+    @Autowired
+    IAdminService adminService;
 
     @GetMapping("/users")
     public ResponseEntity<List<Customer>> getUsers(){
@@ -98,4 +104,13 @@ public class AdminController {
         Scheme scheme1 = schemeService.updateScheme(id,schemeDto);
         return new ResponseEntity<>(scheme1, HttpStatus.OK);
     }
+
+    @PostMapping("/signup")
+    public ResponseEntity<Admin> createNewAdmin(@RequestBody AdminDto adminDto){
+        Admin newAdmin = adminService.addAdmin(adminDto);
+        return new ResponseEntity<>(newAdmin, HttpStatus.CREATED);
+
+    }
+
+
 }
