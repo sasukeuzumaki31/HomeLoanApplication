@@ -1,6 +1,7 @@
 package com.group4.demo.controller;
 
 import com.group4.demo.Dto.SchemeDto;
+import com.group4.demo.Dto.LoanApplicatonDto;
 import com.group4.demo.entity.Customer;
 import com.group4.demo.entity.LoanApplication;
 import com.group4.demo.entity.Scheme;
