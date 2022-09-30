@@ -39,7 +39,7 @@ public class LandOfficerController {
         return new ResponseEntity<>(loanApplication, HttpStatus.OK);
     }
 
-    @GetMapping("/application/pending")
+    @GetMapping("/loans/pending")
     public ResponseEntity<List<LoanApplication>> getPendingApplications() {
         List<LoanApplication> pendingApplications = loanApplicationService.retrieveLoanApplicationByStatus(
                 "WAITING_FOR_LAND_VERIFICATION_OFFICE_APPROVAL"
