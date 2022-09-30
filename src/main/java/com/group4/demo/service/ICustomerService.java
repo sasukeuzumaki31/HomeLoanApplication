@@ -13,9 +13,9 @@ public interface ICustomerService {
 
     Customer addCustomer(Customer customer);
 
-    Customer updateCustomer(Customer customer);
+    Customer updateCustomer(int id, Customer customer);
 
-    Customer deleteCustomer(Customer customer);
+    Customer deleteCustomer(int id, Customer customer);
 
     List<Customer> viewCustomerList(LocalDate dateOfApplication);
     Customer deleteCustomerById(int custId);
