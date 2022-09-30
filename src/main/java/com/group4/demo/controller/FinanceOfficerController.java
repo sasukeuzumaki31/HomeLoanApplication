@@ -23,7 +23,7 @@ public class FinanceOfficerController {
     @GetMapping("/loan/{id}")
     public ResponseEntity<LoanApplication> retrieveLoanApplicationById(@PathVariable Long id)
     {
-        LoanApplication loanApplication = loanApplicationService.retriveLoanApplicationById(id);
+        LoanApplication loanApplication = loanApplicationService.retrieveLoanApplicationById(id);
         return new ResponseEntity<>(loanApplication, HttpStatus.OK);
     }
 
