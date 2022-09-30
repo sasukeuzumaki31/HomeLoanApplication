@@ -14,6 +14,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/financeofficer")
 public class FinanceOfficerController {
@@ -46,6 +48,13 @@ public class FinanceOfficerController {
     {
         LoanApplication loanApplication = loanApplicationService.updateStatusOfLoanApplication(id, Status.PENDING);
         return new ResponseEntity<>(loanApplication, HttpStatus.OK);
+    }
+
+    @GetMapping("/loan/pending")
+    public ResponseEntity<List<LoanApplication>> getPendingApplications()
+    {
+        List<LoanApplication> pendingApplications = loanApplicationService.retrieveLoanApplicationByStatus("WAITING_FOR_FINANCE_APPROVAL");
+        return new ResponseEntity<>(pendingApplications,HttpStatus.OK);
     }
 
 }
