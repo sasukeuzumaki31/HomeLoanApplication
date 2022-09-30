@@ -1,5 +1,6 @@
 package com.group4.demo.service.impl;
 
+import com.group4.demo.Dto.CustomerDto;
 import com.group4.demo.entity.Customer;
 import com.group4.demo.repository.ICustomerRepository;
 import com.group4.demo.repository.ILoanApplicationRepository;
@@ -8,8 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
+
 @Service
 public class ICustomerServiceImpl implements ICustomerService {
 
@@ -22,7 +25,7 @@ public class ICustomerServiceImpl implements ICustomerService {
     @Override
     public Customer viewCustomer(int custid) {
         Optional<Customer> customer = custRepo.findById(custid);
-        if(!customer.isPresent()){
+        if (!customer.isPresent()) {
             return null;
         }
         return customer.get();
@@ -34,14 +37,32 @@ public class ICustomerServiceImpl implements ICustomerService {
     }
 
     @Override
-    public Customer addCustomer(Customer customer) {
-        return custRepo.save(customer);
+    public Customer addCustomer(CustomerDto customer) {
+
+        Customer newCustomer = new Customer();
+        newCustomer.setCustomerName(customer.getCustomerName());
+        newCustomer.setGender(customer.getGender());
+        newCustomer.setEmail(customer.getEmail());
+        newCustomer.setPassword(customer.getPassword());
+        newCustomer.setMobileNumber(customer.getMobileNumber());
+        newCustomer.setAadharNumber(customer.getAadharNumber());
+        newCustomer.setPanNumber(customer.getPanNumber());
+        newCustomer.setNationality(customer.getNationality());
+        newCustomer.setRole("CUSTOMER");
+
+        /*
+        Converting Date from String to LocalDate
+         */
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
+        newCustomer.setDateOfBirth(LocalDate.parse(customer.getDateOfBirth(), formatter));
+
+        return custRepo.save(newCustomer);
     }
 
     @Override
     public Customer updateCustomer(int id, Customer customer) {
         Optional<Customer> customerOp = custRepo.findById(id);
-        if(!customerOp.isPresent()){
+        if (!customerOp.isPresent()) {
             return null;
         }
         return custRepo.save(customer);
@@ -50,7 +71,7 @@ public class ICustomerServiceImpl implements ICustomerService {
     @Override
     public Customer deleteCustomer(int id, Customer customer) {
         Optional<Customer> customerOp = custRepo.findById(id);
-        if(!customerOp.isPresent()){
+        if (!customerOp.isPresent()) {
             return null;
         }
         custRepo.delete(customer);
@@ -66,7 +87,7 @@ public class ICustomerServiceImpl implements ICustomerService {
     @Override
     public Customer deleteCustomerById(int custId) {
         Optional<Customer> customerOp = custRepo.findById(custId);
-        if(!customerOp.isPresent()) {
+        if (!customerOp.isPresent()) {
             return null;
         }
         custRepo.delete(customerOp.get());

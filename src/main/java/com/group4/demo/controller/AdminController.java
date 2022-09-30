@@ -1,10 +1,13 @@
 package com.group4.demo.controller;
 
+import com.group4.demo.Dto.SchemeDto;
 import com.group4.demo.Dto.LoanApplicatonDto;
 import com.group4.demo.entity.Customer;
 import com.group4.demo.entity.LoanApplication;
+import com.group4.demo.entity.Scheme;
 import com.group4.demo.service.ICustomerService;
 import com.group4.demo.service.ILoanApplicationService;
+import com.group4.demo.service.ISchemeService;
 import org.apache.juli.logging.Log;
 import org.apache.juli.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +28,9 @@ public class AdminController {
     @Autowired
     ILoanApplicationService loanApplicationService;
 
+    @Autowired
+    ISchemeService schemeService;
+
     @GetMapping("/users")
     public ResponseEntity<List<Customer>> getUsers(){
         List<Customer> customers = customerService.viewAllCustomers();
@@ -44,13 +50,13 @@ public class AdminController {
 
     @GetMapping("/applications")
     public ResponseEntity<List<LoanApplication>> retriveAllLoanApplication() {
-        List<LoanApplication> applications = loanApplicationService.retrieveAllLoanApplication();
+        List<LoanApplication> applications = loanApplicationService.retriveAllLoanApplication();
         return new ResponseEntity<>(applications, HttpStatus.OK);
     }
 
     @GetMapping("/application/{id}")
     public ResponseEntity<LoanApplication> getApplicationById(@PathVariable long id){
-        LoanApplication loanApplication = loanApplicationService.retrieveLoanApplicationById(id);
+        LoanApplication loanApplication = loanApplicationService.retriveLoanApplicationById(id);
         return new ResponseEntity<>(loanApplication, HttpStatus.OK);
     }
 
@@ -66,5 +72,30 @@ public class AdminController {
         return new ResponseEntity<>(pendingApplications, HttpStatus.OK);
     }
 
+    @GetMapping("/scheme")
+    public ResponseEntity<List<Scheme>> getAllSchemes(){
+        List<Scheme> schemeList = schemeService.getAllSchemes();
+        return new ResponseEntity<>(schemeList,HttpStatus.OK);
+    }
+    @GetMapping("/scheme/{id}")
+    public ResponseEntity<Scheme> getSchemeById(@PathVariable int id){
+        Scheme scheme = schemeService.getSchemeById(id);
+        return new ResponseEntity<>(scheme,HttpStatus.OK);
+    }
 
+    @PostMapping("/scheme")
+    public ResponseEntity<Scheme> addScheme(@RequestBody SchemeDto schemeDto){
+        Scheme scheme = schemeService.addScheme(schemeDto);
+        return new ResponseEntity<>(scheme,HttpStatus.OK);
+    }
+    @DeleteMapping("/scheme/{id}")
+    public ResponseEntity<Scheme> deleteSchemeById(@PathVariable int id) {
+        Scheme scheme = schemeService.deleteSchemeById(id);
+        return new ResponseEntity<>(scheme, HttpStatus.OK);
+    }
+    @PutMapping("/scheme/{id}")
+    public ResponseEntity<Scheme> updateScheme(@PathVariable int id,@RequestBody SchemeDto schemeDto){
+        Scheme scheme1 = schemeService.updateScheme(id,schemeDto);
+        return new ResponseEntity<>(scheme1, HttpStatus.OK);
+    }
 }
