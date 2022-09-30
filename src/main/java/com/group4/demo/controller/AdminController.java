@@ -1,5 +1,6 @@
 package com.group4.demo.controller;
 
+import com.group4.demo.Dto.LoanApplicatonDto;
 import com.group4.demo.entity.Customer;
 import com.group4.demo.entity.LoanApplication;
 import com.group4.demo.service.ICustomerService;
@@ -54,9 +55,9 @@ public class AdminController {
     }
 
     @PutMapping("/application/{id}")
-    public ResponseEntity<LoanApplication> updateApplicationById(@RequestBody LoanApplication loanApplication){
-        LoanApplication loanApplication1 = loanApplicationService.updateLoanApplication(loanApplication);
-        return new ResponseEntity<>(loanApplication1, HttpStatus.OK);
+    public ResponseEntity<LoanApplication> updateApplicationById(@PathVariable long id, @RequestBody LoanApplicatonDto loanApplicatonDto){
+        LoanApplication  savedLoanApplication = loanApplicationService.updateLoanApplication(id, loanApplicatonDto);
+        return new ResponseEntity<>( savedLoanApplication, HttpStatus.OK);
     }
 
     @GetMapping("/application/pending")
