@@ -19,7 +19,7 @@ public class LoanApplicationServiceImpl implements ILoanApplicationService {
     @Override
     public LoanApplication deleteLoanApplicationId(long loanApplicationId) {
         Optional<LoanApplication> application = loanRepo.findById(loanApplicationId);
-        if(application.isPresent()) {
+        if (application.isPresent()) {
             loanRepo.delete(application.get());
             return application.get();
         }
@@ -34,8 +34,8 @@ public class LoanApplicationServiceImpl implements ILoanApplicationService {
     @Override
     public LoanApplication retriveLoanApplicationById(Long loanApplicationId) {
         Optional<LoanApplication> application = loanRepo.findById(loanApplicationId);
-        if(application.isPresent()){
-           return application.get();
+        if (application.isPresent()) {
+            return application.get();
         }
         return null;
     }
@@ -48,7 +48,7 @@ public class LoanApplicationServiceImpl implements ILoanApplicationService {
     @Override
     public LoanApplication updateLoanApplication(LoanApplication loanApplication) {
         Optional<LoanApplication> application = loanRepo.findById(loanApplication.getApplicationId());
-        if(application.isPresent()){
+        if (application.isPresent()) {
             return loanRepo.save(loanApplication);
         }
         return null;
@@ -57,7 +57,7 @@ public class LoanApplicationServiceImpl implements ILoanApplicationService {
     @Override
     public LoanApplication updateStatusOfLoanApplication(Long loanApplicationId, Status status) {
         Optional<LoanApplication> application = loanRepo.findById(loanApplicationId);
-        if(application.isPresent()){
+        if (application.isPresent()) {
             LoanApplication loanApplication = application.get();
             loanApplication.setStatus(String.valueOf(status));
             return loanRepo.save(loanApplication);
