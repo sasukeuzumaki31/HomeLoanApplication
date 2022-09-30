@@ -18,7 +18,6 @@ import javax.persistence.*;
 public class LoanApplication {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long applicationId;
 	private LocalDate applicationDate;
 	private double loanAppliedAmount;

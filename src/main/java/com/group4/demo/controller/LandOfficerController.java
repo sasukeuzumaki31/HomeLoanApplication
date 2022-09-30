@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("landofficer")
 public class LandOfficerController {
@@ -29,4 +31,13 @@ public class LandOfficerController {
         LoanApplication loanApplication = loanApplicationService.updateStatusOfLoanApplication(id, Status.WAITING_FOR_FINANCE_APPROVAL);
         return new ResponseEntity<>(loanApplication, HttpStatus.OK);
     }
+
+    @GetMapping("/application/pending")
+    public ResponseEntity<List<LoanApplication>> getPendingApplications() {
+        List<LoanApplication> pendingApplications = loanApplicationService.retrieveLoanApplicationByStatus(
+                "WAITING_FOR_LAND_VERIFICATION_OFFICE_APPROVAL"
+        );
+        return new ResponseEntity<>(pendingApplications, HttpStatus.OK);
+    }
 }
+

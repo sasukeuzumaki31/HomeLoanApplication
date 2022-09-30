@@ -72,4 +72,9 @@ public class LoanApplicationServiceImpl implements ILoanApplicationService {
         }
         return null;
     }
+
+    @Override
+    public List<LoanApplication> retrieveLoanApplicationByStatus(String status) {
+        return loanRepo.findByStatus(status);
+    }
 }
