@@ -4,6 +4,7 @@ import com.group4.demo.Dto.LandVerificationOfficerDto;
 import com.group4.demo.entity.LandVerificationOfficer;
 import com.group4.demo.entity.LoanApplication;
 import com.group4.demo.repository.ILandVerificationRepository;
+import com.group4.demo.repository.ILoanApplicationRepository;
 import com.group4.demo.service.ILLandVerificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,10 +14,13 @@ public class ILandVerificationServiceImpl implements ILLandVerificationService {
 
     @Autowired
     ILandVerificationRepository landVerificationRepository;
+
+    @Autowired
+    ILoanApplicationRepository loanApplicationRepository;
     @Override
     public void updateStatus(LoanApplication loanApplication) {
         loanApplication.setLandVerificationApproval(true);
-
+        loanApplicationRepository.save(loanApplication);
     }
 
     @Override

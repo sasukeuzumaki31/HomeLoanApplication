@@ -2,9 +2,9 @@ package com.group4.demo.controller;
 
 
 import com.group4.demo.Dto.FinanceVerificationDto;
+import com.group4.demo.Dto.LoanApplicationDto;
 import com.group4.demo.entity.FinanceVerificationOfficer;
 import com.group4.demo.entity.LoanApplication;
-import com.group4.demo.entity.Status;
 import com.group4.demo.service.IFinanceVerificationService;
 import com.group4.demo.service.ILoanApplicationService;
 import org.apache.commons.logging.Log;
@@ -44,9 +44,9 @@ public class FinanceOfficerController {
     }
 
     @PutMapping("/loan/{id}")
-    public ResponseEntity<LoanApplication> updateStatusOfLoanApplication(@PathVariable Long id)
+    public ResponseEntity<LoanApplication> updateStatusOfLoanApplication(@PathVariable Long id, @RequestBody LoanApplicationDto loanApplicationDto)
     {
-        LoanApplication loanApplication = loanApplicationService.updateStatusOfLoanApplication(id, Status.PENDING);
+        LoanApplication loanApplication = financeVerificationService.updateStatus(id,loanApplicationDto);
         return new ResponseEntity<>(loanApplication, HttpStatus.OK);
     }
 

@@ -23,4 +23,7 @@ public class LoanApplicationDto {
     private String status;
     private int customerId;
     private int schemeId;
+    private double totalAnnualIncome;
+    private double monthlyExpenses;
+    private double otherMonthlyExpenses;
 }

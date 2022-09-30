@@ -12,7 +12,7 @@ public interface ILoanApplicationService {
     List<LoanApplication> retrieveAllLoanApplication();
     LoanApplication retrieveLoanApplicationById(Long loanApplicationId);
     LoanApplication addLoanApplication(LoanApplicationDto loanApplication);
-    LoanApplication updateLoanApplication(long id, LoanApplicationDto loanApplication);
+    LoanApplication updateLoanApplication(long id);
     LoanApplication updateStatusOfLoanApplication(Long loanApplicationId, Status status);
     List<LoanApplication> retrieveLoanApplicationByStatus(String status);
 

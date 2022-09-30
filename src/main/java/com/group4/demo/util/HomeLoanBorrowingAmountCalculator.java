@@ -12,7 +12,7 @@ public class HomeLoanBorrowingAmountCalculator {
 	
 	//no-arg contructor
 	public HomeLoanBorrowingAmountCalculator() {
-	
+
 	}
 	
 	//constructor using field
@@ -26,9 +26,6 @@ public class HomeLoanBorrowingAmountCalculator {
 		this.monthlyExpenses = monthlyExpenses;
 		this.otherMonthlyExpenses = otherMonthlyExpenses;
 	}
-	
-	
-
 
 	//getters and setters
 	public double getLoanAmount() {
@@ -82,9 +79,16 @@ public class HomeLoanBorrowingAmountCalculator {
 	
 	//function
 	public double getHomeLoanBorrowingAmount() {
-		double res = 0.0;
-		res += 5;
-		return res;
+		double monthlyIncomme = this.totalAnnualIncome/12;
+		if(monthlyIncomme < 15000.0) {
+			return 0.0;
+		}
+		double annualSavings = (this.totalAnnualIncome - (12*(this.monthlyExpenses+this.otherMonthlyExpenses)));
+		double eligibleAmount = annualSavings*(this.tenure) + ((this.rateOfInterest*annualSavings)/100);
+		if(eligibleAmount > this.loanAmount){
+			return this.loanAmount;
+		}
+		return eligibleAmount;
 	}
 
 }
