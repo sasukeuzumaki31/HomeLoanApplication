@@ -26,6 +26,7 @@ public class LandOfficerController {
     @Autowired
     ILLandVerificationService landVerificationService;
 
+
     @GetMapping("/loan/{id}")
     public ResponseEntity<LoanApplication> retrieveLoanApplicationById(@PathVariable Long id){
         LoanApplication loanApplication = loanApplicationService.retrieveLoanApplicationById(id);
