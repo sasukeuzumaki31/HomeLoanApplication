@@ -4,9 +4,11 @@ import com.group4.demo.Dto.CustomerDto;
 import com.group4.demo.Dto.LoanApplicatonDto;
 import com.group4.demo.entity.Customer;
 import com.group4.demo.entity.LoanApplication;
-import com.group4.demo.service.ICustomerService;
 import com.group4.demo.service.impl.ICustomerServiceImpl;
+import com.group4.demo.service.impl.ISchemeServiceImpl;
 import com.group4.demo.service.impl.LoanApplicationServiceImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,12 +19,16 @@ import java.time.LocalDate;
 @RestController
 @RequestMapping("/customer")
 public class CustomerController {
+    Logger logger = LoggerFactory.getLogger(CustomerController.class);
 
     @Autowired
     private LoanApplicationServiceImpl loanApplicationService;
 
     @Autowired
     private ICustomerServiceImpl customerService;
+
+    @Autowired
+    private ISchemeServiceImpl iSchemeService;
 
 
     /*
@@ -48,7 +54,7 @@ public class CustomerController {
     }
 
     /*
-       Get Loan by Id - /customer/loan/{id}
+       GET Loan by Id - /customer/loan/{id}
     */
     @GetMapping("/loan/{loanApplicationId}")
     public ResponseEntity<LoanApplication> retriveLoanApplicationById(@PathVariable Long loanApplicationId) {

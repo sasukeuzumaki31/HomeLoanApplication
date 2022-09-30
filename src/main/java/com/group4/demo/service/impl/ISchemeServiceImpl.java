@@ -24,7 +24,7 @@ public class ISchemeServiceImpl implements ISchemeService {
     @Override
     public Scheme getSchemeById(int schemeid) {
         Optional<Scheme> scheme = schemeRepo.findById(schemeid);
-        if(scheme.isPresent()){
+        if (scheme.isPresent()) {
             return scheme.get();
         }
         return null;
@@ -41,7 +41,7 @@ public class ISchemeServiceImpl implements ISchemeService {
     @Override
     public Scheme deleteSchemeById(int schemeid) {
         Optional<Scheme> scheme = schemeRepo.findById(schemeid);
-        if(scheme.isPresent()){
+        if (scheme.isPresent()) {
             schemeRepo.delete(scheme.get());
             return scheme.get();
         }
@@ -49,13 +49,13 @@ public class ISchemeServiceImpl implements ISchemeService {
     }
 
     @Override
-    public Scheme updateScheme(int id,SchemeDto schemeDto) {
+    public Scheme updateScheme(int id, SchemeDto schemeDto) {
         Optional<Scheme> schemeOp = schemeRepo.findById(id);
-        if(schemeOp.isPresent()){
+        if (schemeOp.isPresent()) {
             Scheme schemeObj = schemeOp.get();
             schemeObj.setInterestRate(schemeDto.getInterestRate());
             schemeObj.setTenure(schemeDto.getTenure());
-            return  schemeRepo.save(schemeObj);
+            return schemeRepo.save(schemeObj);
         }
         return null;
     }
