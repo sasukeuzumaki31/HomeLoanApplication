@@ -9,8 +9,8 @@ import java.util.List;
 
 public interface ILoanApplicationService {
     LoanApplication deleteLoanApplicationId(long loanApplicationId);
-    List<LoanApplication> retriveAllLoanApplication();
-    LoanApplication retriveLoanApplicationById(Long loanApplicationId);
+    List<LoanApplication> retrieveAllLoanApplication();
+    LoanApplication retrieveLoanApplicationById(Long loanApplicationId);
     LoanApplication addLoanApplication(LoanApplicatonDto loanApplication);
     LoanApplication updateLoanApplication(long id, LoanApplicatonDto loanApplication);
     LoanApplication updateStatusOfLoanApplication(Long loanApplicationId, Status status);

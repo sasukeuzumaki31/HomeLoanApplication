@@ -21,8 +21,8 @@ public class LandOfficerController {
     ILoanApplicationService loanApplicationService;
 
     @GetMapping("/loan/{id}")
-    public ResponseEntity<LoanApplication> retriveLoanApplicationById(@PathVariable Long id){
-        LoanApplication loanApplication = loanApplicationService.retriveLoanApplicationById(id);
+    public ResponseEntity<LoanApplication> retrieveLoanApplicationById(@PathVariable Long id){
+        LoanApplication loanApplication = loanApplicationService.retrieveLoanApplicationById(id);
         return new ResponseEntity<>(loanApplication, HttpStatus.OK);
     }
 

@@ -51,10 +51,10 @@ public class CustomerController {
        Get Loan by Id - /customer/loan/{id}
     */
     @GetMapping("/loan/{loanApplicationId}")
-    public ResponseEntity<LoanApplication> retriveLoanApplicationById(@PathVariable Long loanApplicationId) {
+    public ResponseEntity<LoanApplication> retrieveLoanApplicationById(@PathVariable Long loanApplicationId) {
 
         LoanApplication loanApplication;
-        loanApplication = loanApplicationService.retriveLoanApplicationById(loanApplicationId);
+        loanApplication = loanApplicationService.retrieveLoanApplicationById(loanApplicationId);
         return new ResponseEntity<>(loanApplication, HttpStatus.OK);
     }
 
