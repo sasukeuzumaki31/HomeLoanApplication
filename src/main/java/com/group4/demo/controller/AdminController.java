@@ -49,7 +49,7 @@ public class AdminController {
     }
 
     @GetMapping("/applications")
-    public ResponseEntity<List<LoanApplication>> retriveAllLoanApplication() {
+    public ResponseEntity<List<LoanApplication>> retrieveAllLoanApplication() {
         List<LoanApplication> applications = loanApplicationService.retrieveAllLoanApplication();
         return new ResponseEntity<>(applications, HttpStatus.OK);
     }
