@@ -20,6 +20,7 @@ public class LandOfficerController {
     @Autowired
     ILoanApplicationService loanApplicationService;
 
+
     @GetMapping("/loan/{id}")
     public ResponseEntity<LoanApplication> retrieveLoanApplicationById(@PathVariable Long id){
         LoanApplication loanApplication = loanApplicationService.retrieveLoanApplicationById(id);
