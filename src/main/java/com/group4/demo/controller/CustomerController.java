@@ -68,7 +68,6 @@ public class CustomerController {
     }
 
     @GetMapping("/schemes")
-
     public ResponseEntity<List<Scheme>> getAllSchemes() {
 
         List<Scheme> schemesList = iSchemeService.getAllSchemes();
