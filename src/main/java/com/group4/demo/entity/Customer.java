@@ -31,7 +31,7 @@ public class Customer extends User {
     @Email
     String email;
 
-    @NotEmpty
+
     LocalDate dateOfBirth;
 
     @NotEmpty
@@ -40,7 +40,7 @@ public class Customer extends User {
     @NotEmpty
     String nationality;
 
-    @Pattern(regexp = "^[2-9]{1}[0-9]{3}\\s[0-9]{4}\\s[0-9]{4}$")
+    @Pattern(regexp = "^[2-9][0-9]{11}$")
     String aadharNumber;
 
     @Pattern(regexp = "[A-Z]{5}[0-9]{4}[A-Z]{1}")

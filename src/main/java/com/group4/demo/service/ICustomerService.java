@@ -1,5 +1,6 @@
 package com.group4.demo.service;
 
+import com.group4.demo.Dto.CustomerDto;
 import com.group4.demo.entity.Customer;
 
 import java.time.LocalDate;
@@ -11,7 +12,7 @@ public interface ICustomerService {
 
     List<Customer> viewAllCustomers();
 
-    Customer addCustomer(Customer customer);
+    Customer addCustomer(CustomerDto customer);
 
     Customer updateCustomer(int id, Customer customer);
 
