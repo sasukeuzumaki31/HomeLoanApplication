@@ -86,18 +86,13 @@ public class LoanApplicationServiceImpl implements ILoanApplicationService {
 
         if (loanApplicationOp.isPresent()) {
             LoanApplication loanApplication = loanApplicationOp.get();
-           // loanApplication.setLoanApprovedAmount(loanApplication.getLoanApprovedAmount());
-            //loanApplication.setStatus(loanApplicationDto.getStatus());
-            //loanApplication.setAdminApproval(loanApplicationDto.isAdminApproval());
-            //loanApplication.setFinanceVerificationApproval(loanApplicationDto.isFinanceVerificationApproval());
-            //loanApplication.setLandVerificationApproval(loanApplication.isLandVerificationApproval());
 
             boolean verify = loanApplication.isLandVerificationApproval() && loanApplication.isFinanceVerificationApproval();
             loanApplication.setAdminApproval(verify);
             loanApplication.setStatus(String.valueOf(verify? Status.APPROVED:Status.REJECTED));
 
             /*
-                 Making Loan Agreement with Customer  after loan is aprroved
+                 Making Loan Agreement with Customer  after loan is approved
              */
 
             LoanAgreement loanAgreement = new LoanAgreement();
@@ -113,8 +108,10 @@ public class LoanApplicationServiceImpl implements ILoanApplicationService {
 
             emi.setEmiAmount(emiCalculator.getEMIAmount()); // find EMI using EMiclass
 
-            int interestAmount = 2000; //find interest
-            emi.setInterestAmount(interestAmount);
+            double interestAmount = (emi.getEmiAmount()*loanApplication.getScheme().getTenure()*12)
+                    - emi.getLoanAmount(); //find interest
+
+            emi.setInterestAmount(Double.parseDouble(String.format("%.2f", interestAmount)));
 
             emi.setLoanAgreement(loanAgreement);
             /*

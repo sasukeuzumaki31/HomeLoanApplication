@@ -22,7 +22,7 @@ public class EMICalculator {
         double t = (double) this.tenure * 12;
         double temp = (Math.pow(1 + r, t));
         emi = ((this.loanAmount * r) * temp) / (temp - 1);
-        return emi;
+        return Double.parseDouble(String.format("%.2f", emi));
     }
 
 
