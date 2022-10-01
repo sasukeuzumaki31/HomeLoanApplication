@@ -23,6 +23,9 @@ public class LoanApplication {
     private boolean financeVerificationApproval;
     private boolean adminApproval;
     private String status;
+    private double totalAnnualIncome;
+    private double monthlyExpenses;
+    private double otherMonthlyExpenses;
 
     @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @JoinColumn(name = "scheme_scheme_id", referencedColumnName = "schemeId")
