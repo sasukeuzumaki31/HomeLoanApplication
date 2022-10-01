@@ -6,7 +6,7 @@ import com.group4.demo.entity.FinanceVerificationOfficer;
 import com.group4.demo.entity.LoanApplication;
 
 public interface IFinanceVerificationService {
-    public LoanApplication updateStatus(Long id, LoanApplicationDto loanApplicationDto);
+    public LoanApplication updateStatus(Long id);
 
     public FinanceVerificationOfficer addFinanceVerificationOfficer(FinanceVerificationDto financeVerificationDto);
 }

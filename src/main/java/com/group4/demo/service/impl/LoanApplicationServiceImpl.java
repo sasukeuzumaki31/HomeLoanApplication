@@ -59,6 +59,9 @@ public class LoanApplicationServiceImpl implements ILoanApplicationService {
 
         loanApplication1.setLoanAppliedAmount(loanApplication.getLoanAppliedAmount());
         loanApplication1.setApplicationDate(loanApplication.getApplicationDate());
+        loanApplication1.setTotalAnnualIncome(loanApplication.getTotalAnnualIncome());
+        loanApplication1.setMonthlyExpenses(loanApplication.getMonthlyExpenses());
+        loanApplication1.setOtherMonthlyExpenses(loanApplication.getOtherMonthlyExpenses());
         loanApplication1.setStatus(String.valueOf(Status.WAITING_FOR_LAND_VERIFICATION_OFFICE_APPROVAL));
 
         /*
