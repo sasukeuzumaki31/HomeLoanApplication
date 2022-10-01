@@ -44,9 +44,9 @@ public class FinanceOfficerController {
     }
 
     @PutMapping("/loan/{id}")
-    public ResponseEntity<LoanApplication> updateStatusOfLoanApplication(@PathVariable Long id, @RequestBody LoanApplicationDto loanApplicationDto)
+    public ResponseEntity<LoanApplication> updateStatusOfLoanApplication(@PathVariable Long id)
     {
-        LoanApplication loanApplication = financeVerificationService.updateStatus(id,loanApplicationDto);
+        LoanApplication loanApplication = financeVerificationService.updateStatus(id);
         return new ResponseEntity<>(loanApplication, HttpStatus.OK);
     }
 

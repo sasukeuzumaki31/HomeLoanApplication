@@ -12,6 +12,8 @@ import com.group4.demo.util.HomeLoanBorrowingAmountCalculator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class IFinanceVerificationServiceImpl implements IFinanceVerificationService {
 
@@ -35,22 +37,25 @@ public class IFinanceVerificationServiceImpl implements IFinanceVerificationServ
     }
 
     @Override
-    public LoanApplication updateStatus(Long id, LoanApplicationDto loanApplicationDto) {
+    public LoanApplication updateStatus(Long id) {
 
-        LoanApplication loanApplication = loanApplicationRepository.findById(id).get();
+        Optional<LoanApplication> loanApplicationOp = loanApplicationRepository.findById(id);
+        if(loanApplicationOp.isEmpty()){
+            return null;
+        }
+        LoanApplication loanApplication = loanApplicationOp.get();
         HomeLoanBorrowingAmountCalculator homeLoanBorrowingAmountCalculator =
                 new HomeLoanBorrowingAmountCalculator(loanApplication.getLoanAppliedAmount()
                         , loanApplication.getScheme().getInterestRate(), loanApplication.getScheme().getTenure()
-                        , loanApplicationDto.getTotalAnnualIncome(), loanApplicationDto.getMonthlyExpenses()
-                        , loanApplicationDto.getOtherMonthlyExpenses());
+                        , loanApplication.getTotalAnnualIncome(), loanApplication.getMonthlyExpenses()
+                        , loanApplication.getOtherMonthlyExpenses());
 
-        double acceptedAmmount = homeLoanBorrowingAmountCalculator.getHomeLoanBorrowingAmount();
-        if (acceptedAmmount == 0.0) {
-            loanApplication.setLoanApprovedAmount(acceptedAmmount);
+        double acceptedAmount = homeLoanBorrowingAmountCalculator.getHomeLoanBorrowingAmount();
+        loanApplication.setLoanApprovedAmount(acceptedAmount);
+        if (acceptedAmount == 0.0) {
             loanApplication.setFinanceVerificationApproval(false);
             loanApplication.setStatus(String.valueOf(Status.REJECTED));
         } else {
-            loanApplication.setLoanApprovedAmount(homeLoanBorrowingAmountCalculator.getHomeLoanBorrowingAmount());
             loanApplication.setFinanceVerificationApproval(true);
             loanApplication.setStatus(String.valueOf(Status.PENDING));
         }
