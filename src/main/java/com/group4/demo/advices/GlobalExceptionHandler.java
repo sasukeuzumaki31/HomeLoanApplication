@@ -10,12 +10,6 @@ import java.time.LocalDateTime;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<ErrorDetails> globalExceptions(Exception ex, WebRequest rq){
-        ErrorDetails err = new ErrorDetails(LocalDateTime.now(), ex.getMessage(),rq.getDescription(false));
-        return new ResponseEntity<>(err, HttpStatus.NOT_FOUND);
-    }
-
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<ErrorDetails> resourseNotFoundException(ResourceNotFoundException ex, WebRequest rq){
         ErrorDetails err = new ErrorDetails(LocalDateTime.now(), ex.getMessage(),rq.getDescription(false));
@@ -23,8 +17,17 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(CouldNotBeUpdatedException.class)
-    public ResponseEntity<ErrorDetails> couldNotBeUpdatedException(Exception ex, WebRequest rq){
+    public ResponseEntity<ErrorDetails> couldNotBeUpdatedException(Exception ex, WebRequest rq) {
+        ErrorDetails err = new ErrorDetails(LocalDateTime.now(), ex.getMessage(), rq.getDescription(false));
+        return new ResponseEntity<>(err, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ErrorDetails> globalExceptions(Exception ex, WebRequest rq){
         ErrorDetails err = new ErrorDetails(LocalDateTime.now(), ex.getMessage(),rq.getDescription(false));
         return new ResponseEntity<>(err, HttpStatus.NOT_FOUND);
     }
+
+
 }
+
