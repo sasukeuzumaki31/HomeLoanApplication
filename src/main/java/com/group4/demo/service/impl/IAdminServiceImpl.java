@@ -5,6 +5,7 @@ import com.group4.demo.entity.Admin;
 import com.group4.demo.repository.IAdminRepository;
 import com.group4.demo.service.IAdminService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,6 +16,8 @@ public class IAdminServiceImpl implements IAdminService {
 
     @Autowired
     IAdminRepository adminRepo;
+    @Autowired
+    private PasswordEncoder bcryptEncoder;
 
     @Override
     public Admin viewAdmin(int adminid) {
@@ -33,8 +36,9 @@ public class IAdminServiceImpl implements IAdminService {
     @Override
     public Admin addAdmin(AdminDto adminDto) {
         Admin newAdmin = new Admin();
+
         newAdmin.setAdminName(adminDto.getAdminName());
-        newAdmin.setPassword(adminDto.getPassword());
+        newAdmin.setPassword(bcryptEncoder.encode(adminDto.getPassword()));
         newAdmin.setAdminContact(adminDto.getAdminContact());
         newAdmin.setRole("ADMIN");
 

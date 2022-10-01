@@ -13,7 +13,6 @@ public class EMICalculator {
     private int tenure;
 
 
-
     public double getEMIAmount() {
         double emi = 0;
 
