@@ -1,8 +1,6 @@
 package com.group4.demo.controller;
 
-import com.group4.demo.Dto.AdminDto;
 import com.group4.demo.Dto.SchemeDto;
-import com.group4.demo.entity.Admin;
 import com.group4.demo.entity.Customer;
 import com.group4.demo.entity.LoanApplication;
 import com.group4.demo.entity.Scheme;
@@ -104,12 +102,7 @@ public class AdminController {
         return new ResponseEntity<>(scheme1, HttpStatus.OK);
     }
 
-    @PostMapping("/signup")
-    public ResponseEntity<Admin> createNewAdmin(@RequestBody AdminDto adminDto){
-        Admin newAdmin = adminService.addAdmin(adminDto);
-        return new ResponseEntity<>(newAdmin, HttpStatus.CREATED);
 
-    }
 
 
 }
