@@ -3,7 +3,6 @@ package com.group4.demo.service.impl;
 import com.group4.demo.Dto.CustomerDto;
 import com.group4.demo.advices.ResourceNotFoundException;
 import com.group4.demo.entity.Customer;
-import com.group4.demo.entity.LoanApplication;
 import com.group4.demo.repository.ICustomerRepository;
 import com.group4.demo.repository.ILoanApplicationRepository;
 import com.group4.demo.service.ICustomerService;
