@@ -1,6 +1,7 @@
 package com.group4.demo.service.impl;
 
 import com.group4.demo.Dto.LandVerificationOfficerDto;
+import com.group4.demo.advices.ResourceNotFoundException;
 import com.group4.demo.entity.LandVerificationOfficer;
 import com.group4.demo.entity.LoanApplication;
 import com.group4.demo.repository.ILandVerificationRepository;
@@ -18,9 +19,14 @@ public class ILandVerificationServiceImpl implements ILLandVerificationService {
     @Autowired
     ILoanApplicationRepository loanApplicationRepository;
     @Override
-    public void updateStatus(LoanApplication loanApplication) {
-        loanApplication.setLandVerificationApproval(true);
-        loanApplicationRepository.save(loanApplication);
+    public void updateStatus(LoanApplication loanApplication) throws ResourceNotFoundException {
+        if(loanApplicationRepository.findById(loanApplication.getApplicationId()).isPresent()){
+            loanApplication.setLandVerificationApproval(true);
+            loanApplicationRepository.save(loanApplication);
+        }else{
+            throw new ResourceNotFoundException("Application Not Found" + loanApplication);
+        }
+
     }
 
     @Override

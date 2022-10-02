@@ -43,18 +43,18 @@ public class AdminController {
     ILoanAgreementServiceImpl iLoanAgreementService;
 
     @GetMapping("/users")
-    public ResponseEntity<List<Customer>> getUsers(){
+    public ResponseEntity<List<Customer>> getUsers() throws ResourceNotFoundException{
         List<Customer> customers = customerService.viewAllCustomers();
         return new ResponseEntity<>(customers, HttpStatus.OK);
     }
     @GetMapping("/user/{id}")
-    public ResponseEntity<Customer> viewCustomer(@PathVariable int id) {
+    public ResponseEntity<Customer> viewCustomer(@PathVariable int id) throws ResourceNotFoundException{
         Customer customer = customerService.viewCustomer(id);
         return new ResponseEntity<>(customer, HttpStatus.OK);
     }
 
     @DeleteMapping("/user/{id}")
-    public ResponseEntity<Customer> deleteCustomerById(@PathVariable int id) {
+    public ResponseEntity<Customer> deleteCustomerById(@PathVariable int id) throws ResourceNotFoundException{
         Customer customer = customerService.deleteCustomerById(id);
         return new ResponseEntity<>(customer, HttpStatus.OK);
     }
