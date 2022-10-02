@@ -6,6 +6,7 @@ import lombok.*;
 import java.time.LocalDate;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 
 @Data
@@ -23,8 +24,11 @@ public class LoanApplication {
     private boolean financeVerificationApproval;
     private boolean adminApproval;
     private String status;
+    @NotNull
     private double totalAnnualIncome;
+    @NotNull
     private double monthlyExpenses;
+    @NotNull
     private double otherMonthlyExpenses;
 
     @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
