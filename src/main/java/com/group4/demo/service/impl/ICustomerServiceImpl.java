@@ -3,6 +3,8 @@ package com.group4.demo.service.impl;
 import com.group4.demo.Dto.CustomerDto;
 import com.group4.demo.advices.ResourceNotFoundException;
 import com.group4.demo.entity.Customer;
+import com.group4.demo.entity.LoanApplication;
+import com.group4.demo.entity.Status;
 import com.group4.demo.repository.ICustomerRepository;
 import com.group4.demo.repository.ILoanApplicationRepository;
 import com.group4.demo.service.ICustomerService;
@@ -67,6 +69,9 @@ public class ICustomerServiceImpl implements ICustomerService {
             Customer customer = customerOp.get();
             customer.setPanNumber(customerDto.getPanNumber());
             customer.setAadharNumber(customerDto.getAadharNumber());
+            LoanApplication loanApplication = loanRepo.findByCustomerId(id);
+            loanApplication.setStatus(String.valueOf(Status.DOCUMENTS_UPLOADED));
+            loanRepo.save(loanApplication);
             return custRepo.save(customer);
         }
         else{
