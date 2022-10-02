@@ -2,6 +2,7 @@ package com.group4.demo.service.impl;
 
 import com.group4.demo.Dto.FinanceVerificationDto;
 import com.group4.demo.Dto.LoanApplicationDto;
+import com.group4.demo.advices.ResourceNotFoundException;
 import com.group4.demo.entity.FinanceVerificationOfficer;
 import com.group4.demo.entity.LoanApplication;
 import com.group4.demo.entity.Status;
@@ -37,11 +38,13 @@ public class IFinanceVerificationServiceImpl implements IFinanceVerificationServ
     }
 
     @Override
-    public LoanApplication updateStatus(Long id) {
+    public LoanApplication updateStatus(Long id) throws ResourceNotFoundException {
 
-        Optional<LoanApplication> loanApplicationOp = loanApplicationRepository.findById(id);
-        if(loanApplicationOp.isEmpty()){
-            return null;
+        Optional<LoanApplication> loanApplicationOp = Optional.ofNullable(loanApplicationRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("User Not found for Id " + id)));
+
+        if(!loanApplicationOp.isPresent()) {
+           return null;
         }
         LoanApplication loanApplication = loanApplicationOp.get();
         HomeLoanBorrowingAmountCalculator homeLoanBorrowingAmountCalculator =
