@@ -1,6 +1,7 @@
 package com.group4.demo.controller;
 
 import com.group4.demo.Dto.SchemeDto;
+import com.group4.demo.advices.ResourceNotFoundException;
 import com.group4.demo.entity.Customer;
 import com.group4.demo.entity.LoanApplication;
 import com.group4.demo.entity.Scheme;
@@ -59,13 +60,13 @@ public class AdminController {
     }
 
     @GetMapping("/application/{id}")
-    public ResponseEntity<LoanApplication> getApplicationById(@PathVariable long id){
+    public ResponseEntity<LoanApplication> getApplicationById(@PathVariable long id) throws ResourceNotFoundException {
         LoanApplication loanApplication = loanApplicationService.retrieveLoanApplicationById(id);
         return new ResponseEntity<>(loanApplication, HttpStatus.OK);
     }
 
     @PutMapping("/application/{id}")
-    public ResponseEntity<LoanApplication> updateApplicationById(@PathVariable long id){
+    public ResponseEntity<LoanApplication> updateApplicationById(@PathVariable long id) throws ResourceNotFoundException{
         LoanApplication  savedLoanApplication = loanApplicationService.updateLoanApplication(id);
         return new ResponseEntity<>( savedLoanApplication, HttpStatus.OK);
     }
