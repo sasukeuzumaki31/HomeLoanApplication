@@ -2,10 +2,13 @@ package com.group4.demo.controller;
 
 import com.group4.demo.Dto.CustomerDto;
 import com.group4.demo.Dto.LoanApplicationDto;
+import com.group4.demo.advices.ResourceNotFoundException;
 import com.group4.demo.entity.Customer;
+import com.group4.demo.entity.LoanAgreement;
 import com.group4.demo.entity.LoanApplication;
 import com.group4.demo.entity.Scheme;
 import com.group4.demo.service.impl.ICustomerServiceImpl;
+import com.group4.demo.service.impl.ILoanAgreementServiceImpl;
 import com.group4.demo.service.impl.ISchemeServiceImpl;
 import com.group4.demo.service.impl.LoanApplicationServiceImpl;
 import com.group4.demo.util.EMICalculator;
@@ -32,6 +35,9 @@ public class CustomerController {
 
     @Autowired
     private ISchemeServiceImpl iSchemeService;
+
+    @Autowired
+    private ILoanAgreementServiceImpl iLoanAgreementService;
 
 
     /*
@@ -85,6 +91,13 @@ public class CustomerController {
         EMICalculator calc = new EMICalculator(emiCalculator.getLoanAmount(), emiCalculator.getRateOfInterest(), emiCalculator.getTenure());
         double amount = calc.getEMIAmount();
         return new ResponseEntity<>(amount, HttpStatus.OK);
+    }
+
+    @GetMapping("/loanagreement/{id}")
+    public ResponseEntity<LoanAgreement> retrieveLoanAgreementById(@PathVariable Long id) throws ResourceNotFoundException
+    {
+        LoanAgreement loanAgreement = iLoanAgreementService.retrieveAgreementById(id);
+        return new ResponseEntity<>(loanAgreement,HttpStatus.OK);
     }
 
 }
