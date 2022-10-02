@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @ControllerAdvice
 public class GlobalExceptionHandler {
     @ExceptionHandler(ResourceNotFoundException.class)
-    public ResponseEntity<ErrorDetails> resourseNotFoundException(ResourceNotFoundException ex, WebRequest rq){
+    public ResponseEntity<ErrorDetails> resourceNotFoundException(ResourceNotFoundException ex, WebRequest rq){
         ErrorDetails err = new ErrorDetails(LocalDateTime.now(), ex.getMessage(),rq.getDescription(false));
         return new ResponseEntity<>(err, HttpStatus.NOT_FOUND);
     }
