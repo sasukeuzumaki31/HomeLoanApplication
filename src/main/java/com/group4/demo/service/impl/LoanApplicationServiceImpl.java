@@ -57,17 +57,24 @@ public class LoanApplicationServiceImpl implements ILoanApplicationService {
 
         LoanApplication loanApplication1 = new LoanApplication();
 
+        Customer customer=customerRepository.findById(loanApplication.getCustomerId()).get();
         loanApplication1.setLoanAppliedAmount(loanApplication.getLoanAppliedAmount());
         loanApplication1.setApplicationDate(loanApplication.getApplicationDate());
         loanApplication1.setTotalAnnualIncome(loanApplication.getTotalAnnualIncome());
         loanApplication1.setMonthlyExpenses(loanApplication.getMonthlyExpenses());
         loanApplication1.setOtherMonthlyExpenses(loanApplication.getOtherMonthlyExpenses());
-        loanApplication1.setStatus(String.valueOf(Status.WAITING_FOR_LAND_VERIFICATION_OFFICE_APPROVAL));
+        if(customer.getAadharNumber()==null || customer.getPanNumber()==null) {
+            loanApplication1.setStatus(String.valueOf(Status.DOCUMENTS_NOT_UPLOADED));
+        }
+        else
+        {
+            loanApplication1.setStatus(String.valueOf(Status.DOCUMENTS_UPLOADED));
+        }
+
 
         /*
         Find Customer by Id and save loan save it into Customer object
          */
-        Customer customer = customerRepository.findById(loanApplication.getCustomerId()).get();
         loanApplication1.setCustomer(customer);
 
         /*

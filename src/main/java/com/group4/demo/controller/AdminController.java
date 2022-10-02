@@ -4,6 +4,7 @@ import com.group4.demo.Dto.SchemeDto;
 import com.group4.demo.entity.Customer;
 import com.group4.demo.entity.LoanApplication;
 import com.group4.demo.entity.Scheme;
+import com.group4.demo.entity.Status;
 import com.group4.demo.service.IAdminService;
 import com.group4.demo.service.ICustomerService;
 import com.group4.demo.service.ILoanApplicationService;
@@ -73,6 +74,17 @@ public class AdminController {
     public ResponseEntity<List<LoanApplication>> getPendingApplications(){
         List<LoanApplication> pendingApplications = loanApplicationService.retrieveLoanApplicationByStatus("PENDING");
         return new ResponseEntity<>(pendingApplications, HttpStatus.OK);
+    }
+
+    @GetMapping("/applications/documentsuploaded")
+    public ResponseEntity<List<LoanApplication>> getDocumentUpladed(){
+
+        List<LoanApplication> pendingApplications = loanApplicationService.retrieveLoanApplicationByStatus(String.valueOf(Status.DOCUMENTS_UPLOADED));
+        return new ResponseEntity<>(pendingApplications, HttpStatus.OK);
+    }
+
+    public ILoanApplicationService getLoanApplicationService() {
+        return loanApplicationService;
     }
 
     @GetMapping("/scheme")
