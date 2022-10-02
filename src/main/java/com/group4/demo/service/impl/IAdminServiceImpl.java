@@ -1,6 +1,7 @@
 package com.group4.demo.service.impl;
 
 import com.group4.demo.Dto.AdminDto;
+import com.group4.demo.advices.ResourceNotFoundException;
 import com.group4.demo.entity.Admin;
 import com.group4.demo.repository.IAdminRepository;
 import com.group4.demo.service.IAdminService;
@@ -29,7 +30,10 @@ public class IAdminServiceImpl implements IAdminService {
     }
 
     @Override
-    public List<Admin> viewAllAdmin() {
+    public List<Admin> viewAllAdmin() throws ResourceNotFoundException{
+        if(adminRepo.findAll().isEmpty()){
+            throw new ResourceNotFoundException("No User Found");
+        }
         return adminRepo.findAll();
     }
 
@@ -54,23 +58,25 @@ public class IAdminServiceImpl implements IAdminService {
         return adminRepo.save(admin);
     }
 
-    @Override
-    public Admin deleteAdmin(int id, Admin admin) {
-        Optional<Admin> adminOp = adminRepo.findById(id);
-        if (!adminOp.isPresent()) {
-            return null;
-        }
-        adminRepo.delete(admin);
-        return adminOp.get();
-    }
+//    @Override
+//    public Admin deleteAdmin(int id, Admin admin) {
+//        Optional<Admin> adminOp = adminRepo.findById(id);
+//        if (!adminOp.isPresent()) {
+//            return null;
+//        }
+//        adminRepo.delete(admin);
+//        return adminOp.get();
+//    }
 
     @Override
-    public Admin deleteAdminById(int adminId) {
+    public Admin deleteAdminById(int adminId) throws ResourceNotFoundException {
         Optional<Admin> adminOp = adminRepo.findById(adminId);
-        if (!adminOp.isPresent()) {
-            return null;
+        if (adminOp.isPresent()) {
+            adminRepo.deleteById(adminId);
+            return adminOp.get();
         }
-        adminRepo.delete(adminOp.get());
-        return adminOp.get();
+        else{
+            throw new ResourceNotFoundException("User Not found for Id" + adminId);
+        }
     }
 }
