@@ -90,14 +90,17 @@ public class LoanApplicationServiceImpl implements ILoanApplicationService {
     //updating loanApplication
     @Override
     public LoanApplication updateLoanApplication(long id) throws ResourceNotFoundException {
-        LoanApplication loanApplicationOp = loanRepo.findById(id)
+        LoanApplication loanApplication = loanRepo.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(notFoundMessage));
 
-        LoanApplication loanApplication = loanApplicationOp;
+        if(loanApplication.getStatus().equals(String.valueOf(Status.DOCUMENTS_UPLOADED))){
+            loanApplication.setStatus(String.valueOf(Status.WAITING_FOR_LAND_VERIFICATION_OFFICE_APPROVAL));
+        }else {
+            boolean verify = loanApplication.isLandVerificationApproval() && loanApplication.isFinanceVerificationApproval();
+            loanApplication.setAdminApproval(verify);
 
-        boolean verify = loanApplication.isLandVerificationApproval() && loanApplication.isFinanceVerificationApproval();
-        loanApplication.setAdminApproval(verify);
-        loanApplication.setStatus(String.valueOf(verify ? Status.APPROVED : Status.REJECTED));
+            loanApplication.setStatus(String.valueOf(verify ? Status.APPROVED : Status.REJECTED));
+        }
 
             /*
                  Making Loan Agreement with Customer  after loan is approved
