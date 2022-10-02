@@ -78,10 +78,16 @@ public class AdminController {
     }
 
     @GetMapping("/applications/documentsuploaded")
-    public ResponseEntity<List<LoanApplication>> getDocumentUpladed(){
+    public ResponseEntity<List<LoanApplication>> getDocumentUploaded(){
 
         List<LoanApplication> pendingApplications = loanApplicationService.retrieveLoanApplicationByStatus(String.valueOf(Status.DOCUMENTS_UPLOADED));
         return new ResponseEntity<>(pendingApplications, HttpStatus.OK);
+    }
+
+    @PutMapping("application/document/{id}")
+    public ResponseEntity<LoanApplication> raiseLandOfficerTicket(@PathVariable long id) throws ResourceNotFoundException{
+        LoanApplication  savedLoanApplication = loanApplicationService.updateLoanApplication(id);
+        return new ResponseEntity<>( savedLoanApplication, HttpStatus.OK);
     }
 
     public ILoanApplicationService getLoanApplicationService() {
