@@ -62,6 +62,12 @@ public class CustomerController {
         return new ResponseEntity<>(newCustomer, HttpStatus.CREATED);
     }
 
+    @PutMapping("/document/{id}")
+    public ResponseEntity<Customer> updateDocuments(@PathVariable int id, @RequestBody CustomerDto customerDto) throws ResourceNotFoundException{
+        Customer customer = customerService.updateCustomer(id, customerDto);
+        return new ResponseEntity<>(customer, HttpStatus.CREATED);
+    }
+
     /*
        GET  Loan by Id - /customer/loan/{id}
     */

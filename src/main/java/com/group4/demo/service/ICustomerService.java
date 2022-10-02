@@ -15,7 +15,7 @@ public interface ICustomerService {
 
     Customer addCustomer(CustomerDto customer);
 
-    Customer updateCustomer(int id, Customer customer) throws ResourceNotFoundException;
+    Customer updateCustomer(int id, CustomerDto customerDto) throws ResourceNotFoundException;
 
     List<Customer> viewCustomerList(LocalDate dateOfApplication);
     Customer deleteCustomerById(int custId) throws ResourceNotFoundException;
