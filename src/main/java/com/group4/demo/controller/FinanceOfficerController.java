@@ -2,7 +2,7 @@ package com.group4.demo.controller;
 
 
 import com.group4.demo.Dto.FinanceVerificationDto;
-import com.group4.demo.Dto.LoanApplicationDto;
+import com.group4.demo.advices.ResourceNotFoundException;
 import com.group4.demo.entity.FinanceVerificationOfficer;
 import com.group4.demo.entity.LoanApplication;
 import com.group4.demo.service.IFinanceVerificationService;
@@ -37,14 +37,14 @@ public class FinanceOfficerController {
     }
 
     @GetMapping("/loans/{id}")
-    public ResponseEntity<LoanApplication> retrieveLoanApplicationById(@PathVariable Long id)
+    public ResponseEntity<LoanApplication> retrieveLoanApplicationById(@PathVariable Long id) throws ResourceNotFoundException
     {
         LoanApplication loanApplication = loanApplicationService.retrieveLoanApplicationById(id);
         return new ResponseEntity<>(loanApplication, HttpStatus.OK);
     }
 
     @PutMapping("/loan/{id}")
-    public ResponseEntity<LoanApplication> updateStatusOfLoanApplication(@PathVariable Long id)
+    public ResponseEntity<LoanApplication> updateStatusOfLoanApplication(@PathVariable Long id) throws ResourceNotFoundException
     {
         LoanApplication loanApplication = financeVerificationService.updateStatus(id);
         return new ResponseEntity<>(loanApplication, HttpStatus.OK);

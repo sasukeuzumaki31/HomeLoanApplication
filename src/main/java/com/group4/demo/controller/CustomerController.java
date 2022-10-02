@@ -44,7 +44,7 @@ public class CustomerController {
         Applying for a New Loan - /customer/apply
      */
     @PostMapping("/apply")
-    public ResponseEntity<LoanApplication> createNewLoanApplication(@RequestBody LoanApplicationDto loanApplicatonDto) {
+    public ResponseEntity<LoanApplication> createNewLoanApplication(@RequestBody LoanApplicationDto loanApplicatonDto) throws ResourceNotFoundException {
 
         loanApplicatonDto.setApplicationDate(LocalDate.now());
         LoanApplication savedLoanApplication = loanApplicationService.addLoanApplication(loanApplicatonDto);
@@ -66,7 +66,7 @@ public class CustomerController {
        GET  Loan by Id - /customer/loan/{id}
     */
     @GetMapping("/loan/{loanApplicationId}")
-    public ResponseEntity<LoanApplication> retrieveLoanApplicationById(@PathVariable Long loanApplicationId) {
+    public ResponseEntity<LoanApplication> retrieveLoanApplicationById(@PathVariable Long loanApplicationId) throws ResourceNotFoundException {
 
         LoanApplication loanApplication;
         loanApplication = loanApplicationService.retrieveLoanApplicationById(loanApplicationId);

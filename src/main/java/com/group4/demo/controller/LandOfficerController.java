@@ -1,6 +1,7 @@
 package com.group4.demo.controller;
 
 import com.group4.demo.Dto.LandVerificationOfficerDto;
+import com.group4.demo.advices.ResourceNotFoundException;
 import com.group4.demo.entity.LandVerificationOfficer;
 import com.group4.demo.entity.LoanApplication;
 import com.group4.demo.entity.Status;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 
 import java.util.List;
 
@@ -28,13 +30,13 @@ public class LandOfficerController {
 
 
     @GetMapping("/loan/{id}")
-    public ResponseEntity<LoanApplication> retrieveLoanApplicationById(@PathVariable Long id){
+    public ResponseEntity<LoanApplication> retrieveLoanApplicationById(@PathVariable Long id) throws ResourceNotFoundException {
         LoanApplication loanApplication = loanApplicationService.retrieveLoanApplicationById(id);
         return new ResponseEntity<>(loanApplication, HttpStatus.OK);
     }
 
     @PutMapping("/loan/{id}")
-    public ResponseEntity<LoanApplication> updateStatusOfLoanApplication(@PathVariable Long id){
+    public ResponseEntity<LoanApplication> updateStatusOfLoanApplication(@PathVariable Long id) throws ResourceNotFoundException {
         LoanApplication loanApplication = loanApplicationService.updateStatusOfLoanApplication(id, Status.WAITING_FOR_FINANCE_APPROVAL);
         return new ResponseEntity<>(loanApplication, HttpStatus.OK);
     }

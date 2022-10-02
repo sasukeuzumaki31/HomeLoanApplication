@@ -2,6 +2,11 @@ package com.group4.demo.controller;
 
 import com.group4.demo.Dto.SchemeDto;
 import com.group4.demo.advices.ResourceNotFoundException;
+import com.group4.demo.entity.Customer;
+import com.group4.demo.entity.LoanApplication;
+import com.group4.demo.entity.Scheme;
+import com.group4.demo.entity.Status;
+import com.group4.demo.advices.ResourceNotFoundException;
 import com.group4.demo.entity.*;
 import com.group4.demo.service.IAdminService;
 import com.group4.demo.service.ICustomerService;
@@ -61,13 +66,13 @@ public class AdminController {
     }
 
     @GetMapping("/application/{id}")
-    public ResponseEntity<LoanApplication> getApplicationById(@PathVariable long id){
+    public ResponseEntity<LoanApplication> getApplicationById(@PathVariable long id) throws ResourceNotFoundException {
         LoanApplication loanApplication = loanApplicationService.retrieveLoanApplicationById(id);
         return new ResponseEntity<>(loanApplication, HttpStatus.OK);
     }
 
     @PutMapping("/application/{id}")
-    public ResponseEntity<LoanApplication> updateApplicationById(@PathVariable long id){
+    public ResponseEntity<LoanApplication> updateApplicationById(@PathVariable long id) throws ResourceNotFoundException{
         LoanApplication  savedLoanApplication = loanApplicationService.updateLoanApplication(id);
         return new ResponseEntity<>( savedLoanApplication, HttpStatus.OK);
     }
@@ -79,10 +84,16 @@ public class AdminController {
     }
 
     @GetMapping("/applications/documentsuploaded")
-    public ResponseEntity<List<LoanApplication>> getDocumentUpladed(){
+    public ResponseEntity<List<LoanApplication>> getDocumentUploaded(){
 
         List<LoanApplication> pendingApplications = loanApplicationService.retrieveLoanApplicationByStatus(String.valueOf(Status.DOCUMENTS_UPLOADED));
         return new ResponseEntity<>(pendingApplications, HttpStatus.OK);
+    }
+
+    @PutMapping("application/document/{id}")
+    public ResponseEntity<LoanApplication> raiseLandOfficerTicket(@PathVariable long id) throws ResourceNotFoundException{
+        LoanApplication  savedLoanApplication = loanApplicationService.updateLoanApplication(id);
+        return new ResponseEntity<>( savedLoanApplication, HttpStatus.OK);
     }
 
     public ILoanApplicationService getLoanApplicationService() {

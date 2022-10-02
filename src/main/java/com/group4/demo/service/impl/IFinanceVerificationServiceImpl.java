@@ -1,7 +1,7 @@
 package com.group4.demo.service.impl;
 
 import com.group4.demo.Dto.FinanceVerificationDto;
-import com.group4.demo.Dto.LoanApplicationDto;
+import com.group4.demo.advices.ResourceNotFoundException;
 import com.group4.demo.entity.FinanceVerificationOfficer;
 import com.group4.demo.entity.LoanApplication;
 import com.group4.demo.entity.Status;
@@ -12,7 +12,7 @@ import com.group4.demo.util.HomeLoanBorrowingAmountCalculator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+
 
 @Service
 public class IFinanceVerificationServiceImpl implements IFinanceVerificationService {
@@ -37,13 +37,12 @@ public class IFinanceVerificationServiceImpl implements IFinanceVerificationServ
     }
 
     @Override
-    public LoanApplication updateStatus(Long id) {
+    public LoanApplication updateStatus(Long id) throws ResourceNotFoundException {
 
-        Optional<LoanApplication> loanApplicationOp = loanApplicationRepository.findById(id);
-        if(loanApplicationOp.isEmpty()){
-            return null;
-        }
-        LoanApplication loanApplication = loanApplicationOp.get();
+        LoanApplication loanApplicationOp = loanApplicationRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("User Not found for Id " + id));
+
+        LoanApplication loanApplication = loanApplicationOp;
         HomeLoanBorrowingAmountCalculator homeLoanBorrowingAmountCalculator =
                 new HomeLoanBorrowingAmountCalculator(loanApplication.getLoanAppliedAmount()
                         , loanApplication.getScheme().getInterestRate(), loanApplication.getScheme().getTenure()
