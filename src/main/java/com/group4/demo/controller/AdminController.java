@@ -6,10 +6,13 @@ import com.group4.demo.entity.Customer;
 import com.group4.demo.entity.LoanApplication;
 import com.group4.demo.entity.Scheme;
 import com.group4.demo.entity.Status;
+import com.group4.demo.advices.ResourceNotFoundException;
+import com.group4.demo.entity.*;
 import com.group4.demo.service.IAdminService;
 import com.group4.demo.service.ICustomerService;
 import com.group4.demo.service.ILoanApplicationService;
 import com.group4.demo.service.ISchemeService;
+import com.group4.demo.service.impl.ILoanAgreementServiceImpl;
 import org.apache.juli.logging.Log;
 import org.apache.juli.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +38,9 @@ public class AdminController {
 
     @Autowired
     IAdminService adminService;
+
+    @Autowired
+    ILoanAgreementServiceImpl iLoanAgreementService;
 
     @GetMapping("/users")
     public ResponseEntity<List<Customer>> getUsers() throws ResourceNotFoundException{
@@ -100,7 +106,7 @@ public class AdminController {
         return new ResponseEntity<>(schemeList,HttpStatus.OK);
     }
     @GetMapping("/scheme/{id}")
-    public ResponseEntity<Scheme> getSchemeById(@PathVariable int id){
+    public ResponseEntity<Scheme> getSchemeById(@PathVariable int id) throws Throwable{
         Scheme scheme = schemeService.getSchemeById(id);
         return new ResponseEntity<>(scheme,HttpStatus.OK);
     }
@@ -111,17 +117,28 @@ public class AdminController {
         return new ResponseEntity<>(scheme,HttpStatus.OK);
     }
     @DeleteMapping("/scheme/{id}")
-    public ResponseEntity<Scheme> deleteSchemeById(@PathVariable int id) {
+    public ResponseEntity<Scheme> deleteSchemeById(@PathVariable int id) throws Throwable {
         Scheme scheme = schemeService.deleteSchemeById(id);
         return new ResponseEntity<>(scheme, HttpStatus.OK);
     }
     @PutMapping("/scheme/{id}")
-    public ResponseEntity<Scheme> updateScheme(@PathVariable int id,@RequestBody SchemeDto schemeDto){
+    public ResponseEntity<Scheme> updateScheme(@PathVariable int id,@RequestBody SchemeDto schemeDto) throws Throwable {
         Scheme scheme1 = schemeService.updateScheme(id,schemeDto);
         return new ResponseEntity<>(scheme1, HttpStatus.OK);
     }
 
+    @GetMapping("/loanagreement/{id}")
+    public ResponseEntity<LoanAgreement> retrieveLoanAgreementById(@PathVariable Long id) throws ResourceNotFoundException
+    {
+        LoanAgreement loanAgreement = iLoanAgreementService.retrieveAgreementById(id);
+        return new ResponseEntity<>(loanAgreement,HttpStatus.OK);
+    }
 
-
+    @DeleteMapping("/loanagreement/{id}")
+    public ResponseEntity<LoanAgreement> deleteLoanAgreementById(@PathVariable Long id) throws ResourceNotFoundException
+    {
+        LoanAgreement loanAgreement = iLoanAgreementService.deleteLoanAgreement(id);
+        return new ResponseEntity<>(loanAgreement,HttpStatus.OK);
+    }
 
 }
