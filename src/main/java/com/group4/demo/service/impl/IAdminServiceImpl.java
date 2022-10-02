@@ -21,12 +21,8 @@ public class IAdminServiceImpl implements IAdminService {
     private PasswordEncoder bcryptEncoder;
 
     @Override
-    public Admin viewAdmin(int adminid) {
-        Optional<Admin> admin = adminRepo.findById(adminid);
-        if (!admin.isPresent()) {
-            return null;
-        }
-        return admin.get();
+    public Admin viewAdmin(int adminid) throws ResourceNotFoundException {
+        return adminRepo.findById(adminid).orElseThrow(()->new ResourceNotFoundException("Admin does not exists with id : " + adminid));
     }
 
     @Override
@@ -50,12 +46,9 @@ public class IAdminServiceImpl implements IAdminService {
     }
 
     @Override
-    public Admin updateAdmin(int id, Admin admin) {
-        Optional<Admin> adminOp = adminRepo.findById(id);
-        if (!adminOp.isPresent()) {
-            return null;
-        }
-        return adminRepo.save(admin);
+    public Admin updateAdmin(int id, Admin admin) throws ResourceNotFoundException {
+        Admin adminOp = adminRepo.findById(id).orElseThrow(()->new ResourceNotFoundException("Admin does not exists with id : " + id));
+        return adminRepo.save(adminOp);
     }
 
 //    @Override

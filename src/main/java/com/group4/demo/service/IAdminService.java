@@ -8,15 +8,16 @@ import java.util.List;
 
 public interface IAdminService {
 
-    Admin viewAdmin(int adminid);
+    Admin viewAdmin(int adminid) throws ResourceNotFoundException;
 
     List<Admin> viewAllAdmin() throws ResourceNotFoundException;
 
     Admin addAdmin(AdminDto adminDto);
 
-    Admin updateAdmin(int id, Admin admin);
+    Admin updateAdmin(int id, Admin admin) throws ResourceNotFoundException;
 
 //    Admin deleteAdmin(int id, Admin admin);
+    //Admin deleteAdmin(int id, Admin admin);
 
     Admin deleteAdminById(int adminId) throws ResourceNotFoundException;
 }
