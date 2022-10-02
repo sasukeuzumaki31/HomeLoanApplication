@@ -1,6 +1,7 @@
 package com.group4.demo.service.impl;
 
 import com.group4.demo.Dto.CustomerDto;
+import com.group4.demo.advices.ResourceNotFoundException;
 import com.group4.demo.entity.Customer;
 import com.group4.demo.repository.ICustomerRepository;
 import com.group4.demo.repository.ILoanApplicationRepository;
@@ -23,16 +24,16 @@ public class ICustomerServiceImpl implements ICustomerService {
     ILoanApplicationRepository loanRepo;
 
     @Override
-    public Customer viewCustomer(int custid) {
-        Optional<Customer> customer = custRepo.findById(custid);
-        if (!customer.isPresent()) {
-            return null;
-        }
-        return customer.get();
+    public Customer viewCustomer(int custId) throws ResourceNotFoundException{
+        return custRepo.findById(custId)
+                .orElseThrow(() -> new ResourceNotFoundException("User Not found for Id " + custId));
     }
 
     @Override
-    public List<Customer> viewAllCustomers() {
+    public List<Customer> viewAllCustomers() throws ResourceNotFoundException{
+        if(custRepo.findAll().isEmpty()){
+            throw new ResourceNotFoundException("No Users Found");
+        }
         return custRepo.findAll();
     }
 
@@ -60,22 +61,14 @@ public class ICustomerServiceImpl implements ICustomerService {
     }
 
     @Override
-    public Customer updateCustomer(int id, Customer customer) {
+    public Customer updateCustomer(int id, Customer customer) throws ResourceNotFoundException{
         Optional<Customer> customerOp = custRepo.findById(id);
-        if (!customerOp.isPresent()) {
-            return null;
+        if(customerOp.isPresent()){
+            return custRepo.save(customer);
         }
-        return custRepo.save(customer);
-    }
-
-    @Override
-    public Customer deleteCustomer(int id, Customer customer) {
-        Optional<Customer> customerOp = custRepo.findById(id);
-        if (!customerOp.isPresent()) {
-            return null;
+        else{
+            throw new ResourceNotFoundException("User Not found for Id" + id);
         }
-        custRepo.delete(customer);
-        return customerOp.get();
     }
 
     @Override
@@ -85,12 +78,14 @@ public class ICustomerServiceImpl implements ICustomerService {
     }
 
     @Override
-    public Customer deleteCustomerById(int custId) {
+    public Customer deleteCustomerById(int custId) throws ResourceNotFoundException{
         Optional<Customer> customerOp = custRepo.findById(custId);
-        if (!customerOp.isPresent()) {
-            return null;
+        if(customerOp.isPresent()){
+            custRepo.deleteById(custId);
+            return customerOp.get();
         }
-        custRepo.delete(customerOp.get());
-        return customerOp.get();
+        else{
+            throw new ResourceNotFoundException("User Not found for Id" + custId);
+        }
     }
 }
