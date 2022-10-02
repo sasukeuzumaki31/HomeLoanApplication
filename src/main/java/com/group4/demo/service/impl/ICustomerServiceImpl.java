@@ -61,9 +61,12 @@ public class ICustomerServiceImpl implements ICustomerService {
     }
 
     @Override
-    public Customer updateCustomer(int id, Customer customer) throws ResourceNotFoundException{
+    public Customer updateCustomer(int id, CustomerDto customerDto) throws ResourceNotFoundException{
         Optional<Customer> customerOp = custRepo.findById(id);
         if(customerOp.isPresent()){
+            Customer customer = customerOp.get();
+            customer.setPanNumber(customerDto.getPanNumber());
+            customer.setAadharNumber(customerDto.getAadharNumber());
             return custRepo.save(customer);
         }
         else{
