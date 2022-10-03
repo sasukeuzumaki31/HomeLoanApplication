@@ -1,6 +1,7 @@
 package com.group4.demo.controller;
 
 import com.group4.demo.Dto.CustomerDto;
+import com.group4.demo.Dto.UserLoginDto;
 import com.group4.demo.Dto.LoanApplicationDto;
 import com.group4.demo.advices.ResourceNotFoundException;
 import com.group4.demo.entity.Customer;
@@ -63,8 +64,15 @@ public class CustomerController {
         return new ResponseEntity<>(newCustomer, HttpStatus.CREATED);
     }
 
+    @PostMapping("/login")
+    public ResponseEntity<String> loginCustomer(@RequestBody UserLoginDto customerDto) throws ResourceNotFoundException {
+
+        String response = customerService.loginCustomer(customerDto);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
     @PutMapping("/document/{id}")
-    public ResponseEntity<Customer> updateDocuments(@PathVariable int id, @RequestBody CustomerDto customerDto) throws ResourceNotFoundException{
+    public ResponseEntity<Customer> updateDocuments(@PathVariable int id, @RequestBody CustomerDto customerDto) throws ResourceNotFoundException {
         Customer customer = customerService.updateCustomer(id, customerDto);
         return new ResponseEntity<>(customer, HttpStatus.CREATED);
     }
@@ -101,10 +109,9 @@ public class CustomerController {
     }
 
     @GetMapping("/loanagreement/{id}")
-    public ResponseEntity<LoanAgreement> retrieveLoanAgreementById(@PathVariable Long id) throws ResourceNotFoundException
-    {
+    public ResponseEntity<LoanAgreement> retrieveLoanAgreementById(@PathVariable Long id) throws ResourceNotFoundException {
         LoanAgreement loanAgreement = iLoanAgreementService.retrieveAgreementById(id);
-        return new ResponseEntity<>(loanAgreement,HttpStatus.OK);
+        return new ResponseEntity<>(loanAgreement, HttpStatus.OK);
     }
 
 }

@@ -55,12 +55,12 @@ class ICustomerServiceImplTest {
         customer.setCustomerName("Customer Name");
         customer.setDateOfBirth(LocalDate.ofEpochDay(1L));
         customer.setEmail("jane.doe@example.org");
-        customer.setGender("Gender");
+        customer.setGender("M");
         customer.setMobileNumber("42");
-        customer.setNationality("Nationality");
+        customer.setNationality("Indian");
         customer.setPanNumber("42");
-        customer.setPassword("iloveyou");
-        customer.setRole("Role");
+        customer.setPassword("dsdfrt");
+        customer.setRole("CUSTOMER");
         customer.setUserId(123);
         Optional<Customer> ofResult = Optional.of(customer);
         when(iCustomerRepository.findById((Integer) any())).thenReturn(ofResult);
@@ -88,16 +88,16 @@ class ICustomerServiceImplTest {
     @Test
     void testViewAllCustomers2() throws ResourceNotFoundException {
         Customer customer = new Customer();
-        customer.setAadharNumber("42");
-        customer.setCustomerName("No Users Found");
+        customer.setAadharNumber("34545443224534465436");
+        customer.setCustomerName("jane");
         customer.setDateOfBirth(LocalDate.ofEpochDay(1L));
         customer.setEmail("jane.doe@example.org");
-        customer.setGender("No Users Found");
-        customer.setMobileNumber("42");
-        customer.setNationality("No Users Found");
+        customer.setGender("F");
+        customer.setMobileNumber("3567543246");
+        customer.setNationality("American");
         customer.setPanNumber("42");
-        customer.setPassword("iloveyou");
-        customer.setRole("No Users Found");
+        customer.setPassword("dfg345");
+        customer.setRole("CUSTOMER");
         customer.setUserId(123);
 
         ArrayList<Customer> customerList = new ArrayList<>();
@@ -113,45 +113,45 @@ class ICustomerServiceImplTest {
     @Test
     void testUpdateCustomer() throws ResourceNotFoundException {
         Customer customer = new Customer();
-        customer.setAadharNumber("42");
-        customer.setCustomerName("Customer Name");
+        customer.setAadharNumber("4224345345356456");
+        customer.setCustomerName("Ria");
         customer.setDateOfBirth(LocalDate.ofEpochDay(1L));
         customer.setEmail("jane.doe@example.org");
-        customer.setGender("Gender");
+        customer.setGender("F");
         customer.setMobileNumber("42");
-        customer.setNationality("Nationality");
-        customer.setPanNumber("42");
-        customer.setPassword("iloveyou");
-        customer.setRole("Role");
+        customer.setNationality("Indian");
+        customer.setPanNumber("4353465462");
+        customer.setPassword("ddffg456f");
+        customer.setRole("CUSTOMER");
         customer.setUserId(123);
         Optional<Customer> ofResult = Optional.of(customer);
 
         Customer customer1 = new Customer();
-        customer1.setAadharNumber("42");
-        customer1.setCustomerName("Customer Name");
+        customer1.setAadharNumber("42345345");
+        customer1.setCustomerName("Ritesh");
         customer1.setDateOfBirth(LocalDate.ofEpochDay(1L));
         customer1.setEmail("jane.doe@example.org");
         customer1.setGender("Gender");
         customer1.setMobileNumber("42");
-        customer1.setNationality("Nationality");
+        customer1.setNationality("Indian");
         customer1.setPanNumber("42");
-        customer1.setPassword("iloveyou");
-        customer1.setRole("Role");
+        customer1.setPassword("ghj346");
+        customer1.setRole("CUSTOMER");
         customer1.setUserId(123);
         when(iCustomerRepository.save((Customer) any())).thenReturn(customer1);
         when(iCustomerRepository.findById((Integer) any())).thenReturn(ofResult);
 
         Customer customer2 = new Customer();
-        customer2.setAadharNumber("42");
-        customer2.setCustomerName("Customer Name");
+        customer2.setAadharNumber("4346562");
+        customer2.setCustomerName("Retaa");
         customer2.setDateOfBirth(LocalDate.ofEpochDay(1L));
         customer2.setEmail("jane.doe@example.org");
-        customer2.setGender("Gender");
-        customer2.setMobileNumber("42");
-        customer2.setNationality("Nationality");
+        customer2.setGender("F");
+        customer2.setMobileNumber("4546457672");
+        customer2.setNationality("Indian");
         customer2.setPanNumber("42");
-        customer2.setPassword("iloveyou");
-        customer2.setRole("Role");
+        customer2.setPassword("tyfghdth");
+        customer2.setRole("CUSTOMER");
         customer2.setUserId(123);
 
         Scheme scheme = new Scheme();
