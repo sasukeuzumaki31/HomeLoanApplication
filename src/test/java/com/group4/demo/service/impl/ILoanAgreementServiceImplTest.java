@@ -91,9 +91,7 @@ class ILoanAgreementServiceImplTest {
         verify(iLoanAgreementRepository).findById((Long) any());
     }
 
-    /**
-     * Method under test: {@link ILoanAgreementServiceImpl#retrieveAllLoanAgreement()}
-     */
+
     @Test
     void testRetrieveAllLoanAgreement() {
         ArrayList<LoanAgreement> loanAgreementList = new ArrayList<>();
