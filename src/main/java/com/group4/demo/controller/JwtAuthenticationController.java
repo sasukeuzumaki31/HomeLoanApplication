@@ -10,6 +10,7 @@ import com.group4.demo.entity.JwtResponse;
 import com.group4.demo.service.IAdminService;
 import com.group4.demo.service.JwtAdminDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -17,6 +18,8 @@ import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @RestController
 @CrossOrigin
@@ -46,9 +49,7 @@ public class JwtAuthenticationController {
     }
 
     @PostMapping(value = "/admin/signup")
-    public ResponseEntity<Admin> saveUser(@RequestBody AdminDto user) throws Exception {
-
-
+    public ResponseEntity<Admin> saveUser(@Valid @RequestBody AdminDto user) throws Exception {
         return ResponseEntity.ok(userDetailsService.save(user));
     }
 

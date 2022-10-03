@@ -19,6 +19,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -56,7 +57,7 @@ public class CustomerController {
         Signup a New Customer - /customer/signup/
      */
     @PostMapping("/signup")
-    public ResponseEntity<Customer> createNewCustomer(@RequestBody CustomerDto customerDto) {
+    public ResponseEntity<Customer> createNewCustomer(@Valid @RequestBody CustomerDto customerDto) {
 
         Customer newCustomer = customerService.addCustomer(customerDto);
         return new ResponseEntity<>(newCustomer, HttpStatus.CREATED);
