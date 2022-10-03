@@ -1,0 +1,215 @@
+2022-10-03 14:24:10.407  INFO 19412 --- [restartedMain] com.group4.demo.HomeLoanApplication      : Starting HomeLoanApplication using Java 11.0.12 on INLEN8520055894 with PID 19412 (C:\Users\sukhesin\git\HomeLoanApplication\target\classes started by sukhesin in C:\Users\sukhesin\git\HomeLoanApplication)
+2022-10-03 14:24:10.409  INFO 19412 --- [restartedMain] com.group4.demo.HomeLoanApplication      : No active profile set, falling back to 1 default profile: "default"
+2022-10-03 14:24:10.492  INFO 19412 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2022-10-03 14:24:10.492  INFO 19412 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2022-10-03 14:24:11.490  INFO 19412 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-10-03 14:24:11.585  INFO 19412 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 82 ms. Found 9 JPA repository interfaces.
+2022-10-03 14:24:12.506  INFO 19412 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2022-10-03 14:24:12.521  INFO 19412 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2022-10-03 14:24:12.521  INFO 19412 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.65]
+2022-10-03 14:24:12.626  INFO 19412 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2022-10-03 14:24:12.627  INFO 19412 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2134 ms
+2022-10-03 14:24:12.820  INFO 19412 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-10-03 14:24:12.867  INFO 19412 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.6.11.Final
+2022-10-03 14:24:13.024  INFO 19412 --- [restartedMain] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2022-10-03 14:24:13.135  INFO 19412 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2022-10-03 14:24:13.332  INFO 19412 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2022-10-03 14:24:13.367  INFO 19412 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL10Dialect
+2022-10-03 14:24:14.218  INFO 19412 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-10-03 14:24:14.225  INFO 19412 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-10-03 14:24:14.655  WARN 19412 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-10-03 14:24:15.599  INFO 19412 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@691d1974, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@33900f4e, org.springframework.security.web.context.SecurityContextPersistenceFilter@4229ca0c, org.springframework.security.web.header.HeaderWriterFilter@4b724fc, org.springframework.security.web.authentication.logout.LogoutFilter@1f33cebb, com.group4.demo.config.JwtRequestFilter@7d6c1f83, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@12bc1e52, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@e995f0d, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@2734b62f, org.springframework.security.web.session.SessionManagementFilter@49228ee6, org.springframework.security.web.access.ExceptionTranslationFilter@75b1f837, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@77250081]
+2022-10-03 14:24:15.780  INFO 19412 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2022-10-03 14:24:16.076  INFO 19412 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2022-10-03 14:24:16.719  INFO 19412 --- [restartedMain] com.group4.demo.HomeLoanApplication      : Started HomeLoanApplication in 6.797 seconds (JVM running for 7.358)
+2022-10-03 14:24:28.510  INFO 19412 --- [http-nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-10-03 14:24:28.511  INFO 19412 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2022-10-03 14:24:28.513  INFO 19412 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2022-10-03 14:24:28.532  WARN 19412 --- [http-nio-8080-exec-2] com.group4.demo.config.JwtRequestFilter  : JWT Token does not begin with Bearer String
+2022-10-03 14:24:28.717  WARN 19412 --- [http-nio-8080-exec-2] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument [0] in public org.springframework.http.ResponseEntity<com.group4.demo.entity.Admin> com.group4.demo.controller.JwtAuthenticationController.saveUser(com.group4.demo.Dto.AdminDto) throws java.lang.Exception: [Field error in object 'adminDto' on field 'adminContact': rejected value [123456789]; codes [Size.adminDto.adminContact,Size.adminContact,Size.java.lang.String,Size]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [adminDto.adminContact,adminContact]; arguments []; default message [adminContact],10,10]; default message [Please enter 10 digit mobile no without country code]] ]
+2022-10-03 14:24:34.187  WARN 19412 --- [http-nio-8080-exec-4] com.group4.demo.config.JwtRequestFilter  : JWT Token does not begin with Bearer String
+2022-10-03 14:39:08.312  INFO 19412 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2022-10-03 14:39:08.316  INFO 19412 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2022-10-03 14:39:08.321  INFO 19412 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2022-10-03 14:39:15.885  INFO 17556 --- [restartedMain] com.group4.demo.HomeLoanApplication      : Starting HomeLoanApplication using Java 11.0.12 on INLEN8520055894 with PID 17556 (C:\Users\sukhesin\git\HomeLoanApplication\target\classes started by sukhesin in C:\Users\sukhesin\git\HomeLoanApplication)
+2022-10-03 14:39:15.887  INFO 17556 --- [restartedMain] com.group4.demo.HomeLoanApplication      : No active profile set, falling back to 1 default profile: "default"
+2022-10-03 14:39:15.970  INFO 17556 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2022-10-03 14:39:15.970  INFO 17556 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2022-10-03 14:39:17.064  INFO 17556 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-10-03 14:39:17.172  INFO 17556 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 94 ms. Found 9 JPA repository interfaces.
+2022-10-03 14:39:18.305  INFO 17556 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2022-10-03 14:39:18.329  INFO 17556 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2022-10-03 14:39:18.330  INFO 17556 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.65]
+2022-10-03 14:39:18.457  INFO 17556 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2022-10-03 14:39:18.457  INFO 17556 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2486 ms
+2022-10-03 14:39:18.685  INFO 17556 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-10-03 14:39:18.752  INFO 17556 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.6.11.Final
+2022-10-03 14:39:18.945  INFO 17556 --- [restartedMain] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2022-10-03 14:39:19.134  INFO 17556 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2022-10-03 14:39:19.484  INFO 17556 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2022-10-03 14:39:19.513  INFO 17556 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL10Dialect
+2022-10-03 14:39:20.478  INFO 17556 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-10-03 14:39:20.486  INFO 17556 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-10-03 14:39:20.826  WARN 17556 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-10-03 14:39:21.777  INFO 17556 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@300c0fe2, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@7030097f, org.springframework.security.web.context.SecurityContextPersistenceFilter@246ae3d7, org.springframework.security.web.header.HeaderWriterFilter@3d4b8bb4, org.springframework.security.web.authentication.logout.LogoutFilter@3a14976a, com.group4.demo.config.JwtRequestFilter@3dce560c, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@7ab64e27, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@4fba751f, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@18d167ab, org.springframework.security.web.session.SessionManagementFilter@553dd48, org.springframework.security.web.access.ExceptionTranslationFilter@7fc10a3b, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@64c07682]
+2022-10-03 14:39:21.930  INFO 17556 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2022-10-03 14:39:22.208  INFO 17556 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2022-10-03 14:39:22.623  INFO 17556 --- [restartedMain] com.group4.demo.HomeLoanApplication      : Started HomeLoanApplication in 7.292 seconds (JVM running for 7.942)
+2022-10-03 16:20:01.940  INFO 17556 --- [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 2 class path changes (0 additions, 2 deletions, 0 modifications)
+2022-10-03 16:20:02.080  INFO 17556 --- [Thread-4] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2022-10-03 16:20:02.094  WARN 17556 --- [Thread-4] o.a.c.loader.WebappClassLoaderBase       : The web application [ROOT] appears to have started a thread named [HikariPool-1 housekeeper] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base@11.0.12/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base@11.0.12/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:234)
+ java.base@11.0.12/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2123)
+ java.base@11.0.12/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1182)
+ java.base@11.0.12/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:899)
+ java.base@11.0.12/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1054)
+ java.base@11.0.12/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1114)
+ java.base@11.0.12/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+ java.base@11.0.12/java.lang.Thread.run(Thread.java:829)
+2022-10-03 16:20:02.112  INFO 17556 --- [Thread-4] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2022-10-03 16:20:02.126  INFO 17556 --- [Thread-4] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2022-10-03 16:20:02.133  INFO 17556 --- [Thread-4] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2022-10-03 16:20:02.318  INFO 17556 --- [restartedMain] com.group4.demo.HomeLoanApplication      : Starting HomeLoanApplication using Java 11.0.12 on INLEN8520055894 with PID 17556 (C:\Users\sukhesin\git\HomeLoanApplication\target\classes started by sukhesin in C:\Users\sukhesin\git\HomeLoanApplication)
+2022-10-03 16:20:02.319  INFO 17556 --- [restartedMain] com.group4.demo.HomeLoanApplication      : No active profile set, falling back to 1 default profile: "default"
+2022-10-03 16:20:02.787  INFO 17556 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-10-03 16:20:02.846  INFO 17556 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 57 ms. Found 9 JPA repository interfaces.
+2022-10-03 16:20:03.056  INFO 17556 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2022-10-03 16:20:03.058  INFO 17556 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2022-10-03 16:20:03.058  INFO 17556 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.65]
+2022-10-03 16:20:03.082  INFO 17556 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2022-10-03 16:20:03.082  INFO 17556 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 759 ms
+2022-10-03 16:20:03.091 ERROR 17556 --- [restartedMain] o.s.b.web.embedded.tomcat.TomcatStarter  : Error starting Tomcat context. Exception: org.springframework.beans.factory.UnsatisfiedDependencyException. Message: Error creating bean with name 'jwtRequestFilter': Unsatisfied dependency expressed through field 'jwtUserDetailsService'; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'jwtAdminDetailsService' defined in file [C:\Users\sukhesin\git\HomeLoanApplication\target\classes\com\group4\demo\service\JwtAdminDetailsService.class]: Post-processing of merged bean definition failed; nested exception is java.lang.IllegalStateException: Failed to introspect Class [com.group4.demo.service.JwtAdminDetailsService] from ClassLoader [org.springframework.boot.devtools.restart.classloader.RestartClassLoader@15b029b4]
+2022-10-03 16:20:03.093  INFO 17556 --- [restartedMain] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2022-10-03 16:20:03.096  WARN 17556 --- [restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Unable to start web server; nested exception is org.springframework.boot.web.server.WebServerException: Unable to start embedded Tomcat
+2022-10-03 16:20:03.100  INFO 17556 --- [restartedMain] ConditionEvaluationReportLoggingListener : 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2022-10-03 16:20:03.136 ERROR 17556 --- [restartedMain] o.s.boot.SpringApplication               : Application run failed
+
+org.springframework.context.ApplicationContextException: Unable to start web server; nested exception is org.springframework.boot.web.server.WebServerException: Unable to start embedded Tomcat
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.onRefresh(ServletWebServerApplicationContext.java:165) ~[spring-boot-2.7.4.jar:2.7.4]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:577) ~[spring-context-5.3.23.jar:5.3.23]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:147) ~[spring-boot-2.7.4.jar:2.7.4]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:734) ~[spring-boot-2.7.4.jar:2.7.4]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:408) ~[spring-boot-2.7.4.jar:2.7.4]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:308) ~[spring-boot-2.7.4.jar:2.7.4]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1306) ~[spring-boot-2.7.4.jar:2.7.4]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1295) ~[spring-boot-2.7.4.jar:2.7.4]
+	at com.group4.demo.HomeLoanApplication.main(HomeLoanApplication.java:16) ~[classes/:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566) ~[na:na]
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49) ~[spring-boot-devtools-2.7.4.jar:2.7.4]
+Caused by: org.springframework.boot.web.server.WebServerException: Unable to start embedded Tomcat
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:142) ~[spring-boot-2.7.4.jar:2.7.4]
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.<init>(TomcatWebServer.java:104) ~[spring-boot-2.7.4.jar:2.7.4]
+	at org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory.getTomcatWebServer(TomcatServletWebServerFactory.java:479) ~[spring-boot-2.7.4.jar:2.7.4]
+	at org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory.getWebServer(TomcatServletWebServerFactory.java:211) ~[spring-boot-2.7.4.jar:2.7.4]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.createWebServer(ServletWebServerApplicationContext.java:184) ~[spring-boot-2.7.4.jar:2.7.4]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.onRefresh(ServletWebServerApplicationContext.java:162) ~[spring-boot-2.7.4.jar:2.7.4]
+	... 13 common frames omitted
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'jwtRequestFilter': Unsatisfied dependency expressed through field 'jwtUserDetailsService'; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'jwtAdminDetailsService' defined in file [C:\Users\sukhesin\git\HomeLoanApplication\target\classes\com\group4\demo\service\JwtAdminDetailsService.class]: Post-processing of merged bean definition failed; nested exception is java.lang.IllegalStateException: Failed to introspect Class [com.group4.demo.service.JwtAdminDetailsService] from ClassLoader [org.springframework.boot.devtools.restart.classloader.RestartClassLoader@15b029b4]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:659) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:639) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:119) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:399) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1431) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:619) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:542) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:335) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:333) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:213) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.getOrderedBeansOfType(ServletContextInitializerBeans.java:212) ~[spring-boot-2.7.4.jar:2.7.4]
+	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.addAsRegistrationBean(ServletContextInitializerBeans.java:175) ~[spring-boot-2.7.4.jar:2.7.4]
+	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.addAsRegistrationBean(ServletContextInitializerBeans.java:170) ~[spring-boot-2.7.4.jar:2.7.4]
+	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.addAdaptableBeans(ServletContextInitializerBeans.java:155) ~[spring-boot-2.7.4.jar:2.7.4]
+	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.<init>(ServletContextInitializerBeans.java:87) ~[spring-boot-2.7.4.jar:2.7.4]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.getServletContextInitializerBeans(ServletWebServerApplicationContext.java:262) ~[spring-boot-2.7.4.jar:2.7.4]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.selfInitialize(ServletWebServerApplicationContext.java:236) ~[spring-boot-2.7.4.jar:2.7.4]
+	at org.springframework.boot.web.embedded.tomcat.TomcatStarter.onStartup(TomcatStarter.java:53) ~[spring-boot-2.7.4.jar:2.7.4]
+	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:5219) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1396) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1386) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264) ~[na:na]
+	at org.apache.tomcat.util.threads.InlineExecutorService.execute(InlineExecutorService.java:75) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at java.base/java.util.concurrent.AbstractExecutorService.submit(AbstractExecutorService.java:140) ~[na:na]
+	at org.apache.catalina.core.ContainerBase.startInternal(ContainerBase.java:919) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.catalina.core.StandardHost.startInternal(StandardHost.java:835) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1396) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1386) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264) ~[na:na]
+	at org.apache.tomcat.util.threads.InlineExecutorService.execute(InlineExecutorService.java:75) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at java.base/java.util.concurrent.AbstractExecutorService.submit(AbstractExecutorService.java:140) ~[na:na]
+	at org.apache.catalina.core.ContainerBase.startInternal(ContainerBase.java:919) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.catalina.core.StandardEngine.startInternal(StandardEngine.java:265) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.catalina.core.StandardService.startInternal(StandardService.java:432) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.catalina.core.StandardServer.startInternal(StandardServer.java:930) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.catalina.startup.Tomcat.start(Tomcat.java:486) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:123) ~[spring-boot-2.7.4.jar:2.7.4]
+	... 18 common frames omitted
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'jwtAdminDetailsService' defined in file [C:\Users\sukhesin\git\HomeLoanApplication\target\classes\com\group4\demo\service\JwtAdminDetailsService.class]: Post-processing of merged bean definition failed; nested exception is java.lang.IllegalStateException: Failed to introspect Class [com.group4.demo.service.JwtAdminDetailsService] from ClassLoader [org.springframework.boot.devtools.restart.classloader.RestartClassLoader@15b029b4]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:597) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:542) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:335) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:333) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:208) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:276) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1391) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1311) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:656) ~[spring-beans-5.3.23.jar:5.3.23]
+	... 60 common frames omitted
+Caused by: java.lang.IllegalStateException: Failed to introspect Class [com.group4.demo.service.JwtAdminDetailsService] from ClassLoader [org.springframework.boot.devtools.restart.classloader.RestartClassLoader@15b029b4]
+	at org.springframework.util.ReflectionUtils.getDeclaredFields(ReflectionUtils.java:743) ~[spring-core-5.3.23.jar:5.3.23]
+	at org.springframework.util.ReflectionUtils.doWithLocalFields(ReflectionUtils.java:675) ~[spring-core-5.3.23.jar:5.3.23]
+	at org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor.buildPersistenceMetadata(PersistenceAnnotationBeanPostProcessor.java:407) ~[spring-orm-5.3.23.jar:5.3.23]
+	at org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor.findPersistenceMetadata(PersistenceAnnotationBeanPostProcessor.java:388) ~[spring-orm-5.3.23.jar:5.3.23]
+	at org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor.postProcessMergedBeanDefinition(PersistenceAnnotationBeanPostProcessor.java:335) ~[spring-orm-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.applyMergedBeanDefinitionPostProcessors(AbstractAutowireCapableBeanFactory.java:1116) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:594) ~[spring-beans-5.3.23.jar:5.3.23]
+	... 69 common frames omitted
+Caused by: java.lang.NoClassDefFoundError: Lcom/group4/demo/service/IAdminService;
+	at java.base/java.lang.Class.getDeclaredFields0(Native Method) ~[na:na]
+	at java.base/java.lang.Class.privateGetDeclaredFields(Class.java:3061) ~[na:na]
+	at java.base/java.lang.Class.getDeclaredFields(Class.java:2248) ~[na:na]
+	at org.springframework.util.ReflectionUtils.getDeclaredFields(ReflectionUtils.java:738) ~[spring-core-5.3.23.jar:5.3.23]
+	... 75 common frames omitted
+Caused by: java.lang.ClassNotFoundException: com.group4.demo.service.IAdminService
+	at java.base/jdk.internal.loader.BuiltinClassLoader.loadClass(BuiltinClassLoader.java:581) ~[na:na]
+	at java.base/jdk.internal.loader.ClassLoaders$AppClassLoader.loadClass(ClassLoaders.java:178) ~[na:na]
+	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:522) ~[na:na]
+	at java.base/java.lang.Class.forName0(Native Method) ~[na:na]
+	at java.base/java.lang.Class.forName(Class.java:398) ~[na:na]
+	at org.springframework.boot.devtools.restart.classloader.RestartClassLoader.loadClass(RestartClassLoader.java:145) ~[spring-boot-devtools-2.7.4.jar:2.7.4]
+	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:522) ~[na:na]
+	... 79 common frames omitted
+
+2022-10-03 16:20:05.658  INFO 17556 --- [restartedMain] com.group4.demo.HomeLoanApplication      : Starting HomeLoanApplication using Java 11.0.12 on INLEN8520055894 with PID 17556 (C:\Users\sukhesin\git\HomeLoanApplication\target\classes started by sukhesin in C:\Users\sukhesin\git\HomeLoanApplication)
+2022-10-03 16:20:05.658  INFO 17556 --- [restartedMain] com.group4.demo.HomeLoanApplication      : No active profile set, falling back to 1 default profile: "default"
+2022-10-03 16:20:06.125  INFO 17556 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-10-03 16:20:06.187  INFO 17556 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 60 ms. Found 9 JPA repository interfaces.
+2022-10-03 16:20:06.387  INFO 17556 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2022-10-03 16:20:06.389  INFO 17556 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2022-10-03 16:20:06.390  INFO 17556 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.65]
+2022-10-03 16:20:06.415  INFO 17556 --- [restartedMain] o.a.c.c.C.[Tomcat-1].[localhost].[/]     : Initializing Spring embedded WebApplicationContext
+2022-10-03 16:20:06.415  INFO 17556 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 753 ms
+2022-10-03 16:20:06.481  INFO 17556 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-10-03 16:20:06.491  INFO 17556 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
+2022-10-03 16:20:06.593  INFO 17556 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
+2022-10-03 16:20:06.593  INFO 17556 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL10Dialect
+2022-10-03 16:20:06.951  INFO 17556 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-10-03 16:20:06.952  INFO 17556 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-10-03 16:20:07.070  WARN 17556 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-10-03 16:20:07.786  INFO 17556 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@5ed30cf5, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@4393013e, org.springframework.security.web.context.SecurityContextPersistenceFilter@2894db1e, org.springframework.security.web.header.HeaderWriterFilter@6f3cd480, org.springframework.security.web.authentication.logout.LogoutFilter@2f0d7e4a, com.group4.demo.config.JwtRequestFilter@535ea, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@73f1adfc, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@7ae0efd6, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@59704a27, org.springframework.security.web.session.SessionManagementFilter@a4b9dd, org.springframework.security.web.access.ExceptionTranslationFilter@6617b52d, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@6127b3a9]
+2022-10-03 16:20:07.894  INFO 17556 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2022-10-03 16:20:08.036  INFO 17556 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2022-10-03 16:20:08.396  INFO 17556 --- [restartedMain] com.group4.demo.HomeLoanApplication      : Started HomeLoanApplication in 2.773 seconds (JVM running for 6053.763)
+2022-10-03 16:20:08.401  INFO 17556 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
