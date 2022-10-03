@@ -1,7 +1,10 @@
 package com.group4.demo.service.impl;
 
 import com.group4.demo.Dto.LandVerificationOfficerDto;
+import com.group4.demo.Dto.UserLoginDto;
 import com.group4.demo.advices.ResourceNotFoundException;
+import com.group4.demo.controller.LandOfficerController;
+import com.group4.demo.entity.Customer;
 import com.group4.demo.entity.LandVerificationOfficer;
 import com.group4.demo.entity.LoanApplication;
 import com.group4.demo.repository.ILandVerificationRepository;
@@ -48,6 +51,18 @@ public class ILandVerificationServiceImpl implements ILLandVerificationService {
         landVerificationOfficer.setRole("LAND_VERIFICATION_OFFICER");
         logger.info("Exited from addLandVerificationOfficer method in LandVerification Class");
         return landVerificationRepository.save(landVerificationOfficer);
+
+    }
+
+    @Override
+    public String loginLandOfficer(UserLoginDto userLoginDto) throws ResourceNotFoundException {
+        LandVerificationOfficer landVerificationOfficer = landVerificationRepository.findById(userLoginDto.getUserId()).orElseThrow(() -> new ResourceNotFoundException("Invalid Credentials "));
+        String password = userLoginDto.getPassword();
+
+        if (bcryptEncoder.matches(password, landVerificationOfficer.getPassword())) {
+            return "Login successfully";
+        }
+        return "Invalid Credentials";
 
     }
 
