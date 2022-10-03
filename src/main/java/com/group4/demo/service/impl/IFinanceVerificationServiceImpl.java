@@ -1,6 +1,7 @@
 package com.group4.demo.service.impl;
 
 import com.group4.demo.Dto.FinanceVerificationDto;
+import com.group4.demo.Dto.UserLoginDto;
 import com.group4.demo.advices.ResourceNotFoundException;
 import com.group4.demo.entity.FinanceVerificationOfficer;
 import com.group4.demo.entity.LoanApplication;
@@ -12,9 +13,9 @@ import com.group4.demo.util.HomeLoanBorrowingAmountCalculator;
 import org.apache.juli.logging.Log;
 import org.apache.juli.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 
 @Service
@@ -73,16 +74,15 @@ public class IFinanceVerificationServiceImpl implements IFinanceVerificationServ
     }
 
     @Override
-    public FinanceVerificationOfficer loginFinanceVerificationOfficerById(int id, String pass) throws ResourceNotFoundException
+    public String loginFinanceVerificationOfficer(@RequestBody UserLoginDto user) throws ResourceNotFoundException
     {
-        FinanceVerificationOfficer financeVerificationOfficer = financeVerificationRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("User Not found for Id " + id));
+        FinanceVerificationOfficer financeVerificationOfficer = financeVerificationRepository.findById(user.getUserId())
+                .orElseThrow(() -> new ResourceNotFoundException("User Not found for Id " + user.getUserId()));
 
-        if(!bcryptEncoder.encode(pass).equals(financeVerificationOfficer.getPassword()))
-        {
-            throw new ResourceNotFoundException("Invalid Credentials");
+        if (bcryptEncoder.matches(user.getPassword(), financeVerificationOfficer.getPassword())) {
+            return "Login successfully";
         }
-        return financeVerificationOfficer;
+        return "Invalid Credentials";
     }
 
 }
