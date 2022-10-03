@@ -95,6 +95,7 @@ public class LoanApplicationServiceImpl implements ILoanApplicationService {
 
         if(loanApplication.getStatus().equals(String.valueOf(Status.DOCUMENTS_UPLOADED))){
             loanApplication.setStatus(String.valueOf(Status.WAITING_FOR_LAND_VERIFICATION_OFFICE_APPROVAL));
+            return loanRepo.save(loanApplication);
         }else {
             boolean verify = loanApplication.isLandVerificationApproval() && loanApplication.isFinanceVerificationApproval();
             loanApplication.setAdminApproval(verify);
