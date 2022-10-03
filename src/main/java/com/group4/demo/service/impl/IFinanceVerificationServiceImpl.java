@@ -10,6 +10,7 @@ import com.group4.demo.repository.ILoanApplicationRepository;
 import com.group4.demo.service.IFinanceVerificationService;
 import com.group4.demo.util.HomeLoanBorrowingAmountCalculator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 
@@ -22,12 +23,15 @@ public class IFinanceVerificationServiceImpl implements IFinanceVerificationServ
     @Autowired
     ILoanApplicationRepository loanApplicationRepository;
 
+    @Autowired
+    private PasswordEncoder bcryptEncoder;
+
     @Override
     public FinanceVerificationOfficer addFinanceVerificationOfficer(FinanceVerificationDto financeVerificationDto) {
         FinanceVerificationOfficer financeVerificationOfficer = new FinanceVerificationOfficer();
         financeVerificationOfficer.setFinOfficerName(financeVerificationDto.getFinOfficerName());
         financeVerificationOfficer.setFinOfficerContact(financeVerificationDto.getFinOfficerContact());
-        financeVerificationOfficer.setPassword(financeVerificationDto.getPassword());
+        financeVerificationOfficer.setPassword(bcryptEncoder.encode(financeVerificationDto.getPassword()));
         financeVerificationOfficer.setUserId(financeVerificationDto.getUserId());
         financeVerificationOfficer.setRole("FinanceVerificationOfficer");
 
