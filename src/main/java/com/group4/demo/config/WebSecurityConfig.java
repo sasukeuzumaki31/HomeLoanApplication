@@ -51,17 +51,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
-        // We don't need CSRF for this example
+
         httpSecurity.csrf().disable()
-                // dont authenticate this particular request
+                // don't authenticate this particular request
                 .authorizeRequests().antMatchers("/authenticate", "/admin/signup", "/customer/signup"
                         , "/landofficer/signup", "/financeofficer/signup"
-                        ,"/customer/apply","/landofficer/loan/{id}","/v3/api-docs/**"
+                        ,"/customer/apply","/customer/loan/{loanApplicationId}","/customer/document/{id}","/customer/schemes","/customer/emi","/customer/loanagreement/{id}",
+                        "/financeofficer/loan/{id}","/financeofficer/loans/pending",
+                        "/landofficer/loan/{id}", "/landofficer/loans/pending",
+                        "/v3/api-docs/**"
                         ,"/swagger-ui/**","/swagger-resources/**","/swagger-ui.html","/webjars/**","/v2/api-docs/**").permitAll().
                 // all other requests need to be authenticated
                         anyRequest().authenticated().and().
-                // make sure we use stateless session; session won't be used to
-                // store user's state.
                         exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 

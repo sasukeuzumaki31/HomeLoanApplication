@@ -36,7 +36,7 @@ public class FinanceOfficerController {
         return new ResponseEntity<>(newFinanceVerificationOfficer, HttpStatus.CREATED);
     }
 
-    @GetMapping("/loans/{id}")
+    @GetMapping("/loan/{id}")
     public ResponseEntity<LoanApplication> retrieveLoanApplicationById(@PathVariable Long id) throws ResourceNotFoundException
     {
         LoanApplication loanApplication = loanApplicationService.retrieveLoanApplicationById(id);

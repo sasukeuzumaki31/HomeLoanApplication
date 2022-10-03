@@ -15,7 +15,7 @@ public class LoanAgreement {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long loanAgreementId;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "fk_loan_id", referencedColumnName = "applicationId")
     LoanApplication loanApplication;
 }

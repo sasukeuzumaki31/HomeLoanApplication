@@ -1,6 +1,7 @@
 package com.group4.demo.service.impl;
 
 import com.group4.demo.Dto.AdminDto;
+import com.group4.demo.advices.ResourceNotFoundException;
 import com.group4.demo.entity.Admin;
 import com.group4.demo.repository.IAdminRepository;
 import com.group4.demo.service.IAdminService;
@@ -20,16 +21,15 @@ public class IAdminServiceImpl implements IAdminService {
     private PasswordEncoder bcryptEncoder;
 
     @Override
-    public Admin viewAdmin(int adminid) {
-        Optional<Admin> admin = adminRepo.findById(adminid);
-        if (!admin.isPresent()) {
-            return null;
-        }
-        return admin.get();
+    public Admin viewAdmin(int adminid) throws ResourceNotFoundException {
+        return adminRepo.findById(adminid).orElseThrow(()->new ResourceNotFoundException("Admin does not exists with id : " + adminid));
     }
 
     @Override
-    public List<Admin> viewAllAdmin() {
+    public List<Admin> viewAllAdmin() throws ResourceNotFoundException{
+        if(adminRepo.findAll().isEmpty()){
+            throw new ResourceNotFoundException("No User Found");
+        }
         return adminRepo.findAll();
     }
 
@@ -46,31 +46,30 @@ public class IAdminServiceImpl implements IAdminService {
     }
 
     @Override
-    public Admin updateAdmin(int id, Admin admin) {
-        Optional<Admin> adminOp = adminRepo.findById(id);
-        if (!adminOp.isPresent()) {
-            return null;
-        }
-        return adminRepo.save(admin);
+    public Admin updateAdmin(int id, Admin admin) throws ResourceNotFoundException {
+        Admin adminOp = adminRepo.findById(id).orElseThrow(()->new ResourceNotFoundException("Admin does not exists with id : " + id));
+        return adminRepo.save(adminOp);
     }
 
-    @Override
-    public Admin deleteAdmin(int id, Admin admin) {
-        Optional<Admin> adminOp = adminRepo.findById(id);
-        if (!adminOp.isPresent()) {
-            return null;
-        }
-        adminRepo.delete(admin);
-        return adminOp.get();
-    }
+//    @Override
+//    public Admin deleteAdmin(int id, Admin admin) {
+//        Optional<Admin> adminOp = adminRepo.findById(id);
+//        if (!adminOp.isPresent()) {
+//            return null;
+//        }
+//        adminRepo.delete(admin);
+//        return adminOp.get();
+//    }
 
     @Override
-    public Admin deleteAdminById(int adminId) {
+    public Admin deleteAdminById(int adminId) throws ResourceNotFoundException {
         Optional<Admin> adminOp = adminRepo.findById(adminId);
-        if (!adminOp.isPresent()) {
-            return null;
+        if (adminOp.isPresent()) {
+            adminRepo.deleteById(adminId);
+            return adminOp.get();
         }
-        adminRepo.delete(adminOp.get());
-        return adminOp.get();
+        else{
+            throw new ResourceNotFoundException("User Not found for Id" + adminId);
+        }
     }
 }
