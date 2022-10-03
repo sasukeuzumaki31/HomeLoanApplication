@@ -13,11 +13,19 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Table(name = "user_table")
 @MappedSuperclass
+
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int userId;
     private String password;
-    private String role;
+
+//    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+//    @JoinTable(
+//            joinColumns =@JoinColumn(name = "user_id",referencedColumnName = "userId"),
+//            inverseJoinColumns = @JoinColumn(name = "role_id",referencedColumnName = "id")
+//    )
+//    private Set roles;
+    private String  role;
 
 }
