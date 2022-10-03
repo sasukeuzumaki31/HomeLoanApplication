@@ -6,7 +6,6 @@ import com.group4.demo.entity.Customer;
 import com.group4.demo.entity.LoanApplication;
 import com.group4.demo.entity.Scheme;
 import com.group4.demo.entity.Status;
-import com.group4.demo.advices.ResourceNotFoundException;
 import com.group4.demo.entity.*;
 import com.group4.demo.service.IAdminService;
 import com.group4.demo.service.ICustomerService;
@@ -47,6 +46,13 @@ public class AdminController {
         List<Customer> customers = customerService.viewAllCustomers();
         return new ResponseEntity<>(customers, HttpStatus.OK);
     }
+
+    @GetMapping("/users/{date}")
+    public ResponseEntity<List<Customer>> viewCustomerList(@PathVariable String date) throws ResourceNotFoundException{
+        List<Customer> customers = customerService.viewCustomerList(date);
+        return new ResponseEntity<>(customers, HttpStatus.OK);
+    }
+
     @GetMapping("/user/{id}")
     public ResponseEntity<Customer> viewCustomer(@PathVariable int id) throws ResourceNotFoundException{
         Customer customer = customerService.viewCustomer(id);

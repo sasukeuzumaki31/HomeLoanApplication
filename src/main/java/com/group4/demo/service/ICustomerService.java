@@ -4,7 +4,6 @@ import com.group4.demo.Dto.CustomerDto;
 import com.group4.demo.advices.ResourceNotFoundException;
 import com.group4.demo.entity.Customer;
 
-import java.time.LocalDate;
 import java.util.List;
 
 public interface ICustomerService {
@@ -17,6 +16,6 @@ public interface ICustomerService {
 
     Customer updateCustomer(int id, CustomerDto customerDto) throws ResourceNotFoundException;
 
-    List<Customer> viewCustomerList(LocalDate dateOfApplication);
+    List<Customer> viewCustomerList(String dateOfApplication) throws ResourceNotFoundException;
     Customer deleteCustomerById(int custId) throws ResourceNotFoundException;
 }
