@@ -45,7 +45,7 @@ public class CustomerController {
         Applying for a New Loan - /customer/apply
      */
     @PostMapping("/apply")
-    public ResponseEntity<LoanApplication> createNewLoanApplication(@RequestBody LoanApplicationDto loanApplicatonDto) throws ResourceNotFoundException {
+    public ResponseEntity<LoanApplication> createNewLoanApplication(@Valid @RequestBody LoanApplicationDto loanApplicatonDto) throws ResourceNotFoundException {
 
         loanApplicatonDto.setApplicationDate(LocalDate.now());
         LoanApplication savedLoanApplication = loanApplicationService.addLoanApplication(loanApplicatonDto);

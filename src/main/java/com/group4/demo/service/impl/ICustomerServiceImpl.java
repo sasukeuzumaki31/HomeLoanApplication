@@ -84,9 +84,14 @@ public class ICustomerServiceImpl implements ICustomerService {
     }
 
     @Override
-    public List<Customer> viewCustomerList(LocalDate dateOfApplication) {
-//        return custRepo.findByDateOfApplication(dateOfApplication);
-        return null;
+    public List<Customer> viewCustomerList(String date) throws ResourceNotFoundException{
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate dateOfApplication = LocalDate.parse(date, formatter);
+        List<Customer> customers = custRepo.findByDateOfApplication(dateOfApplication);
+        if(customers.isEmpty()){
+            throw new ResourceNotFoundException("No users found for the given date");
+        }
+        return customers;
     }
 
     @Override
