@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -30,7 +31,7 @@ public class FinanceOfficerController {
 
 
     @PostMapping("/signup")
-    public ResponseEntity<FinanceVerificationOfficer> createNewFinanceVerificationOfficer(@RequestBody FinanceVerificationDto financeOfficerDto)
+    public ResponseEntity<FinanceVerificationOfficer> createNewFinanceVerificationOfficer(@Valid @RequestBody FinanceVerificationDto financeOfficerDto)
     {
         FinanceVerificationOfficer newFinanceVerificationOfficer = financeVerificationService.addFinanceVerificationOfficer(financeOfficerDto);
         return new ResponseEntity<>(newFinanceVerificationOfficer, HttpStatus.CREATED);
