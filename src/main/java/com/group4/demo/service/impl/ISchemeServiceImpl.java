@@ -6,7 +6,7 @@ import com.group4.demo.entity.Scheme;
 import com.group4.demo.repository.ISchemeRepository;
 import com.group4.demo.service.ISchemeService;
 import org.apache.juli.logging.Log;
-import org.slf4j.LoggerFactory;
+import org.apache.juli.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +15,7 @@ import java.util.List;
 @Service
 public class ISchemeServiceImpl implements ISchemeService {
 
-    Log logger = (Log) LoggerFactory.getLogger(ISchemeServiceImpl.class);
+    Log logger = LogFactory.getLog(ISchemeServiceImpl.class);
     @Autowired
     ISchemeRepository schemeRepo;
 
