@@ -15,6 +15,5 @@ public interface IAdminService {
 
     Admin updateAdmin(int id, Admin admin) throws ResourceNotFoundException;
 
-    Admin deleteAdminById(int adminId) throws ResourceNotFoundException;
 
 }
