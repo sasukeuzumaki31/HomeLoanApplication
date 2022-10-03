@@ -9,7 +9,10 @@ import com.group4.demo.repository.IFinanceVerificationRepository;
 import com.group4.demo.repository.ILoanApplicationRepository;
 import com.group4.demo.service.IFinanceVerificationService;
 import com.group4.demo.util.HomeLoanBorrowingAmountCalculator;
+import org.apache.juli.logging.Log;
+import org.apache.juli.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +20,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class IFinanceVerificationServiceImpl implements IFinanceVerificationService {
 
+    Log logger = LogFactory.getLog(IFinanceVerificationServiceImpl.class);
     @Autowired
     IFinanceVerificationRepository financeVerificationRepository;
 
@@ -28,6 +32,7 @@ public class IFinanceVerificationServiceImpl implements IFinanceVerificationServ
 
     @Override
     public FinanceVerificationOfficer addFinanceVerificationOfficer(FinanceVerificationDto financeVerificationDto) {
+        logger.info("Entered in addFinanceVerificationOfficer method in IFinanceVerificationServiceImpl");
         FinanceVerificationOfficer financeVerificationOfficer = new FinanceVerificationOfficer();
         financeVerificationOfficer.setFinOfficerName(financeVerificationDto.getFinOfficerName());
         financeVerificationOfficer.setFinOfficerContact(financeVerificationDto.getFinOfficerContact());
@@ -41,6 +46,8 @@ public class IFinanceVerificationServiceImpl implements IFinanceVerificationServ
 
     @Override
     public LoanApplication updateStatus(Long id) throws ResourceNotFoundException {
+
+        logger.info("Entered in updateStatus method in IFinanceVerificationServiceImpl");
 
         LoanApplication loanApplicationOp = loanApplicationRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User Not found for Id " + id));
@@ -64,4 +71,18 @@ public class IFinanceVerificationServiceImpl implements IFinanceVerificationServ
         loanApplicationRepository.save(loanApplication);
         return loanApplication;
     }
+
+    @Override
+    public FinanceVerificationOfficer loginFinanceVerificationOfficerById(int id, String pass) throws ResourceNotFoundException
+    {
+        FinanceVerificationOfficer financeVerificationOfficer = financeVerificationRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("User Not found for Id " + id));
+
+        if(!bcryptEncoder.encode(pass).equals(financeVerificationOfficer.getPassword()))
+        {
+            throw new ResourceNotFoundException("Invalid Credentials");
+        }
+        return financeVerificationOfficer;
+    }
+
 }
