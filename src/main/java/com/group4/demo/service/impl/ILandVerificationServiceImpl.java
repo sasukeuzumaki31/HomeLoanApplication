@@ -8,6 +8,7 @@ import com.group4.demo.repository.ILandVerificationRepository;
 import com.group4.demo.repository.ILoanApplicationRepository;
 import com.group4.demo.service.ILLandVerificationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -18,6 +19,9 @@ public class ILandVerificationServiceImpl implements ILLandVerificationService {
 
     @Autowired
     ILoanApplicationRepository loanApplicationRepository;
+
+    @Autowired
+    private PasswordEncoder bcryptEncoder;
     @Override
     public void updateStatus(LoanApplication loanApplication) throws ResourceNotFoundException {
         if(loanApplicationRepository.findById(loanApplication.getApplicationId()).isPresent()){
@@ -34,7 +38,7 @@ public class ILandVerificationServiceImpl implements ILLandVerificationService {
         LandVerificationOfficer landVerificationOfficer = new LandVerificationOfficer();
         landVerificationOfficer.setOfficeContact(landVerificationOfficerDto.getOfficeContact());
         landVerificationOfficer.setOfficeName(landVerificationOfficerDto.getOfficeName());
-        landVerificationOfficer.setPassword(landVerificationOfficerDto.getPassword());
+        landVerificationOfficer.setPassword(bcryptEncoder.encode(landVerificationOfficerDto.getPassword()));
         landVerificationOfficer.setRole("LAND_VERIFICATION_OFFICER");
         return landVerificationRepository.save(landVerificationOfficer);
     }

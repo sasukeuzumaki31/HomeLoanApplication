@@ -9,6 +9,7 @@ import com.group4.demo.repository.ICustomerRepository;
 import com.group4.demo.repository.ILoanApplicationRepository;
 import com.group4.demo.service.ICustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -24,6 +25,9 @@ public class ICustomerServiceImpl implements ICustomerService {
 
     @Autowired
     ILoanApplicationRepository loanRepo;
+
+    @Autowired
+    private PasswordEncoder bcryptEncoder;
 
     @Override
     public Customer viewCustomer(int custId) throws ResourceNotFoundException{
@@ -46,7 +50,7 @@ public class ICustomerServiceImpl implements ICustomerService {
         newCustomer.setCustomerName(customer.getCustomerName());
         newCustomer.setGender(customer.getGender());
         newCustomer.setEmail(customer.getEmail());
-        newCustomer.setPassword(customer.getPassword());
+        newCustomer.setPassword(bcryptEncoder.encode(customer.getPassword()));
         newCustomer.setMobileNumber(customer.getMobileNumber());
         newCustomer.setAadharNumber(customer.getAadharNumber());
         newCustomer.setPanNumber(customer.getPanNumber());
