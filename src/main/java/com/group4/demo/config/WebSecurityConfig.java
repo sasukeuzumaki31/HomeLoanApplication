@@ -58,7 +58,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         , "/landofficer/signup", "/financeofficer/signup"
                         , "/customer/apply", "/customer/loan/{loanApplicationId}", "/customer/document/{id}", "/customer/schemes", "/customer/emi", "/customer/loanagreement/{id}",
                         "/financeofficer/loan/{id}", "/financeofficer/loans/pending",
-                        "/landofficer/loan/{id}", "/landofficer/loans/pending",
+                        "/landofficer/loan/{id}", "/landofficer/loans/pending","/landofficer/login",
                         "/v3/api-docs/**"
                         , "/swagger-ui/**", "/swagger-resources/**", "/swagger-ui.html", "/webjars/**", "/v2/api-docs/**").permitAll().
                 // all other requests need to be authenticated

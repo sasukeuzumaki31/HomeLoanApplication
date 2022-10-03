@@ -1,6 +1,7 @@
 package com.group4.demo.controller;
 
 import com.group4.demo.Dto.LandVerificationOfficerDto;
+import com.group4.demo.Dto.UserLoginDto;
 import com.group4.demo.advices.ResourceNotFoundException;
 import com.group4.demo.entity.LandVerificationOfficer;
 import com.group4.demo.entity.LoanApplication;
@@ -55,5 +56,14 @@ public class LandOfficerController {
         LandVerificationOfficer newLandOfficer = landVerificationService.addLandVerificationOfficer(landVerificationOfficerDto);
         return new ResponseEntity<>(newLandOfficer, HttpStatus.CREATED);
     }
+
+    @PostMapping("/login")
+    public ResponseEntity<String> loginLandOfficer(@RequestBody UserLoginDto userLoginDto) throws ResourceNotFoundException{
+        String response = landVerificationService.loginLandOfficer(userLoginDto);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+
+    }
+
+
 }
 
