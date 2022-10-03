@@ -9,6 +9,8 @@ import com.group4.demo.repository.ILoanApplicationRepository;
 import com.group4.demo.repository.ISchemeRepository;
 import com.group4.demo.service.ILoanApplicationService;
 import com.group4.demo.util.EMICalculator;
+import org.apache.juli.logging.Log;
+import org.apache.juli.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +20,8 @@ import java.util.List;
 
 @Service
 public class LoanApplicationServiceImpl implements ILoanApplicationService {
+
+    Log logger = LogFactory.getLog(LoanApplicationServiceImpl.class);
     @Autowired
     ILoanApplicationRepository loanRepo;
 
@@ -34,6 +38,7 @@ public class LoanApplicationServiceImpl implements ILoanApplicationService {
     String notFoundMessage = "No Loan Application found";
     @Override
     public LoanApplication deleteLoanApplicationId(long loanApplicationId) throws ResourceNotFoundException {
+        logger.info("In deleteLoanApplicationById function in LoanApplicationServiceImpl");
         return loanRepo.findById(loanApplicationId)
                 .orElseThrow(() -> new ResourceNotFoundException(notFoundMessage));
 
@@ -41,18 +46,20 @@ public class LoanApplicationServiceImpl implements ILoanApplicationService {
 
     @Override
     public List<LoanApplication> retrieveAllLoanApplication() {
+        logger.info("In retrieveAllLoanApplication function in LoanApplicationServiceImpl");
         return loanRepo.findAll();
     }
 
     @Override
     public LoanApplication retrieveLoanApplicationById(Long loanApplicationId) throws ResourceNotFoundException {
+        logger.info("In retrieveLoanApplicationById function in LoanApplicationServiceImpl");
         return loanRepo.findById(loanApplicationId)
                 .orElseThrow(() -> new ResourceNotFoundException(notFoundMessage));
     }
 
     @Override
     public LoanApplication addLoanApplication(LoanApplicationDto loanApplication) throws ResourceNotFoundException {
-
+        logger.info("In addLoanApplication function in LoanApplicationServiceImpl");
         LoanApplication loanApplication1 = new LoanApplication();
 
         Customer customer = customerRepository.findById(loanApplication.getCustomerId())
@@ -90,6 +97,8 @@ public class LoanApplicationServiceImpl implements ILoanApplicationService {
     //updating loanApplication
     @Override
     public LoanApplication updateLoanApplication(long id) throws ResourceNotFoundException {
+        logger.info("In updateLoanApplication function in LoanApplicationServiceImpl");
+
         LoanApplication loanApplication = loanRepo.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(notFoundMessage));
 
@@ -137,16 +146,17 @@ public class LoanApplicationServiceImpl implements ILoanApplicationService {
 
     @Override
     public LoanApplication updateStatusOfLoanApplication(Long loanApplicationId, Status status) throws ResourceNotFoundException {
+        logger.info("In updateStatusOfLoanApplication function in LoanApplicationServiceImpl");
         LoanApplication application = loanRepo.findById(loanApplicationId)
                 .orElseThrow(() -> new ResourceNotFoundException(notFoundMessage));
-        LoanApplication loanApplication = application;
-        loanApplication.setStatus(String.valueOf(status));
-        loanApplication.setLandVerificationApproval(true);
-        return loanRepo.save(loanApplication);
+        application.setStatus(String.valueOf(status));
+        application.setLandVerificationApproval(true);
+        return loanRepo.save(application);
     }
 
     @Override
     public List<LoanApplication> retrieveLoanApplicationByStatus(String status) {
+        logger.info("In retrieveLoanApplicationByStatus function in LoanApplicationServiceImpl");
         return loanRepo.findByStatus(status);
     }
 }
