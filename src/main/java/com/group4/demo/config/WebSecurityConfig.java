@@ -54,16 +54,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         httpSecurity.csrf().disable()
                 // don't authenticate this particular request
-                .authorizeRequests().antMatchers("/authenticate", "/admin/signup", "/customer/signup"
+                .authorizeRequests().antMatchers("/authenticate", "/admin/signup", "/customer/signup", "/customer/login"
                         , "/landofficer/signup", "/financeofficer/signup"
-                        ,"/customer/apply","/customer/loan/{loanApplicationId}","/customer/document/{id}","/customer/schemes","/customer/emi","/customer/loanagreement/{id}",
-                        "/financeofficer/loan/{id}","/financeofficer/loans/pending",
+                        , "/customer/apply", "/customer/loan/{loanApplicationId}", "/customer/document/{id}", "/customer/schemes", "/customer/emi", "/customer/loanagreement/{id}",
+                        "/financeofficer/loan/{id}", "/financeofficer/loans/pending",
                         "/landofficer/loan/{id}", "/landofficer/loans/pending",
                         "/v3/api-docs/**"
-                        ,"/swagger-ui/**","/swagger-resources/**","/swagger-ui.html","/webjars/**","/v2/api-docs/**").permitAll().
+                        , "/swagger-ui/**", "/swagger-resources/**", "/swagger-ui.html", "/webjars/**", "/v2/api-docs/**").permitAll().
                 // all other requests need to be authenticated
                         anyRequest().authenticated().and().
-                        exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
+                exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         // Add a filter to validate the tokens with every request
