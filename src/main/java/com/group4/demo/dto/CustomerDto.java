@@ -20,9 +20,7 @@ public class CustomerDto {
     @Size(min = 2, message = "Length of customer name should be greater than 2")
     String customerName;
     @NotNull(message = "Contact cannot be null")
-    @Pattern(regexp = "^(\\+\\d{1,3}( )?)?((\\(\\d{3}\\))|\\d{3})[- .]?\\d{3}[- .]?\\d{4}$"
-            + "|^(\\+\\d{1,3}( )?)?(\\d{3}[ ]?){2}\\d{3}$"
-            + "|^(\\+\\d{1,3}( )?)?(\\d{3}[ ]?)(\\d{2}[ ]?){2}\\d{2}$", message = "Mobile number not valid ")
+    @Pattern(regexp = "^(\\+?\\d{1,4}[\\s-])?(?!0+\\s+,?$)\\d{10}\\s*,?$", message = "Mobile number not valid ")
     @Size(min = 10, max = 10, message = "Please enter 10 digit mobile no without country code")
     String mobileNumber;
     @NotNull(message = "email cannot be null")
@@ -37,7 +35,9 @@ public class CustomerDto {
     @NotNull(message = "Nationality cannot be null")
     @NotEmpty(message = "Nationality cannot be empty")
     String nationality;
+    @Pattern(regexp = "^[2-9]\\d{11}$", message = "Invalid Aadhaar number")
     String aadharNumber;
+    @Pattern(regexp = "[A-Z]{5}\\d{4}[A-Z]{1}", message = "Invalid pan number")
     String panNumber;
     @NotNull(message = "Password cannot be null")
     @Pattern(regexp = "^(?=.*\\d)"

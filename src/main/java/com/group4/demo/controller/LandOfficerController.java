@@ -1,5 +1,6 @@
 package com.group4.demo.controller;
 
+import com.group4.demo.advices.CouldNotBeAddedException;
 import com.group4.demo.dto.LandVerificationOfficerDto;
 import com.group4.demo.dto.UserLoginDto;
 import com.group4.demo.advices.ResourceNotFoundException;
@@ -52,7 +53,7 @@ public class LandOfficerController {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<LandVerificationOfficer> createNewCustomer(@Valid @RequestBody LandVerificationOfficerDto landVerificationOfficerDto) {
+    public ResponseEntity<LandVerificationOfficer> createNewCustomer(@Valid @RequestBody LandVerificationOfficerDto landVerificationOfficerDto) throws CouldNotBeAddedException {
         LandVerificationOfficer newLandOfficer = landVerificationService.addLandVerificationOfficer(landVerificationOfficerDto);
         return new ResponseEntity<>(newLandOfficer, HttpStatus.CREATED);
     }

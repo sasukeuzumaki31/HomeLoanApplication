@@ -2,6 +2,7 @@ package com.group4.demo.controller;
 
 
 
+import com.group4.demo.advices.CouldNotBeAddedException;
 import com.group4.demo.dto.AdminDto;
 import com.group4.demo.advices.AuthenticationFailedException;
 import com.group4.demo.config.JwtTokenUtil;
@@ -49,7 +50,7 @@ public class JwtAuthenticationController {
     }
 
     @PostMapping(value = "/admin/signup")
-    public ResponseEntity<Admin> saveUser(@Valid @RequestBody AdminDto user) {
+    public ResponseEntity<Admin> saveUser(@Valid @RequestBody AdminDto user) throws CouldNotBeAddedException {
         return ResponseEntity.ok(userDetailsService.save(user));
     }
 

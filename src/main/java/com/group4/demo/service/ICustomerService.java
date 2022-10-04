@@ -1,6 +1,8 @@
 package com.group4.demo.service;
 
+import com.group4.demo.advices.CouldNotBeAddedException;
 import com.group4.demo.dto.CustomerDto;
+import com.group4.demo.dto.DocsDto;
 import com.group4.demo.dto.UserLoginDto;
 import com.group4.demo.advices.ResourceNotFoundException;
 import com.group4.demo.entity.Customer;
@@ -13,9 +15,9 @@ public interface ICustomerService {
 
     List<Customer> viewAllCustomers() throws ResourceNotFoundException;
 
-    Customer addCustomer(CustomerDto customer);
+    Customer addCustomer(CustomerDto customer) throws CouldNotBeAddedException;
 
-    Customer updateCustomer(int id, CustomerDto customerDto) throws ResourceNotFoundException;
+    Customer updateCustomer(int id, DocsDto docsDto) throws ResourceNotFoundException;
 
     List<Customer> viewCustomerList(String dateOfApplication) throws ResourceNotFoundException;
 

@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.*;
 import java.time.LocalDate;
 
@@ -14,6 +16,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Table(uniqueConstraints = {@UniqueConstraint(columnNames = "mobileNumber")})
 public class Customer extends User {
 
 
@@ -21,9 +24,6 @@ public class Customer extends User {
     @NotNull
     String customerName;
 
-    @Pattern(regexp = "^(\\+\\d{1,3}( )?)?((\\(\\d{3}\\))|\\d{3})[- .]?\\d{3}[- .]?\\d{4}$"
-            + "|^(\\+\\d{1,3}( )?)?(\\d{3}[ ]?){2}\\d{3}$"
-            + "|^(\\+\\d{1,3}( )?)?(\\d{3}[ ]?)(\\d{2}[ ]?){2}\\d{2}$")
     String mobileNumber;
     @Email
     String email;
@@ -37,10 +37,10 @@ public class Customer extends User {
     @NotEmpty
     String nationality;
 
-    @Pattern(regexp = "^[2-9]\\d{11}$")
+
     String aadharNumber;
 
-    @Pattern(regexp = "[A-Z]{5}\\d{4}[A-Z]{1}")
+
     String panNumber;
 
 

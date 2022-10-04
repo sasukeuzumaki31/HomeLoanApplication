@@ -1,5 +1,6 @@
 package com.group4.demo.service.impl;
 
+import com.group4.demo.advices.CouldNotBeAddedException;
 import com.group4.demo.dto.FinanceVerificationDto;
 import com.group4.demo.dto.UserLoginDto;
 import com.group4.demo.advices.ResourceNotFoundException;
@@ -32,8 +33,11 @@ public class IFinanceVerificationServiceImpl implements IFinanceVerificationServ
     private PasswordEncoder bcryptEncoder;
 
     @Override
-    public FinanceVerificationOfficer addFinanceVerificationOfficer(FinanceVerificationDto financeVerificationDto) {
+    public FinanceVerificationOfficer addFinanceVerificationOfficer(FinanceVerificationDto financeVerificationDto) throws CouldNotBeAddedException {
         logger.info("Entered in addFinanceVerificationOfficer method in IFinanceVerificationServiceImpl");
+        if(financeVerificationRepository.findByFinOfficerContact(financeVerificationDto.getFinOfficerContact()) != null){
+            throw new CouldNotBeAddedException("Officer already exists");
+        }
         FinanceVerificationOfficer financeVerificationOfficer = new FinanceVerificationOfficer();
         financeVerificationOfficer.setFinOfficerName(financeVerificationDto.getFinOfficerName());
         financeVerificationOfficer.setFinOfficerContact(financeVerificationDto.getFinOfficerContact());

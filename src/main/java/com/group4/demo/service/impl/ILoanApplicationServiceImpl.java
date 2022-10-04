@@ -1,5 +1,6 @@
 package com.group4.demo.service.impl;
 
+import com.group4.demo.advices.CouldNotBeAddedException;
 import com.group4.demo.dto.LoanApplicationDto;
 import com.group4.demo.advices.ResourceNotFoundException;
 import com.group4.demo.entity.*;
@@ -58,8 +59,11 @@ public class ILoanApplicationServiceImpl implements ILoanApplicationService {
     }
 
     @Override
-    public LoanApplication addLoanApplication(LoanApplicationDto loanApplication) throws ResourceNotFoundException {
+    public LoanApplication addLoanApplication(LoanApplicationDto loanApplication) throws ResourceNotFoundException, CouldNotBeAddedException {
         logger.info("In addLoanApplication function in LoanApplicationServiceImpl");
+        if(loanRepo.findByCustomerId(loanApplication.getCustomerId()) != null){
+            throw new CouldNotBeAddedException("Loan application exists with the customer ID:" + loanApplication.getCustomerId());
+        }
         LoanApplication loanApplication1 = new LoanApplication();
 
         Customer customer = customerRepository.findById(loanApplication.getCustomerId())
