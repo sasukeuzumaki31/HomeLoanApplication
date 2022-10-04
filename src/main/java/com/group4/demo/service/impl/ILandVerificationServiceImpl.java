@@ -3,8 +3,6 @@ package com.group4.demo.service.impl;
 import com.group4.demo.Dto.LandVerificationOfficerDto;
 import com.group4.demo.Dto.UserLoginDto;
 import com.group4.demo.advices.ResourceNotFoundException;
-import com.group4.demo.controller.LandOfficerController;
-import com.group4.demo.entity.Customer;
 import com.group4.demo.entity.LandVerificationOfficer;
 import com.group4.demo.entity.LoanApplication;
 import com.group4.demo.repository.ILandVerificationRepository;
