@@ -10,7 +10,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.group4.demo.Dto.LoanApplicationDto;
+import com.group4.demo.dto.LoanApplicationDto;
 import com.group4.demo.advices.ResourceNotFoundException;
 import com.group4.demo.entity.Customer;
 import com.group4.demo.entity.EMI;
@@ -27,8 +27,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
-import org.junit.jupiter.api.Disabled;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -505,7 +503,7 @@ class LoanApplicationServiceImplTest {
 
         EMI emi = new EMI();
         emi.setDeuDate(LocalDate.ofEpochDay(1L));
-        emi.setEMIId(123L);
+        emi.setEmiId(123L);
         emi.setEmiAmount(10.0d);
         emi.setInterestAmount(10.0d);
         emi.setLoanAgreement(loanAgreement);

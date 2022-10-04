@@ -1,4 +1,4 @@
-package com.group4.demo.Dto;
+package com.group4.demo.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

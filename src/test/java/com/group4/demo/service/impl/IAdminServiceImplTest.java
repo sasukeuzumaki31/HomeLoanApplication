@@ -8,7 +8,7 @@ import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.group4.demo.Dto.AdminDto;
+import com.group4.demo.dto.AdminDto;
 import com.group4.demo.advices.ResourceNotFoundException;
 import com.group4.demo.entity.Admin;
 import com.group4.demo.repository.IAdminRepository;

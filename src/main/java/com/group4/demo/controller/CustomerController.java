@@ -1,8 +1,8 @@
 package com.group4.demo.controller;
 
-import com.group4.demo.Dto.CustomerDto;
-import com.group4.demo.Dto.UserLoginDto;
-import com.group4.demo.Dto.LoanApplicationDto;
+import com.group4.demo.dto.CustomerDto;
+import com.group4.demo.dto.UserLoginDto;
+import com.group4.demo.dto.LoanApplicationDto;
 import com.group4.demo.advices.ResourceNotFoundException;
 import com.group4.demo.entity.Customer;
 import com.group4.demo.entity.LoanAgreement;
@@ -77,9 +77,6 @@ public class CustomerController {
         return new ResponseEntity<>(customer, HttpStatus.CREATED);
     }
 
-    /*
-       GET  Loan by Id - /customer/loan/{id}
-    */
     @GetMapping("/loan/{loanApplicationId}")
     public ResponseEntity<LoanApplication> retrieveLoanApplicationById(@PathVariable Long loanApplicationId) throws ResourceNotFoundException {
 

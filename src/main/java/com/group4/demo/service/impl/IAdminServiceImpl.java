@@ -1,6 +1,6 @@
 package com.group4.demo.service.impl;
 
-import com.group4.demo.Dto.AdminDto;
+import com.group4.demo.dto.AdminDto;
 import com.group4.demo.advices.ResourceNotFoundException;
 import com.group4.demo.entity.Admin;
 import com.group4.demo.repository.IAdminRepository;

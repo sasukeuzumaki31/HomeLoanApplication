@@ -1,6 +1,6 @@
 package com.group4.demo.service.impl;
 
-import com.group4.demo.Dto.SchemeDto;
+import com.group4.demo.dto.SchemeDto;
 import com.group4.demo.advices.ResourceNotFoundException;
 import com.group4.demo.entity.Scheme;
 import com.group4.demo.repository.ISchemeRepository;
@@ -22,6 +22,8 @@ public class ISchemeServiceImpl implements ISchemeService {
     @Autowired
     ISchemeServiceImpl schemeService;
 
+    static final String MESSAGE = "Scheme does not exists with id : ";
+
     @Override
     public List<Scheme> getAllSchemes() {
         return schemeRepo.findAll();
@@ -30,7 +32,7 @@ public class ISchemeServiceImpl implements ISchemeService {
     @Override
     public Scheme getSchemeById(int schemeid) throws ResourceNotFoundException{
         logger.info("Entered in SchemeById method in ISchemeServiceClass");
-        return schemeRepo.findById(schemeid).orElseThrow(() -> new ResourceNotFoundException("Scheme does not exists with id : " + schemeid));
+        return schemeRepo.findById(schemeid).orElseThrow(() -> new ResourceNotFoundException(MESSAGE + schemeid));
     }
 
     @Override
@@ -45,7 +47,7 @@ public class ISchemeServiceImpl implements ISchemeService {
     @Override
     public Scheme deleteSchemeById(int schemeid) throws ResourceNotFoundException{
         logger.info("Entered in deleteSchemeById method in ISchemeServiceClass");
-        Scheme scheme = schemeRepo.findById(schemeid).orElseThrow(()->new ResourceNotFoundException("Scheme does not exists with id : " + schemeid));
+        Scheme scheme = schemeRepo.findById(schemeid).orElseThrow(()->new ResourceNotFoundException(MESSAGE + schemeid));
         schemeRepo.delete(scheme);
         return scheme;
     }
@@ -53,7 +55,7 @@ public class ISchemeServiceImpl implements ISchemeService {
     @Override
     public Scheme updateScheme(int id, SchemeDto schemeDto) throws ResourceNotFoundException{
         logger.info("Entered in deleteSchemeById method in ISchemeServiceClass");
-        Scheme schemeOp = schemeRepo.findById(id).orElseThrow(()->new ResourceNotFoundException("Scheme does not exists with id : " + id));
+        Scheme schemeOp = schemeRepo.findById(id).orElseThrow(()->new ResourceNotFoundException(MESSAGE + id));
             schemeOp.setInterestRate(schemeDto.getInterestRate());
             schemeOp.setTenure(schemeDto.getTenure());
             return schemeRepo.save(schemeOp);

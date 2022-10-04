@@ -1,7 +1,7 @@
 package com.group4.demo.controller;
 
-import com.group4.demo.Dto.LandVerificationOfficerDto;
-import com.group4.demo.Dto.UserLoginDto;
+import com.group4.demo.dto.LandVerificationOfficerDto;
+import com.group4.demo.dto.UserLoginDto;
 import com.group4.demo.advices.ResourceNotFoundException;
 import com.group4.demo.entity.LandVerificationOfficer;
 import com.group4.demo.entity.LoanApplication;

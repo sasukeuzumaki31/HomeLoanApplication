@@ -1,6 +1,6 @@
 package com.group4.demo.service;
 
-import com.group4.demo.Dto.SchemeDto;
+import com.group4.demo.dto.SchemeDto;
 import com.group4.demo.advices.ResourceNotFoundException;
 import com.group4.demo.entity.Scheme;
 

@@ -1,6 +1,6 @@
 package com.group4.demo.service.impl;
 
-import com.group4.demo.Dto.LoanApplicationDto;
+import com.group4.demo.dto.LoanApplicationDto;
 import com.group4.demo.advices.ResourceNotFoundException;
 import com.group4.demo.entity.*;
 import com.group4.demo.repository.ICustomerRepository;

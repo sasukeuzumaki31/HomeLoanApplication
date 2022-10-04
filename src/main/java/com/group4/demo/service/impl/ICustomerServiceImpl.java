@@ -1,7 +1,7 @@
 package com.group4.demo.service.impl;
 
-import com.group4.demo.Dto.CustomerDto;
-import com.group4.demo.Dto.UserLoginDto;
+import com.group4.demo.dto.CustomerDto;
+import com.group4.demo.dto.UserLoginDto;
 import com.group4.demo.advices.ResourceNotFoundException;
 import com.group4.demo.entity.Customer;
 import com.group4.demo.entity.LoanApplication;
@@ -113,11 +113,11 @@ public class ICustomerServiceImpl implements ICustomerService {
     }
 
     @Override
-    public String loginCustomer(UserLoginDto UserLoginDto) throws ResourceNotFoundException {
+    public String loginCustomer(UserLoginDto userLoginDto) throws ResourceNotFoundException {
 
 
-        Customer customer = custRepo.findById(UserLoginDto.getUserId()).orElseThrow(() -> new ResourceNotFoundException("Invalid Credentials "));
-        String password = UserLoginDto.getPassword();
+        Customer customer = custRepo.findById(userLoginDto.getUserId()).orElseThrow(() -> new ResourceNotFoundException("Invalid Credentials "));
+        String password = userLoginDto.getPassword();
 
         if (bcryptEncoder.matches(password, customer.getPassword())) {
             return "Login successfully";

@@ -23,7 +23,13 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(CouldNotBeUpdatedException.class)
-    public ResponseEntity<ErrorDetails> couldNotBeUpdatedException(Exception ex, WebRequest rq) {
+    public ResponseEntity<ErrorDetails> couldNotBeUpdatedException(CouldNotBeUpdatedException ex, WebRequest rq) {
+        ErrorDetails err = new ErrorDetails(LocalDateTime.now(), ex.getMessage(), rq.getDescription(false));
+        return new ResponseEntity<>(err, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(AuthenticationFailedException.class)
+    public ResponseEntity<ErrorDetails> authenticationFailedException(AuthenticationFailedException ex, WebRequest rq) {
         ErrorDetails err = new ErrorDetails(LocalDateTime.now(), ex.getMessage(), rq.getDescription(false));
         return new ResponseEntity<>(err, HttpStatus.NOT_FOUND);
     }

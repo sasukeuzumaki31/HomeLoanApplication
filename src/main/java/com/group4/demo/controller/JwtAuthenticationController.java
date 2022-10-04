@@ -2,7 +2,8 @@ package com.group4.demo.controller;
 
 
 
-import com.group4.demo.Dto.AdminDto;
+import com.group4.demo.dto.AdminDto;
+import com.group4.demo.advices.AuthenticationFailedException;
 import com.group4.demo.config.JwtTokenUtil;
 import com.group4.demo.entity.Admin;
 import com.group4.demo.entity.JwtRequest;
@@ -10,7 +11,6 @@ import com.group4.demo.entity.JwtResponse;
 import com.group4.demo.service.IAdminService;
 import com.group4.demo.service.JwtAdminDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -36,7 +36,7 @@ public class JwtAuthenticationController {
     private JwtAdminDetailsService userDetailsService;
 
     @PostMapping(value = "/authenticate")
-    public ResponseEntity<JwtResponse> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
+    public ResponseEntity<JwtResponse> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws AuthenticationFailedException {
 
         authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
 
@@ -49,17 +49,17 @@ public class JwtAuthenticationController {
     }
 
     @PostMapping(value = "/admin/signup")
-    public ResponseEntity<Admin> saveUser(@Valid @RequestBody AdminDto user) throws Exception {
+    public ResponseEntity<Admin> saveUser(@Valid @RequestBody AdminDto user) {
         return ResponseEntity.ok(userDetailsService.save(user));
     }
 
-    private void authenticate(String username, String password) throws Exception {
+    private void authenticate(String username, String password) throws AuthenticationFailedException {
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
         } catch (DisabledException e) {
-            throw new Exception("USER_DISABLED", e);
+            throw new AuthenticationFailedException("USER_DISABLED");
         } catch (BadCredentialsException e) {
-            throw new Exception("INVALID_CREDENTIALS", e);
+            throw new AuthenticationFailedException("INVALID_CREDENTIALS");
         }
     }
 }

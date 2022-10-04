@@ -17,7 +17,7 @@ import javax.persistence.*;
 public class EMI {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long EMIId;
+	private long emiId;
 	private LocalDate deuDate;
 	private double emiAmount;
 	private double loanAmount;
