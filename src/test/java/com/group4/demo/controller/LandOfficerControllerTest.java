@@ -42,22 +42,19 @@ class LandOfficerControllerTest {
     @Autowired
     private LandOfficerController landOfficerController;
 
-    /**
-     * Method under test: {@link LandOfficerController#retrieveLoanApplicationById(Long)}
-     */
     @Test
     void testRetrieveLoanApplicationById() throws Exception {
         Customer customer = new Customer();
-        customer.setAadharNumber("42");
+        customer.setAadharNumber("123456789876");
         customer.setCustomerName("Customer Name");
         customer.setDateOfBirth(LocalDate.ofEpochDay(1L));
-        customer.setEmail("jane.doe@example.org");
-        customer.setGender("Gender");
-        customer.setMobileNumber("42");
-        customer.setNationality("Nationality");
-        customer.setPanNumber("42");
+        customer.setEmail("abcd.defg@xmail.com");
+        customer.setGender("MALE");
+        customer.setMobileNumber("1234567890");
+        customer.setNationality("INDIAN");
+        customer.setPanNumber("123456789876");
         customer.setPassword("iloveyou");
-        customer.setRole("Role");
+        customer.setRole("CUSTOMER");
         customer.setUserId(123);
 
         Scheme scheme = new Scheme();
@@ -77,9 +74,9 @@ class LandOfficerControllerTest {
         loanApplication.setMonthlyExpenses(10.0d);
         loanApplication.setOtherMonthlyExpenses(10.0d);
         loanApplication.setScheme(scheme);
-        loanApplication.setStatus("Status");
+        loanApplication.setStatus("PENDING");
         loanApplication.setTotalAnnualIncome(10.0d);
-        when(iLoanApplicationService.retrieveLoanApplicationById((Long) any())).thenReturn(loanApplication);
+        when(iLoanApplicationService.retrieveLoanApplicationById(any())).thenReturn(loanApplication);
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/landofficer/loan/{id}", 123L);
         MockMvcBuilders.standaloneSetup(landOfficerController)
                 .build()
@@ -90,26 +87,23 @@ class LandOfficerControllerTest {
                         .string(
                                 "{\"applicationId\":123,\"applicationDate\":[1970,1,2],\"loanAppliedAmount\":10.0,\"loanApprovedAmount\":10.0"
                                         + ",\"landVerificationApproval\":true,\"financeVerificationApproval\":true,\"adminApproval\":true,\"status\":"
-                                        + "\"Status\",\"totalAnnualIncome\":10.0,\"monthlyExpenses\":10.0,\"otherMonthlyExpenses\":10.0,\"scheme\":{\"schemeId"
+                                        + "\"PENDING\",\"totalAnnualIncome\":10.0,\"monthlyExpenses\":10.0,\"otherMonthlyExpenses\":10.0,\"scheme\":{\"schemeId"
                                         + "\":123,\"interestRate\":10.0,\"tenure\":1}}"));
     }
 
-    /**
-     * Method under test: {@link LandOfficerController#updateStatusOfLoanApplication(Long)}
-     */
     @Test
     void testUpdateStatusOfLoanApplication() throws Exception {
         Customer customer = new Customer();
-        customer.setAadharNumber("42");
+        customer.setAadharNumber("123456789876");
         customer.setCustomerName("Customer Name");
         customer.setDateOfBirth(LocalDate.ofEpochDay(1L));
-        customer.setEmail("jane.doe@example.org");
-        customer.setGender("Gender");
-        customer.setMobileNumber("42");
-        customer.setNationality("Nationality");
-        customer.setPanNumber("42");
+        customer.setEmail("abcd.defg@xmail.com");
+        customer.setGender("MALE");
+        customer.setMobileNumber("1234567890");
+        customer.setNationality("INDIAN");
+        customer.setPanNumber("123456789876");
         customer.setPassword("iloveyou");
-        customer.setRole("Role");
+        customer.setRole("CUSTOMER");
         customer.setUserId(123);
 
         Scheme scheme = new Scheme();
@@ -129,9 +123,9 @@ class LandOfficerControllerTest {
         loanApplication.setMonthlyExpenses(10.0d);
         loanApplication.setOtherMonthlyExpenses(10.0d);
         loanApplication.setScheme(scheme);
-        loanApplication.setStatus("Status");
+        loanApplication.setStatus("PENDING");
         loanApplication.setTotalAnnualIncome(10.0d);
-        when(iLoanApplicationService.updateStatusOfLoanApplication((Long) any(), (Status) any()))
+        when(iLoanApplicationService.updateStatusOfLoanApplication(any(), any()))
                 .thenReturn(loanApplication);
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.put("/landofficer/loan/{id}", 123L);
         MockMvcBuilders.standaloneSetup(landOfficerController)
@@ -143,20 +137,17 @@ class LandOfficerControllerTest {
                         .string(
                                 "{\"applicationId\":123,\"applicationDate\":[1970,1,2],\"loanAppliedAmount\":10.0,\"loanApprovedAmount\":10.0"
                                         + ",\"landVerificationApproval\":true,\"financeVerificationApproval\":true,\"adminApproval\":true,\"status\":"
-                                        + "\"Status\",\"totalAnnualIncome\":10.0,\"monthlyExpenses\":10.0,\"otherMonthlyExpenses\":10.0,\"scheme\":{\"schemeId"
+                                        + "\"PENDING\",\"totalAnnualIncome\":10.0,\"monthlyExpenses\":10.0,\"otherMonthlyExpenses\":10.0,\"scheme\":{\"schemeId"
                                         + "\":123,\"interestRate\":10.0,\"tenure\":1}}"));
     }
 
-    /**
-     * Method under test: {@link LandOfficerController#createNewCustomer(LandVerificationOfficerDto)}
-     */
     @Test
     void testCreateNewCustomer() throws Exception {
         LandVerificationOfficerDto landVerificationOfficerDto = new LandVerificationOfficerDto();
         landVerificationOfficerDto.setOfficeContact("Office Contact");
         landVerificationOfficerDto.setOfficeName("Office Name");
         landVerificationOfficerDto.setPassword("iloveyou");
-        landVerificationOfficerDto.setRole("Role");
+        landVerificationOfficerDto.setRole("LAND_VERIFICATION_OFFICER");
         landVerificationOfficerDto.setUserId(123);
         String content = (new ObjectMapper()).writeValueAsString(landVerificationOfficerDto);
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.post("/landofficer/signup")
@@ -168,12 +159,9 @@ class LandOfficerControllerTest {
         actualPerformResult.andExpect(MockMvcResultMatchers.status().is(400));
     }
 
-    /**
-     * Method under test: {@link LandOfficerController#loginLandOfficer(UserLoginDto)}
-     */
     @Test
     void testLoginLandOfficer() throws Exception {
-        when(iLLandVerificationService.loginLandOfficer((UserLoginDto) any())).thenReturn("Login Land Officer");
+        when(iLLandVerificationService.loginLandOfficer(any())).thenReturn("Login Land Officer");
 
         UserLoginDto userLoginDto = new UserLoginDto();
         userLoginDto.setPassword("iloveyou");
@@ -190,12 +178,9 @@ class LandOfficerControllerTest {
                 .andExpect(MockMvcResultMatchers.content().string("Login Land Officer"));
     }
 
-    /**
-     * Method under test: {@link LandOfficerController#getPendingApplications()}
-     */
     @Test
     void testGetPendingApplications() throws Exception {
-        when(iLoanApplicationService.retrieveLoanApplicationByStatus((String) any())).thenReturn(new ArrayList<>());
+        when(iLoanApplicationService.retrieveLoanApplicationByStatus(any())).thenReturn(new ArrayList<>());
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/landofficer/loans/pending");
         MockMvcBuilders.standaloneSetup(landOfficerController)
                 .build()
@@ -205,12 +190,9 @@ class LandOfficerControllerTest {
                 .andExpect(MockMvcResultMatchers.content().string("[]"));
     }
 
-    /**
-     * Method under test: {@link LandOfficerController#getPendingApplications()}
-     */
     @Test
     void testGetPendingApplications2() throws Exception {
-        when(iLoanApplicationService.retrieveLoanApplicationByStatus((String) any())).thenReturn(new ArrayList<>());
+        when(iLoanApplicationService.retrieveLoanApplicationByStatus(any())).thenReturn(new ArrayList<>());
         MockHttpServletRequestBuilder getResult = MockMvcRequestBuilders.get("/landofficer/loans/pending");
         getResult.characterEncoding("Encoding");
         MockMvcBuilders.standaloneSetup(landOfficerController)
