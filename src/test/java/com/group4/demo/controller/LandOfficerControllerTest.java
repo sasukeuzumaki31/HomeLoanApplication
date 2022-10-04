@@ -10,7 +10,7 @@ import com.group4.demo.entity.Customer;
 import com.group4.demo.entity.LoanApplication;
 import com.group4.demo.entity.Scheme;
 import com.group4.demo.entity.Status;
-import com.group4.demo.service.ILLandVerificationService;
+import com.group4.demo.service.ILandVerificationService;
 import com.group4.demo.service.ILoanApplicationService;
 
 import java.time.LocalDate;
@@ -34,7 +34,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 @ExtendWith(SpringExtension.class)
 class LandOfficerControllerTest {
     @MockBean
-    private ILLandVerificationService iLLandVerificationService;
+    private ILandVerificationService iLLandVerificationService;
 
     @MockBean
     private ILoanApplicationService iLoanApplicationService;
