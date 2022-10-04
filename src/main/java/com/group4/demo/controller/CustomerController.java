@@ -11,7 +11,7 @@ import com.group4.demo.entity.Scheme;
 import com.group4.demo.service.impl.ICustomerServiceImpl;
 import com.group4.demo.service.impl.ILoanAgreementServiceImpl;
 import com.group4.demo.service.impl.ISchemeServiceImpl;
-import com.group4.demo.service.impl.LoanApplicationServiceImpl;
+import com.group4.demo.service.impl.ILoanApplicationServiceImpl;
 import com.group4.demo.util.EMICalculator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,7 +30,7 @@ public class CustomerController {
     Logger logger = LoggerFactory.getLogger(CustomerController.class);
 
     @Autowired
-    private LoanApplicationServiceImpl loanApplicationService;
+    private ILoanApplicationServiceImpl loanApplicationService;
 
     @Autowired
     private ICustomerServiceImpl customerService;

@@ -19,9 +19,9 @@ import java.util.List;
 
 
 @Service
-public class LoanApplicationServiceImpl implements ILoanApplicationService {
+public class ILoanApplicationServiceImpl implements ILoanApplicationService {
 
-    Log logger = LogFactory.getLog(LoanApplicationServiceImpl.class);
+    Log logger = LogFactory.getLog(ILoanApplicationServiceImpl.class);
     @Autowired
     ILoanApplicationRepository loanRepo;
 

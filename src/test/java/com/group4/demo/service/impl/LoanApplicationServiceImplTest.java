@@ -35,7 +35,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@ContextConfiguration(classes = {LoanApplicationServiceImpl.class})
+@ContextConfiguration(classes = {ILoanApplicationServiceImpl.class})
 @ExtendWith(SpringExtension.class)
 class LoanApplicationServiceImplTest {
     @MockBean
@@ -51,7 +51,7 @@ class LoanApplicationServiceImplTest {
     private ISchemeRepository iSchemeRepository;
 
     @Autowired
-    private LoanApplicationServiceImpl loanApplicationServiceImpl;
+    private ILoanApplicationServiceImpl loanApplicationServiceImpl;
 
     @Test
     void testDeleteLoanApplicationId() throws ResourceNotFoundException {

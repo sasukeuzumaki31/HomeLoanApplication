@@ -7,7 +7,7 @@ import com.group4.demo.entity.LandVerificationOfficer;
 import com.group4.demo.entity.LoanApplication;
 import com.group4.demo.repository.ILandVerificationRepository;
 import com.group4.demo.repository.ILoanApplicationRepository;
-import com.group4.demo.service.ILLandVerificationService;
+import com.group4.demo.service.ILandVerificationService;
 import org.apache.juli.logging.Log;
 import org.apache.juli.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ILandVerificationServiceImpl implements ILLandVerificationService {
+public class ILandVerificationServiceImpl implements ILandVerificationService {
 
     Log logger = LogFactory.getLog(ILoanAgreementServiceImpl.class);
     @Autowired
