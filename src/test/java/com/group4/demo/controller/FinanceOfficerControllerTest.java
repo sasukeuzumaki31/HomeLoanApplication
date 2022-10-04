@@ -39,22 +39,19 @@ class FinanceOfficerControllerTest {
     @MockBean
     private ILoanApplicationService iLoanApplicationService;
 
-    /**
-     * Method under test: {@link FinanceOfficerController#retrieveLoanApplicationById(Long)}
-     */
     @Test
     void testRetrieveLoanApplicationById() throws Exception {
         Customer customer = new Customer();
-        customer.setAadharNumber("42");
-        customer.setCustomerName("Customer Name");
+        customer.setAadharNumber("123456789123");
+        customer.setCustomerName("Rajesh Kumar");
         customer.setDateOfBirth(LocalDate.ofEpochDay(1L));
-        customer.setEmail("jane.doe@example.org");
-        customer.setGender("Gender");
-        customer.setMobileNumber("42");
-        customer.setNationality("Nationality");
-        customer.setPanNumber("42");
-        customer.setPassword("iloveyou");
-        customer.setRole("Role");
+        customer.setEmail("rajkmr123@hmail.com");
+        customer.setGender("Male");
+        customer.setMobileNumber("1234567891");
+        customer.setNationality("Indian");
+        customer.setPanNumber("123456789");
+        customer.setPassword("Pass@123");
+        customer.setRole("CUSTOMER");
         customer.setUserId(123);
 
         Scheme scheme = new Scheme();
@@ -76,7 +73,7 @@ class FinanceOfficerControllerTest {
         loanApplication.setScheme(scheme);
         loanApplication.setStatus("Status");
         loanApplication.setTotalAnnualIncome(10.0d);
-        when(iLoanApplicationService.retrieveLoanApplicationById((Long) any())).thenReturn(loanApplication);
+        when(iLoanApplicationService.retrieveLoanApplicationById(any())).thenReturn(loanApplication);
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/financeofficer/loan/{id}", 123L);
         MockMvcBuilders.standaloneSetup(financeOfficerController)
                 .build()
@@ -91,16 +88,13 @@ class FinanceOfficerControllerTest {
                                         + "\":123,\"interestRate\":10.0,\"tenure\":1}}"));
     }
 
-    /**
-     * Method under test: {@link FinanceOfficerController#createNewFinanceVerificationOfficer(FinanceVerificationDto)}
-     */
     @Test
     void testCreateNewFinanceVerificationOfficer() throws Exception {
         FinanceVerificationDto financeVerificationDto = new FinanceVerificationDto();
-        financeVerificationDto.setFinOfficerContact("Fin Officer Contact");
-        financeVerificationDto.setFinOfficerName("Fin Officer Name");
-        financeVerificationDto.setPassword("iloveyou");
-        financeVerificationDto.setRole("Role");
+        financeVerificationDto.setFinOfficerContact("1234567891");
+        financeVerificationDto.setFinOfficerName("Kamlesh");
+        financeVerificationDto.setPassword("pass@123");
+        financeVerificationDto.setRole("FINANCE_VERIFICATION_OFFICER");
         financeVerificationDto.setUserId(123);
         String content = (new ObjectMapper()).writeValueAsString(financeVerificationDto);
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.post("/financeofficer/signup")
@@ -112,16 +106,13 @@ class FinanceOfficerControllerTest {
         actualPerformResult.andExpect(MockMvcResultMatchers.status().is(400));
     }
 
-    /**
-     * Method under test: {@link FinanceOfficerController#loginFinanceVerificationOfficer(UserLoginDto)}
-     */
     @Test
     void testLoginFinanceVerificationOfficer() throws Exception {
-        when(iFinanceVerificationService.loginFinanceVerificationOfficer((UserLoginDto) any()))
+        when(iFinanceVerificationService.loginFinanceVerificationOfficer(any()))
                 .thenReturn("Login Finance Verification Officer");
 
         UserLoginDto userLoginDto = new UserLoginDto();
-        userLoginDto.setPassword("iloveyou");
+        userLoginDto.setPassword("Pass@123");
         userLoginDto.setUserId(123);
         String content = (new ObjectMapper()).writeValueAsString(userLoginDto);
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.post("/financeofficer/login")
@@ -135,22 +126,20 @@ class FinanceOfficerControllerTest {
                 .andExpect(MockMvcResultMatchers.content().string("Login Finance Verification Officer"));
     }
 
-    /**
-     * Method under test: {@link FinanceOfficerController#updateStatusOfLoanApplication(Long)}
-     */
+
     @Test
     void testUpdateStatusOfLoanApplication() throws Exception {
         Customer customer = new Customer();
-        customer.setAadharNumber("42");
-        customer.setCustomerName("Customer Name");
+        customer.setAadharNumber("123456789123");
+        customer.setCustomerName("Rajesh Kumar");
         customer.setDateOfBirth(LocalDate.ofEpochDay(1L));
-        customer.setEmail("jane.doe@example.org");
-        customer.setGender("Gender");
-        customer.setMobileNumber("42");
-        customer.setNationality("Nationality");
-        customer.setPanNumber("42");
-        customer.setPassword("iloveyou");
-        customer.setRole("Role");
+        customer.setEmail("rajkmr123@hmail.com");
+        customer.setGender("Male");
+        customer.setMobileNumber("1234567891");
+        customer.setNationality("Indian");
+        customer.setPanNumber("123456789");
+        customer.setPassword("Pass@123");
+        customer.setRole("CUSTOMER");
         customer.setUserId(123);
 
         Scheme scheme = new Scheme();
@@ -172,8 +161,8 @@ class FinanceOfficerControllerTest {
         loanApplication.setScheme(scheme);
         loanApplication.setStatus("Status");
         loanApplication.setTotalAnnualIncome(10.0d);
-        when(iFinanceVerificationService.updateStatus((Long) any())).thenReturn(loanApplication);
-        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.post("/financeofficer/loan/{id}", 123L);
+        when(iFinanceVerificationService.updateStatus(any())).thenReturn(loanApplication);
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.put("/financeofficer/loan/{id}", 123L);
         MockMvcBuilders.standaloneSetup(financeOfficerController)
                 .build()
                 .perform(requestBuilder)
@@ -186,5 +175,6 @@ class FinanceOfficerControllerTest {
                                         + "\"Status\",\"totalAnnualIncome\":10.0,\"monthlyExpenses\":10.0,\"otherMonthlyExpenses\":10.0,\"scheme\":{\"schemeId"
                                         + "\":123,\"interestRate\":10.0,\"tenure\":1}}"));
     }
+
 }
 

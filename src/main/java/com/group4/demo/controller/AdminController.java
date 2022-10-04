@@ -19,6 +19,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -118,7 +119,7 @@ public class AdminController {
     }
 
     @PostMapping("/scheme")
-    public ResponseEntity<Scheme> addScheme(@RequestBody SchemeDto schemeDto){
+    public ResponseEntity<Scheme> addScheme(@Valid @RequestBody SchemeDto schemeDto){
         Scheme scheme = schemeService.addScheme(schemeDto);
         return new ResponseEntity<>(scheme,HttpStatus.OK);
     }

@@ -13,6 +13,7 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Table(uniqueConstraints = {@UniqueConstraint(columnNames = "fk_customer_id")})
 public class LoanApplication {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
