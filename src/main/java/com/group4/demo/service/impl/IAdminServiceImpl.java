@@ -1,5 +1,6 @@
 package com.group4.demo.service.impl;
 
+import com.group4.demo.advices.CouldNotBeAddedException;
 import com.group4.demo.dto.AdminDto;
 import com.group4.demo.advices.ResourceNotFoundException;
 import com.group4.demo.entity.Admin;
@@ -38,7 +39,7 @@ public class IAdminServiceImpl implements IAdminService {
     }
 
     @Override
-    public Admin addAdmin(AdminDto adminDto) {
+    public Admin addAdmin(AdminDto adminDto) throws CouldNotBeAddedException {
         logger.info("Entered into addAdmin method in AdminService Class");
         Admin newAdmin = new Admin();
 
@@ -46,6 +47,10 @@ public class IAdminServiceImpl implements IAdminService {
         newAdmin.setPassword(bcryptEncoder.encode(adminDto.getPassword()));
         newAdmin.setAdminContact(adminDto.getAdminContact());
         newAdmin.setRole("ADMIN");
+        Admin admin = adminRepo.findByAdminName(adminDto.getAdminName());
+        if(admin != null){
+            throw new CouldNotBeAddedException("Admin already exists with given Name");
+        }
         logger.info("Exiting addAdmin method in AdminService Class");
         return adminRepo.save(newAdmin);
     }

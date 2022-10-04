@@ -22,8 +22,8 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(err, HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(CouldNotBeUpdatedException.class)
-    public ResponseEntity<ErrorDetails> couldNotBeUpdatedException(CouldNotBeUpdatedException ex, WebRequest rq) {
+    @ExceptionHandler(CouldNotBeAddedException.class)
+    public ResponseEntity<ErrorDetails> couldNotBeAddedException(CouldNotBeAddedException ex, WebRequest rq) {
         ErrorDetails err = new ErrorDetails(LocalDateTime.now(), ex.getMessage(), rq.getDescription(false));
         return new ResponseEntity<>(err, HttpStatus.NOT_FOUND);
     }
@@ -46,7 +46,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                                                                   HttpStatus status,
                                                                   WebRequest request) {
         Map<String,String> errors = new HashMap<>();
-        ex.getBindingResult().getAllErrors().forEach((error)->{
+        ex.getBindingResult().getAllErrors().forEach(error->{
             String fieldname = ((FieldError)error).getField();
             String message = error.getDefaultMessage();
             errors.put(fieldname,message);

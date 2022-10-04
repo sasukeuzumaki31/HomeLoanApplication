@@ -2,6 +2,7 @@ package com.group4.demo.service;
 
 import java.util.ArrayList;
 
+import com.group4.demo.advices.CouldNotBeAddedException;
 import com.group4.demo.dto.AdminDto;
 import com.group4.demo.entity.Admin;
 import com.group4.demo.repository.IAdminRepository;
@@ -32,7 +33,7 @@ public class JwtAdminDetailsService implements UserDetailsService {
                 new ArrayList<>());
     }
 
-    public Admin save(AdminDto user) {
+    public Admin save(AdminDto user) throws CouldNotBeAddedException {
 
         Admin newAdmin = adminService.addAdmin(user);
 

@@ -1,6 +1,8 @@
 package com.group4.demo.service.impl;
 
+import com.group4.demo.advices.CouldNotBeAddedException;
 import com.group4.demo.dto.CustomerDto;
+import com.group4.demo.dto.DocsDto;
 import com.group4.demo.dto.UserLoginDto;
 import com.group4.demo.advices.ResourceNotFoundException;
 import com.group4.demo.entity.Customer;
@@ -49,8 +51,11 @@ public class ICustomerServiceImpl implements ICustomerService {
     }
 
     @Override
-    public Customer addCustomer(CustomerDto customer) {
+    public Customer addCustomer(CustomerDto customer) throws CouldNotBeAddedException {
         logger.info("Entered into addCustomer method");
+        if(custRepo.findByMobileNumber(customer.getMobileNumber()) != null){
+            throw new CouldNotBeAddedException("Customer already exists");
+        }
         Customer newCustomer = new Customer();
         newCustomer.setCustomerName(customer.getCustomerName());
         newCustomer.setGender(customer.getGender());
@@ -72,13 +77,13 @@ public class ICustomerServiceImpl implements ICustomerService {
     }
 
     @Override
-    public Customer updateCustomer(int id, CustomerDto customerDto) throws ResourceNotFoundException {
+    public Customer updateCustomer(int id, DocsDto docsDto) throws ResourceNotFoundException {
         logger.info("Entered into updateCustomer method");
         Optional<Customer> customerOp = custRepo.findById(id);
         if (customerOp.isPresent()) {
             Customer customer = customerOp.get();
-            customer.setPanNumber(customerDto.getPanNumber());
-            customer.setAadharNumber(customerDto.getAadharNumber());
+            customer.setPanNumber(docsDto.getPanNumber());
+            customer.setAadharNumber(docsDto.getAadharNumber());
             LoanApplication loanApplication = loanRepo.findByCustomerId(id);
             loanApplication.setStatus(String.valueOf(Status.DOCUMENTS_UPLOADED));
             loanRepo.save(loanApplication);

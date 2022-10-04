@@ -1,6 +1,8 @@
 package com.group4.demo.controller;
 
+import com.group4.demo.advices.CouldNotBeAddedException;
 import com.group4.demo.dto.CustomerDto;
+import com.group4.demo.dto.DocsDto;
 import com.group4.demo.dto.UserLoginDto;
 import com.group4.demo.dto.LoanApplicationDto;
 import com.group4.demo.advices.ResourceNotFoundException;
@@ -12,7 +14,6 @@ import com.group4.demo.service.impl.ICustomerServiceImpl;
 import com.group4.demo.service.impl.ILoanAgreementServiceImpl;
 import com.group4.demo.service.impl.ISchemeServiceImpl;
 import com.group4.demo.service.impl.ILoanApplicationServiceImpl;
-import com.group4.demo.util.EMICalculator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +47,7 @@ public class CustomerController {
         Applying for a New Loan - /customer/apply
      */
     @PostMapping("/apply")
-    public ResponseEntity<LoanApplication> createNewLoanApplication(@Valid @RequestBody LoanApplicationDto loanApplicatonDto) throws ResourceNotFoundException {
+    public ResponseEntity<LoanApplication> createNewLoanApplication(@Valid @RequestBody LoanApplicationDto loanApplicatonDto) throws ResourceNotFoundException, CouldNotBeAddedException {
 
         loanApplicatonDto.setApplicationDate(LocalDate.now());
         LoanApplication savedLoanApplication = loanApplicationService.addLoanApplication(loanApplicatonDto);
@@ -58,7 +59,7 @@ public class CustomerController {
         Signup a New Customer - /customer/signup/
      */
     @PostMapping("/signup")
-    public ResponseEntity<Customer> createNewCustomer(@Valid @RequestBody CustomerDto customerDto) {
+    public ResponseEntity<Customer> createNewCustomer(@Valid @RequestBody CustomerDto customerDto) throws CouldNotBeAddedException {
 
         Customer newCustomer = customerService.addCustomer(customerDto);
         return new ResponseEntity<>(newCustomer, HttpStatus.CREATED);
@@ -72,8 +73,8 @@ public class CustomerController {
     }
 
     @PutMapping("/document/{id}")
-    public ResponseEntity<Customer> updateDocuments(@PathVariable int id, @RequestBody CustomerDto customerDto) throws ResourceNotFoundException {
-        Customer customer = customerService.updateCustomer(id, customerDto);
+    public ResponseEntity<Customer> updateDocuments(@PathVariable int id, @Valid @RequestBody DocsDto docsDto) throws ResourceNotFoundException {
+        Customer customer = customerService.updateCustomer(id, docsDto);
         return new ResponseEntity<>(customer, HttpStatus.CREATED);
     }
 
@@ -90,19 +91,6 @@ public class CustomerController {
 
         List<Scheme> schemesList = iSchemeService.getAllSchemes();
         return new ResponseEntity<>(schemesList, HttpStatus.OK);
-    }
-
-
-    /*
-      POST calculate EMI - /customer/emi
-   */
-    @PostMapping("/emi")
-    public ResponseEntity<Double> getEMIAmount(@RequestBody EMICalculator emiCalculator) {
-
-
-        EMICalculator calc = new EMICalculator(emiCalculator.getLoanAmount(), emiCalculator.getRateOfInterest(), emiCalculator.getTenure());
-        double amount = calc.getEMIAmount();
-        return new ResponseEntity<>(amount, HttpStatus.OK);
     }
 
     @GetMapping("/loanagreement/{id}")

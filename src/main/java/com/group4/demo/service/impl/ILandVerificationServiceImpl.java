@@ -1,5 +1,6 @@
 package com.group4.demo.service.impl;
 
+import com.group4.demo.advices.CouldNotBeAddedException;
 import com.group4.demo.dto.LandVerificationOfficerDto;
 import com.group4.demo.dto.UserLoginDto;
 import com.group4.demo.advices.ResourceNotFoundException;
@@ -40,8 +41,11 @@ public class ILandVerificationServiceImpl implements ILandVerificationService {
     }
 
     @Override
-    public LandVerificationOfficer addLandVerificationOfficer(LandVerificationOfficerDto landVerificationOfficerDto) {
+    public LandVerificationOfficer addLandVerificationOfficer(LandVerificationOfficerDto landVerificationOfficerDto) throws CouldNotBeAddedException {
         logger.info("Entered into addLandVerificationOfficer method in LandVerification Class");
+        if(landVerificationRepository.findByOfficeContact(landVerificationOfficerDto.getOfficeContact()) != null){
+            throw new CouldNotBeAddedException("Officer already exists");
+        }
         LandVerificationOfficer landVerificationOfficer = new LandVerificationOfficer();
         landVerificationOfficer.setOfficeContact(landVerificationOfficerDto.getOfficeContact());
         landVerificationOfficer.setOfficeName(landVerificationOfficerDto.getOfficeName());
