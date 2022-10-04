@@ -37,10 +37,10 @@ public class Customer extends User {
     @NotEmpty
     String nationality;
 
-    @Pattern(regexp = "^[2-9][0-9]{11}$")
+    @Pattern(regexp = "^[2-9]\\d{11}$")
     String aadharNumber;
 
-    @Pattern(regexp = "[A-Z]{5}[0-9]{4}[A-Z]{1}")
+    @Pattern(regexp = "[A-Z]{5}\\d{4}[A-Z]{1}")
     String panNumber;
 
 

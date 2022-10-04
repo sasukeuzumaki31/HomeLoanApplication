@@ -1,6 +1,6 @@
 package com.group4.demo.controller;
 
-import com.group4.demo.Dto.SchemeDto;
+import com.group4.demo.dto.SchemeDto;
 import com.group4.demo.advices.ResourceNotFoundException;
 import com.group4.demo.entity.Customer;
 import com.group4.demo.entity.LoanApplication;
@@ -79,8 +79,8 @@ public class AdminController {
 
     @PutMapping("/application/{id}")
     public ResponseEntity<LoanApplication> updateApplicationById(@PathVariable long id) throws ResourceNotFoundException{
-        LoanApplication  savedLoanApplication = loanApplicationService.updateLoanApplication(id);
-        return new ResponseEntity<>( savedLoanApplication, HttpStatus.OK);
+        LoanApplication  loanApplication = loanApplicationService.updateLoanApplication(id);
+        return new ResponseEntity<>( loanApplication, HttpStatus.OK);
     }
 
     @GetMapping("/application/pending")
@@ -112,7 +112,7 @@ public class AdminController {
         return new ResponseEntity<>(schemeList,HttpStatus.OK);
     }
     @GetMapping("/scheme/{id}")
-    public ResponseEntity<Scheme> getSchemeById(@PathVariable int id) throws Throwable{
+    public ResponseEntity<Scheme> getSchemeById(@PathVariable int id) throws ResourceNotFoundException{
         Scheme scheme = schemeService.getSchemeById(id);
         return new ResponseEntity<>(scheme,HttpStatus.OK);
     }
@@ -123,12 +123,12 @@ public class AdminController {
         return new ResponseEntity<>(scheme,HttpStatus.OK);
     }
     @DeleteMapping("/scheme/{id}")
-    public ResponseEntity<Scheme> deleteSchemeById(@PathVariable int id) throws Throwable {
+    public ResponseEntity<Scheme> deleteSchemeById(@PathVariable int id) throws ResourceNotFoundException {
         Scheme scheme = schemeService.deleteSchemeById(id);
         return new ResponseEntity<>(scheme, HttpStatus.OK);
     }
     @PutMapping("/scheme/{id}")
-    public ResponseEntity<Scheme> updateScheme(@PathVariable int id,@RequestBody SchemeDto schemeDto) throws Throwable {
+    public ResponseEntity<Scheme> updateScheme(@PathVariable int id,@RequestBody SchemeDto schemeDto) throws ResourceNotFoundException {
         Scheme scheme1 = schemeService.updateScheme(id,schemeDto);
         return new ResponseEntity<>(scheme1, HttpStatus.OK);
     }

@@ -7,7 +7,7 @@ import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.group4.demo.Dto.FinanceVerificationDto;
+import com.group4.demo.dto.FinanceVerificationDto;
 import com.group4.demo.advices.ResourceNotFoundException;
 import com.group4.demo.entity.Customer;
 import com.group4.demo.entity.FinanceVerificationOfficer;
@@ -19,7 +19,6 @@ import com.group4.demo.repository.ILoanApplicationRepository;
 import java.time.LocalDate;
 import java.util.Optional;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;

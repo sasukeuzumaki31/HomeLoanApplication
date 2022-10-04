@@ -19,13 +19,6 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int userId;
     private String password;
-
-//    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-//    @JoinTable(
-//            joinColumns =@JoinColumn(name = "user_id",referencedColumnName = "userId"),
-//            inverseJoinColumns = @JoinColumn(name = "role_id",referencedColumnName = "id")
-//    )
-//    private Set roles;
     private String  role;
 
 }

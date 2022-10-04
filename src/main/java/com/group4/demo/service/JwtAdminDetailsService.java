@@ -2,7 +2,7 @@ package com.group4.demo.service;
 
 import java.util.ArrayList;
 
-import com.group4.demo.Dto.AdminDto;
+import com.group4.demo.dto.AdminDto;
 import com.group4.demo.entity.Admin;
 import com.group4.demo.repository.IAdminRepository;
 import org.springframework.beans.factory.annotation.Autowired;

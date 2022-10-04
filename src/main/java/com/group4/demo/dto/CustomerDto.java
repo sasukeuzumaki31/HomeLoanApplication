@@ -1,4 +1,4 @@
-package com.group4.demo.Dto;
+package com.group4.demo.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -40,7 +40,7 @@ public class CustomerDto {
     String aadharNumber;
     String panNumber;
     @NotNull(message = "Password cannot be null")
-    @Pattern(regexp = "^(?=.*[0-9])"
+    @Pattern(regexp = "^(?=.*\\d)"
             + "(?=.*[a-z])(?=.*[A-Z])"
             + "(?=.*[@#$%^&+=])"
             + "(?=\\S+$).{8,20}$", message = "Password Invalid : password should contain atleast one of the " +
