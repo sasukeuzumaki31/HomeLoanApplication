@@ -6,7 +6,7 @@ import com.group4.demo.advices.ResourceNotFoundException;
 import com.group4.demo.entity.LandVerificationOfficer;
 import com.group4.demo.entity.LoanApplication;
 import com.group4.demo.entity.Status;
-import com.group4.demo.service.ILLandVerificationService;
+import com.group4.demo.service.ILandVerificationService;
 import com.group4.demo.service.ILoanApplicationService;
 import org.apache.juli.logging.Log;
 import org.apache.juli.logging.LogFactory;
@@ -28,7 +28,7 @@ public class LandOfficerController {
     ILoanApplicationService loanApplicationService;
 
     @Autowired
-    ILLandVerificationService landVerificationService;
+    ILandVerificationService landVerificationService;
 
 
     @GetMapping("/loan/{id}")

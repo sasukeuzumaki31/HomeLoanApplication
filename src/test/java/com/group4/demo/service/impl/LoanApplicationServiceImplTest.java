@@ -28,8 +28,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import org.junit.jupiter.api.Disabled;
-
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +35,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@ContextConfiguration(classes = {LoanApplicationServiceImpl.class})
+@ContextConfiguration(classes = {ILoanApplicationServiceImpl.class})
 @ExtendWith(SpringExtension.class)
 class LoanApplicationServiceImplTest {
     @MockBean
@@ -53,7 +51,7 @@ class LoanApplicationServiceImplTest {
     private ISchemeRepository iSchemeRepository;
 
     @Autowired
-    private LoanApplicationServiceImpl loanApplicationServiceImpl;
+    private ILoanApplicationServiceImpl loanApplicationServiceImpl;
 
     @Test
     void testDeleteLoanApplicationId() throws ResourceNotFoundException {
