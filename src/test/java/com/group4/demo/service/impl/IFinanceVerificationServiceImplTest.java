@@ -7,6 +7,7 @@ import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import com.group4.demo.advices.CouldNotBeAddedException;
 import com.group4.demo.dto.FinanceVerificationDto;
 import com.group4.demo.advices.ResourceNotFoundException;
 import com.group4.demo.entity.Customer;
@@ -22,13 +23,14 @@ import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@ContextConfiguration(classes = {IFinanceVerificationServiceImpl.class})
-@ExtendWith(SpringExtension.class)
+@SpringBootTest
+
 class IFinanceVerificationServiceImplTest {
     @MockBean
     private IFinanceVerificationRepository iFinanceVerificationRepository;
@@ -44,20 +46,20 @@ class IFinanceVerificationServiceImplTest {
 
 
     @Test
-    void testAddFinanceVerificationOfficer() {
+    void testAddFinanceVerificationOfficer() throws CouldNotBeAddedException {
         FinanceVerificationOfficer financeVerificationOfficer = new FinanceVerificationOfficer();
         financeVerificationOfficer.setFinOfficerContact("1234567890");
         financeVerificationOfficer.setFinOfficerName("Abcdef");
         financeVerificationOfficer.setPassword("A@bcd12345");
         financeVerificationOfficer.setRole("Finance_Verification_Officer");
         financeVerificationOfficer.setUserId(123);
-        when(iFinanceVerificationRepository.save((FinanceVerificationOfficer) any()))
+        when(iFinanceVerificationRepository.save(any()))
                 .thenReturn(financeVerificationOfficer);
-        when(passwordEncoder.encode((CharSequence) any())).thenReturn("secret");
+        when(passwordEncoder.encode(any())).thenReturn("secret");
         assertSame(financeVerificationOfficer, iFinanceVerificationServiceImpl.addFinanceVerificationOfficer(
                 new FinanceVerificationDto("Abcdef", "1234567890", 123, "A@bcd12345", "Finance_Verification_Officer")));
-        verify(iFinanceVerificationRepository).save((FinanceVerificationOfficer) any());
-        verify(passwordEncoder).encode((CharSequence) any());
+        verify(iFinanceVerificationRepository).save( any());
+        verify(passwordEncoder).encode(any());
     }
 
     @Test
@@ -128,15 +130,15 @@ class IFinanceVerificationServiceImplTest {
         loanApplication1.setScheme(scheme1);
         loanApplication1.setStatus("Pending");
         loanApplication1.setTotalAnnualIncome(10.0d);
-        when(iLoanApplicationRepository.save((LoanApplication) any())).thenReturn(loanApplication1);
-        when(iLoanApplicationRepository.findById((Long) any())).thenReturn(ofResult);
+        when(iLoanApplicationRepository.save(any())).thenReturn(loanApplication1);
+        when(iLoanApplicationRepository.findById( any())).thenReturn(ofResult);
         LoanApplication actualUpdateStatusResult = iFinanceVerificationServiceImpl.updateStatus(1L);
         assertSame(loanApplication, actualUpdateStatusResult);
         assertFalse(actualUpdateStatusResult.isFinanceVerificationApproval());
         assertEquals("REJECTED", actualUpdateStatusResult.getStatus());
         assertEquals(0.0d, actualUpdateStatusResult.getLoanApprovedAmount());
-        verify(iLoanApplicationRepository).save((LoanApplication) any());
-        verify(iLoanApplicationRepository).findById((Long) any());
+        verify(iLoanApplicationRepository).save(any());
+        verify(iLoanApplicationRepository).findById(any());
     }
 }
 

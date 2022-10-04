@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -30,8 +31,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-@ContextConfiguration(classes = {JwtAuthenticationController.class})
-@ExtendWith(SpringExtension.class)
+@SpringBootTest
 class JwtAuthenticationControllerTest {
     @MockBean
     private AuthenticationManager authenticationManager;
@@ -48,15 +48,12 @@ class JwtAuthenticationControllerTest {
     @MockBean
     private JwtTokenUtil jwtTokenUtil;
 
-    /**
-     * Method under test: {@link JwtAuthenticationController#createAuthenticationToken(JwtRequest)}
-     */
     @Test
     void testCreateAuthenticationToken() throws Exception {
-        when(jwtTokenUtil.generateToken((UserDetails) any())).thenReturn("ABC123");
-        when(jwtAdminDetailsService.loadUserByUsername((String) any()))
+        when(jwtTokenUtil.generateToken(any())).thenReturn("ABC123");
+        when(jwtAdminDetailsService.loadUserByUsername(any()))
                 .thenReturn(new User("janedoe", "iloveyou", new ArrayList<>()));
-        when(authenticationManager.authenticate((Authentication) any()))
+        when(authenticationManager.authenticate(any()))
                 .thenReturn(new TestingAuthenticationToken("Principal", "Credentials"));
 
         JwtRequest jwtRequest = new JwtRequest();
@@ -74,9 +71,7 @@ class JwtAuthenticationControllerTest {
                 .andExpect(MockMvcResultMatchers.content().string("{\"token\":\"ABC123\"}"));
     }
 
-    /**
-     * Method under test: {@link JwtAuthenticationController#saveUser(AdminDto)}
-     */
+
     @Test
     void testSaveUser() throws Exception {
         AdminDto adminDto = new AdminDto();

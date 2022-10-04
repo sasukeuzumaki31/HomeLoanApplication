@@ -23,12 +23,13 @@ import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@ContextConfiguration(classes = {ILoanAgreementServiceImpl.class})
-@ExtendWith(SpringExtension.class)
+@SpringBootTest
+
 class ILoanAgreementServiceImplTest {
     @MockBean
     private ILoanAgreementRepository iLoanAgreementRepository;
@@ -75,20 +76,20 @@ class ILoanAgreementServiceImplTest {
         loanAgreement.setLoanAgreementId(123L);
         loanAgreement.setLoanApplication(loanApplication);
         Optional<LoanAgreement> ofResult = Optional.of(loanAgreement);
-        doNothing().when(iLoanAgreementRepository).delete((LoanAgreement) any());
-        when(iLoanAgreementRepository.findById((Long) any())).thenReturn(ofResult);
+        doNothing().when(iLoanAgreementRepository).delete( any());
+        when(iLoanAgreementRepository.findById(any())).thenReturn(ofResult);
         assertSame(loanAgreement, iLoanAgreementServiceImpl.deleteLoanAgreement(123L));
-        verify(iLoanAgreementRepository).findById((Long) any());
-        verify(iLoanAgreementRepository).delete((LoanAgreement) any());
+        verify(iLoanAgreementRepository).findById( any());
+        verify(iLoanAgreementRepository).delete(any());
     }
 
 
     @Test
-    void testDeleteLoanAgreement2() throws ResourceNotFoundException {
-        doNothing().when(iLoanAgreementRepository).delete((LoanAgreement) any());
-        when(iLoanAgreementRepository.findById((Long) any())).thenReturn(Optional.empty());
+    void testDeleteLoanAgreement2()  {
+        doNothing().when(iLoanAgreementRepository).delete(any());
+        when(iLoanAgreementRepository.findById(any())).thenReturn(Optional.empty());
         assertThrows(ResourceNotFoundException.class, () -> iLoanAgreementServiceImpl.deleteLoanAgreement(123L));
-        verify(iLoanAgreementRepository).findById((Long) any());
+        verify(iLoanAgreementRepository).findById(any());
     }
 
 
@@ -142,17 +143,17 @@ class ILoanAgreementServiceImplTest {
         loanAgreement.setLoanAgreementId(123L);
         loanAgreement.setLoanApplication(loanApplication);
         Optional<LoanAgreement> ofResult = Optional.of(loanAgreement);
-        when(iLoanAgreementRepository.findById((Long) any())).thenReturn(ofResult);
+        when(iLoanAgreementRepository.findById(any())).thenReturn(ofResult);
         assertSame(loanAgreement, iLoanAgreementServiceImpl.retrieveAgreementById(123L));
-        verify(iLoanAgreementRepository).findById((Long) any());
+        verify(iLoanAgreementRepository).findById( any());
     }
 
 
     @Test
-    void testRetrieveAgreementById2() throws ResourceNotFoundException {
-        when(iLoanAgreementRepository.findById((Long) any())).thenReturn(Optional.empty());
+    void testRetrieveAgreementById2() {
+        when(iLoanAgreementRepository.findById( any())).thenReturn(Optional.empty());
         assertThrows(ResourceNotFoundException.class, () -> iLoanAgreementServiceImpl.retrieveAgreementById(123L));
-        verify(iLoanAgreementRepository).findById((Long) any());
+        verify(iLoanAgreementRepository).findById( any());
     }
 
 
@@ -194,7 +195,7 @@ class ILoanAgreementServiceImplTest {
         LoanAgreement loanAgreement = new LoanAgreement();
         loanAgreement.setLoanAgreementId(123L);
         loanAgreement.setLoanApplication(loanApplication);
-        when(iLoanAgreementRepository.save((LoanAgreement) any())).thenReturn(loanAgreement);
+        when(iLoanAgreementRepository.save(any())).thenReturn(loanAgreement);
 
         Customer customer1 = new Customer();
         customer1.setAadharNumber("42");
@@ -233,7 +234,7 @@ class ILoanAgreementServiceImplTest {
         loanAgreement1.setLoanAgreementId(123L);
         loanAgreement1.setLoanApplication(loanApplication1);
         assertSame(loanAgreement, iLoanAgreementServiceImpl.addLoanAgreement(loanAgreement1));
-        verify(iLoanAgreementRepository).save((LoanAgreement) any());
+        verify(iLoanAgreementRepository).save(any());
     }
 
 
@@ -275,7 +276,7 @@ class ILoanAgreementServiceImplTest {
         LoanAgreement loanAgreement = new LoanAgreement();
         loanAgreement.setLoanAgreementId(123L);
         loanAgreement.setLoanApplication(loanApplication);
-        when(iLoanAgreementRepository.save((LoanAgreement) any())).thenReturn(loanAgreement);
+        when(iLoanAgreementRepository.save(any())).thenReturn(loanAgreement);
 
         Customer customer1 = new Customer();
         customer1.setAadharNumber("42");
@@ -314,7 +315,7 @@ class ILoanAgreementServiceImplTest {
         loanAgreement1.setLoanAgreementId(123L);
         loanAgreement1.setLoanApplication(loanApplication1);
         assertSame(loanAgreement, iLoanAgreementServiceImpl.updateLoanAgreement(loanAgreement1));
-        verify(iLoanAgreementRepository).save((LoanAgreement) any());
+        verify(iLoanAgreementRepository).save( any());
     }
 }
 
