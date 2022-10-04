@@ -1,13 +1,16 @@
 package com.group4.demo.service.impl;
 
-import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.group4.demo.dto.LandVerificationOfficerDto;
+import com.group4.demo.advices.CouldNotBeAddedException;
 import com.group4.demo.advices.ResourceNotFoundException;
+import com.group4.demo.dto.LandVerificationOfficerDto;
+import com.group4.demo.dto.UserLoginDto;
 import com.group4.demo.entity.Customer;
 import com.group4.demo.entity.LandVerificationOfficer;
 import com.group4.demo.entity.LoanApplication;
@@ -16,18 +19,21 @@ import com.group4.demo.repository.ILandVerificationRepository;
 import com.group4.demo.repository.ILoanApplicationRepository;
 
 import java.time.LocalDate;
+
 import java.util.Optional;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@ContextConfiguration(classes = {ILandVerificationServiceImpl.class})
-@ExtendWith(SpringExtension.class)
+@SpringBootTest
+
 class ILandVerificationServiceImplTest {
     @MockBean
     private ILandVerificationRepository iLandVerificationRepository;
@@ -44,14 +50,14 @@ class ILandVerificationServiceImplTest {
     @Test
     void testUpdateStatus() throws ResourceNotFoundException {
         Customer customer = new Customer();
-        customer.setAadharNumber("123456789876");
-        customer.setCustomerName("Customer Name");
+        customer.setAadharNumber("123456789123");
+        customer.setCustomerName("Rajesh Kumar");
         customer.setDateOfBirth(LocalDate.ofEpochDay(1L));
-        customer.setEmail("test.customer@xmail.com");
-        customer.setGender("MALE");
-        customer.setMobileNumber("1234567890");
-        customer.setNationality("Nationality");
-        customer.setPanNumber("ABCDE5552E");
+        customer.setEmail("rajkmr123@hmail.com");
+        customer.setGender("Male");
+        customer.setMobileNumber("1234567891");
+        customer.setNationality("Indian");
+        customer.setPanNumber("123456789");
         customer.setPassword("Pass@123");
         customer.setRole("CUSTOMER");
         customer.setUserId(123);
@@ -73,19 +79,19 @@ class ILandVerificationServiceImplTest {
         loanApplication.setMonthlyExpenses(10.0d);
         loanApplication.setOtherMonthlyExpenses(10.0d);
         loanApplication.setScheme(scheme);
-        loanApplication.setStatus("PENDING");
+        loanApplication.setStatus("Status");
         loanApplication.setTotalAnnualIncome(10.0d);
         Optional<LoanApplication> ofResult = Optional.of(loanApplication);
 
         Customer customer1 = new Customer();
-        customer1.setAadharNumber("ABCDE5553R");
-        customer1.setCustomerName("Customer Name");
+        customer1.setAadharNumber("123456789123");
+        customer1.setCustomerName("Rajesh Kumar");
         customer1.setDateOfBirth(LocalDate.ofEpochDay(1L));
-        customer1.setEmail("test.customer@xmail.com");
-        customer1.setGender("MALE");
-        customer1.setMobileNumber("1234567890");
-        customer1.setNationality("Nationality");
-        customer1.setPanNumber("ABCDE5552E");
+        customer1.setEmail("rajkmr123@hmail.com");
+        customer1.setGender("Male");
+        customer1.setMobileNumber("1234567891");
+        customer1.setNationality("Indian");
+        customer1.setPanNumber("123456789");
         customer1.setPassword("Pass@123");
         customer1.setRole("CUSTOMER");
         customer1.setUserId(123);
@@ -107,20 +113,20 @@ class ILandVerificationServiceImplTest {
         loanApplication1.setMonthlyExpenses(10.0d);
         loanApplication1.setOtherMonthlyExpenses(10.0d);
         loanApplication1.setScheme(scheme1);
-        loanApplication1.setStatus("PENDING");
+        loanApplication1.setStatus("Status");
         loanApplication1.setTotalAnnualIncome(10.0d);
         when(iLoanApplicationRepository.save(any())).thenReturn(loanApplication1);
         when(iLoanApplicationRepository.findById(any())).thenReturn(ofResult);
 
         Customer customer2 = new Customer();
-        customer2.setAadharNumber("ABCDE5553R");
-        customer2.setCustomerName("Customer Name");
+        customer2.setAadharNumber("123456789123");
+        customer2.setCustomerName("Rajesh Kumar");
         customer2.setDateOfBirth(LocalDate.ofEpochDay(1L));
-        customer2.setEmail("test.customer@xmail.com");
-        customer2.setGender("MALE");
-        customer2.setMobileNumber("1234567890");
-        customer2.setNationality("Nationality");
-        customer2.setPanNumber("ABCDE5552E");
+        customer2.setEmail("rajkmr123@hmail.com");
+        customer2.setGender("Male");
+        customer2.setMobileNumber("1234567891");
+        customer2.setNationality("Indian");
+        customer2.setPanNumber("123456789");
         customer2.setPassword("Pass@123");
         customer2.setRole("CUSTOMER");
         customer2.setUserId(123);
@@ -142,29 +148,86 @@ class ILandVerificationServiceImplTest {
         loanApplication2.setMonthlyExpenses(10.0d);
         loanApplication2.setOtherMonthlyExpenses(10.0d);
         loanApplication2.setScheme(scheme2);
-        loanApplication2.setStatus("PENDING");
+        loanApplication2.setStatus("Status");
         loanApplication2.setTotalAnnualIncome(10.0d);
         iLandVerificationServiceImpl.updateStatus(loanApplication2);
         verify(iLoanApplicationRepository).save(any());
-        verify(iLoanApplicationRepository).findById(any());
+        verify(iLoanApplicationRepository).findById( any());
         assertTrue(loanApplication2.isLandVerificationApproval());
     }
 
     @Test
-    void testAddLandVerificationOfficer() {
+    void testAddLandVerificationOfficer()  {
         LandVerificationOfficer landVerificationOfficer = new LandVerificationOfficer();
         landVerificationOfficer.setOfficeContact("1234567890");
-        landVerificationOfficer.setOfficeName("Office Name");
+        landVerificationOfficer.setOfficeName("Ramesh");
         landVerificationOfficer.setPassword("Pass@123");
         landVerificationOfficer.setRole("LAND_VERIFICATION_OFFICER");
         landVerificationOfficer.setUserId(123);
-        when(iLandVerificationRepository.save(any())).thenReturn(landVerificationOfficer);
-        when(passwordEncoder.encode(any())).thenReturn("secret");
-        assertSame(landVerificationOfficer, iLandVerificationServiceImpl.addLandVerificationOfficer(
-                new LandVerificationOfficerDto("Office Name", "1234567890", 123, "Pass@123", "LAND_VERIFICATION_OFFICER")));
-        verify(iLandVerificationRepository).save(any());
-        verify(passwordEncoder).encode(any());
+
+        LandVerificationOfficer landVerificationOfficer1 = new LandVerificationOfficer();
+        landVerificationOfficer.setOfficeContact("1234567890");
+        landVerificationOfficer.setOfficeName("Ramesh");
+        landVerificationOfficer.setPassword("Pass@123");
+        landVerificationOfficer.setRole("LAND_VERIFICATION_OFFICER");
+        landVerificationOfficer.setUserId(123);
+        when(iLandVerificationRepository.findByOfficeContact(any())).thenReturn(landVerificationOfficer);
+        when(iLandVerificationRepository.save( any())).thenReturn(landVerificationOfficer1);
+        assertThrows(CouldNotBeAddedException.class, () -> iLandVerificationServiceImpl.addLandVerificationOfficer(
+                new LandVerificationOfficerDto("Ramesh", "1234567890", 123, "Pass@123", "LAND_VERIFICATION_OFFICER")));
+        verify(iLandVerificationRepository).findByOfficeContact( any());
     }
 
+    @Test
+    void testLoginLandOfficer() throws ResourceNotFoundException {
+        LandVerificationOfficer landVerificationOfficer = new LandVerificationOfficer();
+        landVerificationOfficer.setOfficeContact("1234567890");
+        landVerificationOfficer.setOfficeName("Ramesh");
+        landVerificationOfficer.setPassword("Pass@123");
+        landVerificationOfficer.setRole("LAND_VERIFICATION_OFFICER");
+        landVerificationOfficer.setUserId(123);
+        Optional<LandVerificationOfficer> ofResult = Optional.of(landVerificationOfficer);
+        when(iLandVerificationRepository.findById( any())).thenReturn(ofResult);
+        when(passwordEncoder.matches(any(),  any())).thenReturn(true);
+
+        UserLoginDto userLoginDto = new UserLoginDto();
+        userLoginDto.setPassword("Pass@123");
+        userLoginDto.setUserId(123);
+        assertEquals("Login successfully", iLandVerificationServiceImpl.loginLandOfficer(userLoginDto));
+        verify(iLandVerificationRepository).findById(any());
+        verify(passwordEncoder).matches(any(), any());
+    }
+
+    @Test
+    void testLoginLandOfficer2() {
+        when(iLandVerificationRepository.findById(any())).thenReturn(Optional.empty());
+        when(passwordEncoder.matches(any(), any())).thenReturn(true);
+
+        UserLoginDto userLoginDto = new UserLoginDto();
+        userLoginDto.setPassword("Pass@123");
+        userLoginDto.setUserId(123);
+        assertThrows(ResourceNotFoundException.class, () -> iLandVerificationServiceImpl.loginLandOfficer(userLoginDto));
+        verify(iLandVerificationRepository).findById( any());
+    }
+
+    @Test
+    void testLoginLandOfficer3() throws ResourceNotFoundException {
+        LandVerificationOfficer landVerificationOfficer = new LandVerificationOfficer();
+        landVerificationOfficer.setOfficeContact("1234567890");
+        landVerificationOfficer.setOfficeName("Ramesh");
+        landVerificationOfficer.setPassword("Pass@123");
+        landVerificationOfficer.setRole("LAND_VERIFICATION_OFFICER");
+        landVerificationOfficer.setUserId(123);
+        Optional<LandVerificationOfficer> ofResult = Optional.of(landVerificationOfficer);
+        when(iLandVerificationRepository.findById( any())).thenReturn(ofResult);
+        when(passwordEncoder.matches(any(),  any())).thenReturn(false);
+
+        UserLoginDto userLoginDto = new UserLoginDto();
+        userLoginDto.setPassword("pass@123");
+        userLoginDto.setUserId(123);
+        assertEquals("Invalid Credentials", iLandVerificationServiceImpl.loginLandOfficer(userLoginDto));
+        verify(iLandVerificationRepository).findById( any());
+        verify(passwordEncoder).matches(any(),  any());
+    }
 }
 

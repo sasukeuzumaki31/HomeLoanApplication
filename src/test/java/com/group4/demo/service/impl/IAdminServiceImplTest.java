@@ -8,6 +8,7 @@ import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import com.group4.demo.advices.CouldNotBeAddedException;
 import com.group4.demo.dto.AdminDto;
 import com.group4.demo.advices.ResourceNotFoundException;
 import com.group4.demo.entity.Admin;
@@ -19,15 +20,15 @@ import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@ContextConfiguration(classes = {IAdminServiceImpl.class})
-@ExtendWith(SpringExtension.class)
+
+@SpringBootTest
+
 class IAdminServiceImplTest {
     @MockBean
     private IAdminRepository iAdminRepository;
@@ -53,14 +54,14 @@ class IAdminServiceImplTest {
     }
 
     @Test
-    void testViewAdmin2() throws ResourceNotFoundException {
+    void testViewAdmin2() {
         when(iAdminRepository.findById(any())).thenReturn(Optional.empty());
         assertThrows(ResourceNotFoundException.class, () -> iAdminServiceImpl.viewAdmin(1));
         verify(iAdminRepository).findById(any());
     }
 
     @Test
-    void testViewAllAdmin() throws ResourceNotFoundException {
+    void testViewAllAdmin(){
         when(iAdminRepository.findAll()).thenReturn(new ArrayList<>());
         assertThrows(ResourceNotFoundException.class, () -> iAdminServiceImpl.viewAllAdmin());
         verify(iAdminRepository).findAll();
@@ -85,7 +86,7 @@ class IAdminServiceImplTest {
     }
 
     @Test
-    void testAddAdmin() {
+    void testAddAdmin() throws CouldNotBeAddedException {
         Admin admin = new Admin();
         admin.setAdminContact("1234567890");
         admin.setAdminName("Admin Name");
@@ -130,7 +131,7 @@ class IAdminServiceImplTest {
     }
 
     @Test
-    void testUpdateAdmin2() throws ResourceNotFoundException {
+    void testUpdateAdmin2(){
         Admin admin = new Admin();
         admin.setAdminContact("1234567890");
         admin.setAdminName("Admin Name");

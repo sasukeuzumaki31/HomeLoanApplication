@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
@@ -60,7 +61,7 @@ class AdminControllerTest {
      */
     @Test
     void testViewCustomerList() throws Exception {
-        when(iCustomerService.viewCustomerList((String) any())).thenReturn(new ArrayList<>());
+        when(iCustomerService.viewCustomerList(any())).thenReturn(new ArrayList<>());
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/admin/users/{date}", "2020-03-01");
         MockMvcBuilders.standaloneSetup(adminController)
                 .build()
@@ -76,7 +77,7 @@ class AdminControllerTest {
     @Test
     void testViewCustomerList2() throws Exception {
         when(iCustomerService.viewAllCustomers()).thenReturn(new ArrayList<>());
-        when(iCustomerService.viewCustomerList((String) any()))
+        when(iCustomerService.viewCustomerList(any()))
                 .thenThrow(new ResourceNotFoundException("An error occurred"));
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/admin/users/{date}", "",
                 "Uri Variables");
@@ -240,7 +241,7 @@ class AdminControllerTest {
         scheme.setInterestRate(10.0d);
         scheme.setSchemeId(123);
         scheme.setTenure(1);
-        when(iSchemeService.addScheme((SchemeDto) any())).thenReturn(scheme);
+        when(iSchemeService.addScheme(any())).thenReturn(scheme);
 
         SchemeDto schemeDto = new SchemeDto();
         schemeDto.setInterestRate(10.0d);
@@ -286,7 +287,7 @@ class AdminControllerTest {
         scheme.setInterestRate(10.0d);
         scheme.setSchemeId(123);
         scheme.setTenure(1);
-        when(iSchemeService.updateScheme(anyInt(), (SchemeDto) any())).thenReturn(scheme);
+        when(iSchemeService.updateScheme(anyInt(),any())).thenReturn(scheme);
 
         SchemeDto schemeDto = new SchemeDto();
         schemeDto.setInterestRate(10.0d);
@@ -410,7 +411,7 @@ class AdminControllerTest {
         loanApplication.setScheme(scheme);
         loanApplication.setStatus("Status");
         loanApplication.setTotalAnnualIncome(10.0d);
-        when(iLoanApplicationService.retrieveLoanApplicationById((Long) any())).thenReturn(loanApplication);
+        when(iLoanApplicationService.retrieveLoanApplicationById(any())).thenReturn(loanApplication);
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/admin/application/{id}", 123L);
         MockMvcBuilders.standaloneSetup(adminController)
                 .build()
@@ -430,7 +431,7 @@ class AdminControllerTest {
      */
     @Test
     void testGetDocumentUploaded() throws Exception {
-        when(iLoanApplicationService.retrieveLoanApplicationByStatus((String) any())).thenReturn(new ArrayList<>());
+        when(iLoanApplicationService.retrieveLoanApplicationByStatus(any())).thenReturn(new ArrayList<>());
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
                 .get("/admin/applications/documentsuploaded");
         MockMvcBuilders.standaloneSetup(adminController)
@@ -446,7 +447,7 @@ class AdminControllerTest {
      */
     @Test
     void testGetDocumentUploaded2() throws Exception {
-        when(iLoanApplicationService.retrieveLoanApplicationByStatus((String) any())).thenReturn(new ArrayList<>());
+        when(iLoanApplicationService.retrieveLoanApplicationByStatus( any())).thenReturn(new ArrayList<>());
         MockHttpServletRequestBuilder getResult = MockMvcRequestBuilders.get("/admin/applications/documentsuploaded");
         getResult.characterEncoding("Encoding");
         MockMvcBuilders.standaloneSetup(adminController)
@@ -462,7 +463,7 @@ class AdminControllerTest {
      */
     @Test
     void testGetPendingApplications() throws Exception {
-        when(iLoanApplicationService.retrieveLoanApplicationByStatus((String) any())).thenReturn(new ArrayList<>());
+        when(iLoanApplicationService.retrieveLoanApplicationByStatus( any())).thenReturn(new ArrayList<>());
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/admin/application/pending");
         MockMvcBuilders.standaloneSetup(adminController)
                 .build()
@@ -477,7 +478,7 @@ class AdminControllerTest {
      */
     @Test
     void testGetPendingApplications2() throws Exception {
-        when(iLoanApplicationService.retrieveLoanApplicationByStatus((String) any())).thenReturn(new ArrayList<>());
+        when(iLoanApplicationService.retrieveLoanApplicationByStatus(any())).thenReturn(new ArrayList<>());
         MockHttpServletRequestBuilder getResult = MockMvcRequestBuilders.get("/admin/application/pending");
         getResult.characterEncoding("Encoding");
         MockMvcBuilders.standaloneSetup(adminController)
