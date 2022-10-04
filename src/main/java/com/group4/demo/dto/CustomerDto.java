@@ -5,10 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 
 
 @Getter
@@ -32,10 +29,13 @@ public class CustomerDto {
     @Email(message = "Invalid Email")
     String email;
     @NotNull(message = "DOB cannot be null")
+    @NotEmpty(message = "DOB cannot be empty")
     String dateOfBirth;
     @NotNull(message = "Gender cannot be null")
+    @NotEmpty(message = "Gender cannot be empty")
     String gender;
     @NotNull(message = "Nationality cannot be null")
+    @NotEmpty(message = "Nationality cannot be empty")
     String nationality;
     String aadharNumber;
     String panNumber;

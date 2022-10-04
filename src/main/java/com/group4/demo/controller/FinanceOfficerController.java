@@ -41,7 +41,7 @@ public class FinanceOfficerController {
         return new ResponseEntity<>(loanApplication, HttpStatus.OK);
     }
 
-    @PostMapping("/loan/{id}")
+    @PutMapping("/loan/{id}")
     public ResponseEntity<LoanApplication> updateStatusOfLoanApplication(@PathVariable Long id) throws ResourceNotFoundException
     {
         LoanApplication loanApplication = financeVerificationService.updateStatus(id);
