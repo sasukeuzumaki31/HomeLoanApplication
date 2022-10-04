@@ -16,7 +16,7 @@ import com.group4.demo.entity.Scheme;
 import com.group4.demo.service.impl.ICustomerServiceImpl;
 import com.group4.demo.service.impl.ILoanAgreementServiceImpl;
 import com.group4.demo.service.impl.ISchemeServiceImpl;
-import com.group4.demo.service.impl.LoanApplicationServiceImpl;
+import com.group4.demo.service.impl.ILoanApplicationServiceImpl;
 import com.group4.demo.util.EMICalculator;
 
 import java.time.LocalDate;
@@ -52,7 +52,7 @@ class CustomerControllerTest {
     private ISchemeServiceImpl iSchemeServiceImpl;
 
     @MockBean
-    private LoanApplicationServiceImpl loanApplicationServiceImpl;
+    private ILoanApplicationServiceImpl loanApplicationServiceImpl;
 
     /**
      * Method under test: {@link CustomerController#loginCustomer(UserLoginDto)}
