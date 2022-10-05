@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Optional;
 
@@ -54,9 +55,23 @@ public class ICustomerServiceImpl implements ICustomerService {
     @Override
     public Customer addCustomer(CustomerDto customer) throws CouldNotBeAddedException {
         logger.info("Entered into addCustomer method");
-        if(custRepo.findByMobileNumber(customer.getMobileNumber()) != null){
+        if (custRepo.findByMobileNumber(customer.getMobileNumber()) != null) {
             throw new CouldNotBeAddedException("Customer already exists");
         }
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
+        String date = customer.getDateOfBirth();
+
+
+        //convert String to LocalDate
+        LocalDate dob = LocalDate.parse(date, formatter);
+
+        LocalDate now = LocalDate.now();
+        long age = ChronoUnit.YEARS.between(dob, now);
+        if (age < 18) {
+            throw new CouldNotBeAddedException("Age should be at least 18");
+        }
+
+
         Customer newCustomer = new Customer();
         newCustomer.setCustomerName(customer.getCustomerName());
         newCustomer.setGender(customer.getGender());
@@ -71,7 +86,6 @@ public class ICustomerServiceImpl implements ICustomerService {
         /*
         Converting Date from String to LocalDate
          */
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
         newCustomer.setDateOfBirth(LocalDate.parse(customer.getDateOfBirth(), formatter));
 
         return custRepo.save(newCustomer);

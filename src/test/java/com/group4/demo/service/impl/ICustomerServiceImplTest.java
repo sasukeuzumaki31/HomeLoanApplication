@@ -29,14 +29,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.junit.jupiter.api.Disabled;
+
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 
+@ExtendWith(SpringExtension.class)
 @SpringBootTest
 class ICustomerServiceImplTest {
     @MockBean
@@ -74,15 +79,48 @@ class ICustomerServiceImplTest {
 
 
     @Test
-    void testViewCustomer2()  {
+    void testViewCustomer2() {
         when(iCustomerRepository.findById(any())).thenReturn(Optional.empty());
         assertThrows(ResourceNotFoundException.class, () -> iCustomerServiceImpl.viewCustomer(123));
         verify(iCustomerRepository).findById(any());
     }
 
+    /**
+     * Method under test: {@link ICustomerServiceImpl#viewCustomer(int)}
+     */
+    @Test
+    void testViewCustomer3() throws ResourceNotFoundException {
+        Customer customer = new Customer();
+        customer.setAadharNumber("42");
+        customer.setCustomerName("Customer Name");
+        customer.setDateOfBirth(LocalDate.ofEpochDay(1L));
+        customer.setEmail("jane.doe@example.org");
+        customer.setGender("Gender");
+        customer.setMobileNumber("42");
+        customer.setNationality("Nationality");
+        customer.setPanNumber("42");
+        customer.setPassword("iloveyou");
+        customer.setRole("Role");
+        customer.setUserId(123);
+        Optional<Customer> ofResult = Optional.of(customer);
+        when(iCustomerRepository.findById((Integer) any())).thenReturn(ofResult);
+        assertSame(customer, iCustomerServiceImpl.viewCustomer(123));
+        verify(iCustomerRepository).findById((Integer) any());
+    }
+
+    /**
+     * Method under test: {@link ICustomerServiceImpl#viewCustomer(int)}
+     */
+    @Test
+    void testViewCustomer4() throws ResourceNotFoundException {
+        when(iCustomerRepository.findById((Integer) any())).thenReturn(Optional.empty());
+        assertThrows(ResourceNotFoundException.class, () -> iCustomerServiceImpl.viewCustomer(123));
+        verify(iCustomerRepository).findById((Integer) any());
+    }
+
 
     @Test
-    void testViewAllCustomers()  {
+    void testViewAllCustomers() {
         when(iCustomerRepository.findAll()).thenReturn(new ArrayList<>());
         assertThrows(ResourceNotFoundException.class, () -> iCustomerServiceImpl.viewAllCustomers());
         verify(iCustomerRepository).findAll();
@@ -101,6 +139,33 @@ class ICustomerServiceImplTest {
         customer.setNationality("Entered into viewAllCustomers method");
         customer.setPanNumber("ABCDE1234F");
         customer.setPassword("Pass@123");
+        customer.setRole("Entered into viewAllCustomers method");
+        customer.setUserId(123);
+
+        ArrayList<Customer> customerList = new ArrayList<>();
+        customerList.add(customer);
+        when(iCustomerRepository.findAll()).thenReturn(customerList);
+        List<Customer> actualViewAllCustomersResult = iCustomerServiceImpl.viewAllCustomers();
+        assertSame(customerList, actualViewAllCustomersResult);
+        assertEquals(1, actualViewAllCustomersResult.size());
+        verify(iCustomerRepository, atLeast(1)).findAll();
+    }
+
+    /**
+     * Method under test: {@link ICustomerServiceImpl#viewAllCustomers()}
+     */
+    @Test
+    void testViewAllCustomers3() throws ResourceNotFoundException {
+        Customer customer = new Customer();
+        customer.setAadharNumber("42");
+        customer.setCustomerName("Entered into viewAllCustomers method");
+        customer.setDateOfBirth(LocalDate.ofEpochDay(1L));
+        customer.setEmail("jane.doe@example.org");
+        customer.setGender("Entered into viewAllCustomers method");
+        customer.setMobileNumber("42");
+        customer.setNationality("Entered into viewAllCustomers method");
+        customer.setPanNumber("42");
+        customer.setPassword("iloveyou");
         customer.setRole("Entered into viewAllCustomers method");
         customer.setUserId(123);
 
@@ -133,6 +198,31 @@ class ICustomerServiceImplTest {
                 "42", "jane.doe@example.org", "2020-03-01", "Gender", "Nationality", "42", "42", "iloveyou")));
         verify(iCustomerRepository).findByMobileNumber(any());
     }
+
+    /**
+     * Method under test: {@link ICustomerServiceImpl#addCustomer(CustomerDto)}
+     */
+    @Test
+    void testAddCustomer2() throws CouldNotBeAddedException {
+        Customer customer = new Customer();
+        customer.setAadharNumber("42");
+        customer.setCustomerName("Customer Name");
+        customer.setDateOfBirth(LocalDate.ofEpochDay(1L));
+        customer.setEmail("jane.doe@example.org");
+        customer.setGender("Gender");
+        customer.setMobileNumber("42");
+        customer.setNationality("Nationality");
+        customer.setPanNumber("42");
+        customer.setPassword("iloveyou");
+        customer.setRole("Role");
+        customer.setUserId(123);
+        when(iCustomerRepository.findByMobileNumber((String) any())).thenReturn(customer);
+        assertThrows(CouldNotBeAddedException.class,
+                () -> iCustomerServiceImpl.addCustomer(new CustomerDto("Customer Name", "42", "jane.doe@example.org",
+                        "2020-03-01", "Gender", "Nationality", "42", "42", "iloveyou")));
+        verify(iCustomerRepository).findByMobileNumber((String) any());
+    }
+
 
     @Test
     void testUpdateCustomer() throws ResourceNotFoundException {
@@ -265,7 +355,7 @@ class ICustomerServiceImplTest {
 
 
     @Test
-    void testUpdateCustomer2()  {
+    void testUpdateCustomer2() {
         Customer customer = new Customer();
         customer.setAadharNumber("123456789012");
         customer.setCustomerName("Ramu");
@@ -377,9 +467,257 @@ class ICustomerServiceImplTest {
         verify(iCustomerRepository).findById(any());
     }
 
+    /**
+     * Method under test: {@link ICustomerServiceImpl#updateCustomer(int, DocsDto)}
+     */
+    @Test
+    void testUpdateCustomer3() throws ResourceNotFoundException {
+        Customer customer = new Customer();
+        customer.setAadharNumber("42");
+        customer.setCustomerName("Customer Name");
+        customer.setDateOfBirth(LocalDate.ofEpochDay(1L));
+        customer.setEmail("jane.doe@example.org");
+        customer.setGender("Gender");
+        customer.setMobileNumber("42");
+        customer.setNationality("Nationality");
+        customer.setPanNumber("42");
+        customer.setPassword("iloveyou");
+        customer.setRole("Role");
+        customer.setUserId(123);
+        Optional<Customer> ofResult = Optional.of(customer);
+
+        Customer customer1 = new Customer();
+        customer1.setAadharNumber("42");
+        customer1.setCustomerName("Customer Name");
+        customer1.setDateOfBirth(LocalDate.ofEpochDay(1L));
+        customer1.setEmail("jane.doe@example.org");
+        customer1.setGender("Gender");
+        customer1.setMobileNumber("42");
+        customer1.setNationality("Nationality");
+        customer1.setPanNumber("42");
+        customer1.setPassword("iloveyou");
+        customer1.setRole("Role");
+        customer1.setUserId(123);
+        when(iCustomerRepository.save((Customer) any())).thenReturn(customer1);
+        when(iCustomerRepository.findById((Integer) any())).thenReturn(ofResult);
+
+        Customer customer2 = new Customer();
+        customer2.setAadharNumber("42");
+        customer2.setCustomerName("Customer Name");
+        customer2.setDateOfBirth(LocalDate.ofEpochDay(1L));
+        customer2.setEmail("jane.doe@example.org");
+        customer2.setGender("Gender");
+        customer2.setMobileNumber("42");
+        customer2.setNationality("Nationality");
+        customer2.setPanNumber("42");
+        customer2.setPassword("iloveyou");
+        customer2.setRole("Role");
+        customer2.setUserId(123);
+
+        EMI emi = new EMI();
+        emi.setDeuDate(LocalDate.ofEpochDay(1L));
+        emi.setEmiAmount(10.0d);
+        emi.setEmiId(123L);
+        emi.setInterestAmount(10.0d);
+        emi.setLoanAmount(10.0d);
+
+        LoanAgreement loanAgreement = new LoanAgreement();
+        loanAgreement.setEmi(emi);
+        loanAgreement.setLoanAgreementId(123L);
+
+        Scheme scheme = new Scheme();
+        scheme.setInterestRate(10.0d);
+        scheme.setSchemeId(123);
+        scheme.setTenure(1);
+
+        LoanApplication loanApplication = new LoanApplication();
+        loanApplication.setAdminApproval(true);
+        loanApplication.setApplicationDate(LocalDate.ofEpochDay(1L));
+        loanApplication.setApplicationId(123L);
+        loanApplication.setCustomer(customer2);
+        loanApplication.setFinanceVerificationApproval(true);
+        loanApplication.setLandVerificationApproval(true);
+        loanApplication.setLoanAgreement(loanAgreement);
+        loanApplication.setLoanAppliedAmount(10.0d);
+        loanApplication.setLoanApprovedAmount(10.0d);
+        loanApplication.setMonthlyExpenses(10.0d);
+        loanApplication.setOtherMonthlyExpenses(10.0d);
+        loanApplication.setScheme(scheme);
+        loanApplication.setStatus("Status");
+        loanApplication.setTotalAnnualIncome(10.0d);
+
+        Customer customer3 = new Customer();
+        customer3.setAadharNumber("42");
+        customer3.setCustomerName("Customer Name");
+        customer3.setDateOfBirth(LocalDate.ofEpochDay(1L));
+        customer3.setEmail("jane.doe@example.org");
+        customer3.setGender("Gender");
+        customer3.setMobileNumber("42");
+        customer3.setNationality("Nationality");
+        customer3.setPanNumber("42");
+        customer3.setPassword("iloveyou");
+        customer3.setRole("Role");
+        customer3.setUserId(123);
+
+        EMI emi1 = new EMI();
+        emi1.setDeuDate(LocalDate.ofEpochDay(1L));
+        emi1.setEmiAmount(10.0d);
+        emi1.setEmiId(123L);
+        emi1.setInterestAmount(10.0d);
+        emi1.setLoanAmount(10.0d);
+
+        LoanAgreement loanAgreement1 = new LoanAgreement();
+        loanAgreement1.setEmi(emi1);
+        loanAgreement1.setLoanAgreementId(123L);
+
+        Scheme scheme1 = new Scheme();
+        scheme1.setInterestRate(10.0d);
+        scheme1.setSchemeId(123);
+        scheme1.setTenure(1);
+
+        LoanApplication loanApplication1 = new LoanApplication();
+        loanApplication1.setAdminApproval(true);
+        loanApplication1.setApplicationDate(LocalDate.ofEpochDay(1L));
+        loanApplication1.setApplicationId(123L);
+        loanApplication1.setCustomer(customer3);
+        loanApplication1.setFinanceVerificationApproval(true);
+        loanApplication1.setLandVerificationApproval(true);
+        loanApplication1.setLoanAgreement(loanAgreement1);
+        loanApplication1.setLoanAppliedAmount(10.0d);
+        loanApplication1.setLoanApprovedAmount(10.0d);
+        loanApplication1.setMonthlyExpenses(10.0d);
+        loanApplication1.setOtherMonthlyExpenses(10.0d);
+        loanApplication1.setScheme(scheme1);
+        loanApplication1.setStatus("Status");
+        loanApplication1.setTotalAnnualIncome(10.0d);
+        when(iLoanApplicationRepository.save((LoanApplication) any())).thenReturn(loanApplication1);
+        when(iLoanApplicationRepository.findByCustomerId(anyInt())).thenReturn(loanApplication);
+        assertSame(customer1, iCustomerServiceImpl.updateCustomer(1, new DocsDto("42", "42")));
+        verify(iCustomerRepository).save((Customer) any());
+        verify(iCustomerRepository).findById((Integer) any());
+        verify(iLoanApplicationRepository).findByCustomerId(anyInt());
+        verify(iLoanApplicationRepository).save((LoanApplication) any());
+    }
+
+    /**
+     * Method under test: {@link ICustomerServiceImpl#updateCustomer(int, DocsDto)}
+     */
+    @Test
+    void testUpdateCustomer4() throws ResourceNotFoundException {
+        Customer customer = new Customer();
+        customer.setAadharNumber("42");
+        customer.setCustomerName("Customer Name");
+        customer.setDateOfBirth(LocalDate.ofEpochDay(1L));
+        customer.setEmail("jane.doe@example.org");
+        customer.setGender("Gender");
+        customer.setMobileNumber("42");
+        customer.setNationality("Nationality");
+        customer.setPanNumber("42");
+        customer.setPassword("iloveyou");
+        customer.setRole("Role");
+        customer.setUserId(123);
+        when(iCustomerRepository.save((Customer) any())).thenReturn(customer);
+        when(iCustomerRepository.findById((Integer) any())).thenReturn(Optional.empty());
+
+        Customer customer1 = new Customer();
+        customer1.setAadharNumber("42");
+        customer1.setCustomerName("Customer Name");
+        customer1.setDateOfBirth(LocalDate.ofEpochDay(1L));
+        customer1.setEmail("jane.doe@example.org");
+        customer1.setGender("Gender");
+        customer1.setMobileNumber("42");
+        customer1.setNationality("Nationality");
+        customer1.setPanNumber("42");
+        customer1.setPassword("iloveyou");
+        customer1.setRole("Role");
+        customer1.setUserId(123);
+
+        EMI emi = new EMI();
+        emi.setDeuDate(LocalDate.ofEpochDay(1L));
+        emi.setEmiAmount(10.0d);
+        emi.setEmiId(123L);
+        emi.setInterestAmount(10.0d);
+        emi.setLoanAmount(10.0d);
+
+        LoanAgreement loanAgreement = new LoanAgreement();
+        loanAgreement.setEmi(emi);
+        loanAgreement.setLoanAgreementId(123L);
+
+        Scheme scheme = new Scheme();
+        scheme.setInterestRate(10.0d);
+        scheme.setSchemeId(123);
+        scheme.setTenure(1);
+
+        LoanApplication loanApplication = new LoanApplication();
+        loanApplication.setAdminApproval(true);
+        loanApplication.setApplicationDate(LocalDate.ofEpochDay(1L));
+        loanApplication.setApplicationId(123L);
+        loanApplication.setCustomer(customer1);
+        loanApplication.setFinanceVerificationApproval(true);
+        loanApplication.setLandVerificationApproval(true);
+        loanApplication.setLoanAgreement(loanAgreement);
+        loanApplication.setLoanAppliedAmount(10.0d);
+        loanApplication.setLoanApprovedAmount(10.0d);
+        loanApplication.setMonthlyExpenses(10.0d);
+        loanApplication.setOtherMonthlyExpenses(10.0d);
+        loanApplication.setScheme(scheme);
+        loanApplication.setStatus("Status");
+        loanApplication.setTotalAnnualIncome(10.0d);
+
+        Customer customer2 = new Customer();
+        customer2.setAadharNumber("42");
+        customer2.setCustomerName("Customer Name");
+        customer2.setDateOfBirth(LocalDate.ofEpochDay(1L));
+        customer2.setEmail("jane.doe@example.org");
+        customer2.setGender("Gender");
+        customer2.setMobileNumber("42");
+        customer2.setNationality("Nationality");
+        customer2.setPanNumber("42");
+        customer2.setPassword("iloveyou");
+        customer2.setRole("Role");
+        customer2.setUserId(123);
+
+        EMI emi1 = new EMI();
+        emi1.setDeuDate(LocalDate.ofEpochDay(1L));
+        emi1.setEmiAmount(10.0d);
+        emi1.setEmiId(123L);
+        emi1.setInterestAmount(10.0d);
+        emi1.setLoanAmount(10.0d);
+
+        LoanAgreement loanAgreement1 = new LoanAgreement();
+        loanAgreement1.setEmi(emi1);
+        loanAgreement1.setLoanAgreementId(123L);
+
+        Scheme scheme1 = new Scheme();
+        scheme1.setInterestRate(10.0d);
+        scheme1.setSchemeId(123);
+        scheme1.setTenure(1);
+
+        LoanApplication loanApplication1 = new LoanApplication();
+        loanApplication1.setAdminApproval(true);
+        loanApplication1.setApplicationDate(LocalDate.ofEpochDay(1L));
+        loanApplication1.setApplicationId(123L);
+        loanApplication1.setCustomer(customer2);
+        loanApplication1.setFinanceVerificationApproval(true);
+        loanApplication1.setLandVerificationApproval(true);
+        loanApplication1.setLoanAgreement(loanAgreement1);
+        loanApplication1.setLoanAppliedAmount(10.0d);
+        loanApplication1.setLoanApprovedAmount(10.0d);
+        loanApplication1.setMonthlyExpenses(10.0d);
+        loanApplication1.setOtherMonthlyExpenses(10.0d);
+        loanApplication1.setScheme(scheme1);
+        loanApplication1.setStatus("Status");
+        loanApplication1.setTotalAnnualIncome(10.0d);
+        when(iLoanApplicationRepository.save((LoanApplication) any())).thenReturn(loanApplication1);
+        when(iLoanApplicationRepository.findByCustomerId(anyInt())).thenReturn(loanApplication);
+        assertThrows(ResourceNotFoundException.class,
+                () -> iCustomerServiceImpl.updateCustomer(1, new DocsDto("42", "42")));
+        verify(iCustomerRepository).findById((Integer) any());
+    }
+
 
     @Test
-    void testViewCustomerList()  {
+    void testViewCustomerList() {
         when(iCustomerRepository.findByDateOfApplication(any())).thenReturn(new ArrayList<>());
         assertThrows(ResourceNotFoundException.class, () -> iCustomerServiceImpl.viewCustomerList("2020-03-01"));
         verify(iCustomerRepository).findByDateOfApplication(any());
@@ -410,6 +748,43 @@ class ICustomerServiceImplTest {
         verify(iCustomerRepository).findByDateOfApplication(any());
     }
 
+    /**
+     * Method under test: {@link ICustomerServiceImpl#viewCustomerList(String)}
+     */
+    @Test
+    void testViewCustomerList3() throws ResourceNotFoundException {
+        when(iCustomerRepository.findByDateOfApplication((LocalDate) any())).thenReturn(new ArrayList<>());
+        assertThrows(ResourceNotFoundException.class, () -> iCustomerServiceImpl.viewCustomerList("2020-03-01"));
+        verify(iCustomerRepository).findByDateOfApplication((LocalDate) any());
+    }
+
+    /**
+     * Method under test: {@link ICustomerServiceImpl#viewCustomerList(String)}
+     */
+    @Test
+    void testViewCustomerList4() throws ResourceNotFoundException {
+        Customer customer = new Customer();
+        customer.setAadharNumber("42");
+        customer.setCustomerName("Entered into viewCustomerList method");
+        customer.setDateOfBirth(LocalDate.ofEpochDay(1L));
+        customer.setEmail("jane.doe@example.org");
+        customer.setGender("Entered into viewCustomerList method");
+        customer.setMobileNumber("42");
+        customer.setNationality("Entered into viewCustomerList method");
+        customer.setPanNumber("42");
+        customer.setPassword("iloveyou");
+        customer.setRole("Entered into viewCustomerList method");
+        customer.setUserId(123);
+
+        ArrayList<Customer> customerList = new ArrayList<>();
+        customerList.add(customer);
+        when(iCustomerRepository.findByDateOfApplication((LocalDate) any())).thenReturn(customerList);
+        List<Customer> actualViewCustomerListResult = iCustomerServiceImpl.viewCustomerList("2020-03-01");
+        assertSame(customerList, actualViewCustomerListResult);
+        assertEquals(1, actualViewCustomerListResult.size());
+        verify(iCustomerRepository).findByDateOfApplication((LocalDate) any());
+    }
+
 
     @Test
     void testDeleteCustomerById() throws ResourceNotFoundException {
@@ -435,11 +810,47 @@ class ICustomerServiceImplTest {
 
 
     @Test
-    void testDeleteCustomerById2()  {
+    void testDeleteCustomerById2() {
         doNothing().when(iCustomerRepository).deleteById(any());
         when(iCustomerRepository.findById(any())).thenReturn(Optional.empty());
         assertThrows(ResourceNotFoundException.class, () -> iCustomerServiceImpl.deleteCustomerById(123));
         verify(iCustomerRepository).findById(any());
+    }
+
+    /**
+     * Method under test: {@link ICustomerServiceImpl#deleteCustomerById(int)}
+     */
+    @Test
+    void testDeleteCustomerById3() throws ResourceNotFoundException {
+        Customer customer = new Customer();
+        customer.setAadharNumber("42");
+        customer.setCustomerName("Customer Name");
+        customer.setDateOfBirth(LocalDate.ofEpochDay(1L));
+        customer.setEmail("jane.doe@example.org");
+        customer.setGender("Gender");
+        customer.setMobileNumber("42");
+        customer.setNationality("Nationality");
+        customer.setPanNumber("42");
+        customer.setPassword("iloveyou");
+        customer.setRole("Role");
+        customer.setUserId(123);
+        Optional<Customer> ofResult = Optional.of(customer);
+        doNothing().when(iCustomerRepository).deleteById((Integer) any());
+        when(iCustomerRepository.findById((Integer) any())).thenReturn(ofResult);
+        assertSame(customer, iCustomerServiceImpl.deleteCustomerById(123));
+        verify(iCustomerRepository).findById((Integer) any());
+        verify(iCustomerRepository).deleteById((Integer) any());
+    }
+
+    /**
+     * Method under test: {@link ICustomerServiceImpl#deleteCustomerById(int)}
+     */
+    @Test
+    void testDeleteCustomerById4() throws ResourceNotFoundException {
+        doNothing().when(iCustomerRepository).deleteById((Integer) any());
+        when(iCustomerRepository.findById((Integer) any())).thenReturn(Optional.empty());
+        assertThrows(ResourceNotFoundException.class, () -> iCustomerServiceImpl.deleteCustomerById(123));
+        verify(iCustomerRepository).findById((Integer) any());
     }
 
 
@@ -459,21 +870,21 @@ class ICustomerServiceImplTest {
         customer.setUserId(123);
         Optional<Customer> ofResult = Optional.of(customer);
         when(iCustomerRepository.findById(any())).thenReturn(ofResult);
-        when(passwordEncoder.matches(any(),any())).thenReturn(true);
+        when(passwordEncoder.matches(any(), any())).thenReturn(true);
 
         UserLoginDto userLoginDto = new UserLoginDto();
         userLoginDto.setPassword("Pass@123");
         userLoginDto.setUserId(123);
         assertEquals("Login successfully", iCustomerServiceImpl.loginCustomer(userLoginDto));
         verify(iCustomerRepository).findById(any());
-        verify(passwordEncoder).matches(any(),any());
+        verify(passwordEncoder).matches(any(), any());
     }
 
-    
+
     @Test
-    void testLoginCustomer2()  {
+    void testLoginCustomer2() {
         when(iCustomerRepository.findById(any())).thenReturn(Optional.empty());
-        when(passwordEncoder.matches(any(),any())).thenReturn(true);
+        when(passwordEncoder.matches(any(), any())).thenReturn(true);
 
         UserLoginDto userLoginDto = new UserLoginDto();
         userLoginDto.setPassword("Pass@123");
@@ -482,7 +893,7 @@ class ICustomerServiceImplTest {
         verify(iCustomerRepository).findById(any());
     }
 
-    
+
     @Test
     void testLoginCustomer3() throws AuthenticationFailedException {
         Customer customer = new Customer();
@@ -499,14 +910,87 @@ class ICustomerServiceImplTest {
         customer.setUserId(123);
         Optional<Customer> ofResult = Optional.of(customer);
         when(iCustomerRepository.findById(any())).thenReturn(ofResult);
-        when(passwordEncoder.matches(any(),any())).thenReturn(false);
+        when(passwordEncoder.matches(any(), any())).thenReturn(false);
 
         UserLoginDto userLoginDto = new UserLoginDto();
         userLoginDto.setPassword("Pass@123");
         userLoginDto.setUserId(123);
         assertEquals("Invalid Credentials", iCustomerServiceImpl.loginCustomer(userLoginDto));
         verify(iCustomerRepository).findById(any());
-        verify(passwordEncoder).matches(any(),any());
+        verify(passwordEncoder).matches(any(), any());
+    }
+
+    /**
+     * Method under test: {@link ICustomerServiceImpl#loginCustomer(UserLoginDto)}
+     */
+    @Test
+    void testLoginCustomer4() throws AuthenticationFailedException {
+        Customer customer = new Customer();
+        customer.setAadharNumber("42");
+        customer.setCustomerName("Customer Name");
+        customer.setDateOfBirth(LocalDate.ofEpochDay(1L));
+        customer.setEmail("jane.doe@example.org");
+        customer.setGender("Gender");
+        customer.setMobileNumber("42");
+        customer.setNationality("Nationality");
+        customer.setPanNumber("42");
+        customer.setPassword("iloveyou");
+        customer.setRole("Role");
+        customer.setUserId(123);
+        Optional<Customer> ofResult = Optional.of(customer);
+        when(iCustomerRepository.findById((Integer) any())).thenReturn(ofResult);
+        when(passwordEncoder.matches((CharSequence) any(), (String) any())).thenReturn(true);
+
+        UserLoginDto userLoginDto = new UserLoginDto();
+        userLoginDto.setPassword("iloveyou");
+        userLoginDto.setUserId(123);
+        assertEquals("Login successfully", iCustomerServiceImpl.loginCustomer(userLoginDto));
+        verify(iCustomerRepository).findById((Integer) any());
+        verify(passwordEncoder).matches((CharSequence) any(), (String) any());
+    }
+
+    /**
+     * Method under test: {@link ICustomerServiceImpl#loginCustomer(UserLoginDto)}
+     */
+    @Test
+    void testLoginCustomer5() throws AuthenticationFailedException {
+        when(iCustomerRepository.findById((Integer) any())).thenReturn(Optional.empty());
+        when(passwordEncoder.matches((CharSequence) any(), (String) any())).thenReturn(true);
+
+        UserLoginDto userLoginDto = new UserLoginDto();
+        userLoginDto.setPassword("iloveyou");
+        userLoginDto.setUserId(123);
+        assertThrows(AuthenticationFailedException.class, () -> iCustomerServiceImpl.loginCustomer(userLoginDto));
+        verify(iCustomerRepository).findById((Integer) any());
+    }
+
+    /**
+     * Method under test: {@link ICustomerServiceImpl#loginCustomer(UserLoginDto)}
+     */
+    @Test
+    void testLoginCustomer6() throws AuthenticationFailedException {
+        Customer customer = new Customer();
+        customer.setAadharNumber("42");
+        customer.setCustomerName("Customer Name");
+        customer.setDateOfBirth(LocalDate.ofEpochDay(1L));
+        customer.setEmail("jane.doe@example.org");
+        customer.setGender("Gender");
+        customer.setMobileNumber("42");
+        customer.setNationality("Nationality");
+        customer.setPanNumber("42");
+        customer.setPassword("iloveyou");
+        customer.setRole("Role");
+        customer.setUserId(123);
+        Optional<Customer> ofResult = Optional.of(customer);
+        when(iCustomerRepository.findById((Integer) any())).thenReturn(ofResult);
+        when(passwordEncoder.matches((CharSequence) any(), (String) any())).thenReturn(false);
+
+        UserLoginDto userLoginDto = new UserLoginDto();
+        userLoginDto.setPassword("iloveyou");
+        userLoginDto.setUserId(123);
+        assertEquals("Invalid Credentials", iCustomerServiceImpl.loginCustomer(userLoginDto));
+        verify(iCustomerRepository).findById((Integer) any());
+        verify(passwordEncoder).matches((CharSequence) any(), (String) any());
     }
 }
 
