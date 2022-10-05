@@ -1,5 +1,6 @@
 package com.group4.demo.controller;
 
+import com.group4.demo.advices.AuthenticationFailedException;
 import com.group4.demo.advices.CouldNotBeAddedException;
 import com.group4.demo.dto.LandVerificationOfficerDto;
 import com.group4.demo.dto.UserLoginDto;
@@ -9,8 +10,6 @@ import com.group4.demo.entity.LoanApplication;
 import com.group4.demo.entity.Status;
 import com.group4.demo.service.ILandVerificationService;
 import com.group4.demo.service.ILoanApplicationService;
-import org.apache.juli.logging.Log;
-import org.apache.juli.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +22,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/landofficer")
 public class LandOfficerController {
-    Log logger = LogFactory.getLog(LandOfficerController.class);
 
     @Autowired
     ILoanApplicationService loanApplicationService;
@@ -47,7 +45,7 @@ public class LandOfficerController {
     @GetMapping("/loans/pending")
     public ResponseEntity<List<LoanApplication>> getPendingApplications() {
         List<LoanApplication> pendingApplications = loanApplicationService.retrieveLoanApplicationByStatus(
-                "WAITING_FOR_LAND_VERIFICATION_OFFICE_APPROVAL"
+                String.valueOf(Status.WAITING_FOR_LAND_VERIFICATION_OFFICE_APPROVAL)
         );
         return new ResponseEntity<>(pendingApplications, HttpStatus.OK);
     }
@@ -59,7 +57,7 @@ public class LandOfficerController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> loginLandOfficer(@RequestBody UserLoginDto userLoginDto) throws ResourceNotFoundException{
+    public ResponseEntity<String> loginLandOfficer(@RequestBody UserLoginDto userLoginDto) throws AuthenticationFailedException {
         String response = landVerificationService.loginLandOfficer(userLoginDto);
         return new ResponseEntity<>(response, HttpStatus.OK);
 

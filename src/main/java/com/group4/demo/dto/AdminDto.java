@@ -22,7 +22,6 @@ public class AdminDto {
             + "(?=\\S+$).{8,20}$",message = "Password Invalid : password should contain atleast one of the " +
             "following:- Uppercase alphabet, Lowercase alpabet, Digit,Special charecter, Minimum length of password should be 8 charecters")
     private String password;
-    private String role;
     @NotNull(message = "Name cannot be null")
     @Size(min = 2,message = "Length of admin name should be greater than 2")
     private String adminName;

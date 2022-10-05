@@ -1,12 +1,14 @@
 package com.group4.demo.controller;
 
 
+import com.group4.demo.advices.AuthenticationFailedException;
 import com.group4.demo.advices.CouldNotBeAddedException;
 import com.group4.demo.dto.FinanceVerificationDto;
 import com.group4.demo.dto.UserLoginDto;
 import com.group4.demo.advices.ResourceNotFoundException;
 import com.group4.demo.entity.FinanceVerificationOfficer;
 import com.group4.demo.entity.LoanApplication;
+import com.group4.demo.entity.Status;
 import com.group4.demo.service.IFinanceVerificationService;
 import com.group4.demo.service.ILoanApplicationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,7 +52,7 @@ public class FinanceOfficerController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> loginFinanceVerificationOfficer(@RequestBody UserLoginDto user) throws ResourceNotFoundException {
+    public ResponseEntity<String> loginFinanceVerificationOfficer(@RequestBody UserLoginDto user) throws AuthenticationFailedException {
 
         String response = financeVerificationService.loginFinanceVerificationOfficer(user);
         return new ResponseEntity<>(response, HttpStatus.OK);
@@ -59,7 +61,7 @@ public class FinanceOfficerController {
     @GetMapping("/loans/pending")
     public ResponseEntity<List<LoanApplication>> getPendingApplications() {
         List<LoanApplication> pendingApplications = loanApplicationService.retrieveLoanApplicationByStatus(
-                "WAITING_FOR_FINANCE_APPROVAL"
+                String.valueOf(Status.WAITING_FOR_FINANCE_APPROVAL)
         );
         return new ResponseEntity<>(pendingApplications, HttpStatus.OK);
     }

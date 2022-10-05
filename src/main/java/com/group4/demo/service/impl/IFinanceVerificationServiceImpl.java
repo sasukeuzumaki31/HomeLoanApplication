@@ -1,5 +1,6 @@
 package com.group4.demo.service.impl;
 
+import com.group4.demo.advices.AuthenticationFailedException;
 import com.group4.demo.advices.CouldNotBeAddedException;
 import com.group4.demo.dto.FinanceVerificationDto;
 import com.group4.demo.dto.UserLoginDto;
@@ -78,10 +79,10 @@ public class IFinanceVerificationServiceImpl implements IFinanceVerificationServ
     }
 
     @Override
-    public String loginFinanceVerificationOfficer(@RequestBody UserLoginDto user) throws ResourceNotFoundException
+    public String loginFinanceVerificationOfficer(@RequestBody UserLoginDto user) throws AuthenticationFailedException
     {
         FinanceVerificationOfficer financeVerificationOfficer = financeVerificationRepository.findById(user.getUserId())
-                .orElseThrow(() -> new ResourceNotFoundException("User Not found for Id " + user.getUserId()));
+                .orElseThrow(() -> new AuthenticationFailedException("Invalid Credentials"));
 
         if (bcryptEncoder.matches(user.getPassword(), financeVerificationOfficer.getPassword())) {
             return "Login successfully";

@@ -2,18 +2,12 @@ package com.group4.demo.controller;
 
 import com.group4.demo.dto.SchemeDto;
 import com.group4.demo.advices.ResourceNotFoundException;
-import com.group4.demo.entity.Customer;
-import com.group4.demo.entity.LoanApplication;
-import com.group4.demo.entity.Scheme;
-import com.group4.demo.entity.Status;
 import com.group4.demo.entity.*;
 import com.group4.demo.service.IAdminService;
 import com.group4.demo.service.ICustomerService;
 import com.group4.demo.service.ILoanApplicationService;
 import com.group4.demo.service.ISchemeService;
 import com.group4.demo.service.impl.ILoanAgreementServiceImpl;
-import org.apache.juli.logging.Log;
-import org.apache.juli.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +19,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/admin")
 public class AdminController {
-    Log logger = LogFactory.getLog(AdminController.class);
 
     @Autowired
     ICustomerService customerService;

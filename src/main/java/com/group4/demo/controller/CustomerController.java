@@ -1,5 +1,6 @@
 package com.group4.demo.controller;
 
+import com.group4.demo.advices.AuthenticationFailedException;
 import com.group4.demo.advices.CouldNotBeAddedException;
 import com.group4.demo.dto.CustomerDto;
 import com.group4.demo.dto.DocsDto;
@@ -14,8 +15,6 @@ import com.group4.demo.service.impl.ICustomerServiceImpl;
 import com.group4.demo.service.impl.ILoanAgreementServiceImpl;
 import com.group4.demo.service.impl.ISchemeServiceImpl;
 import com.group4.demo.service.impl.ILoanApplicationServiceImpl;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,7 +27,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/customer")
 public class CustomerController {
-    Logger logger = LoggerFactory.getLogger(CustomerController.class);
 
     @Autowired
     private ILoanApplicationServiceImpl loanApplicationService;
@@ -66,7 +64,7 @@ public class CustomerController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> loginCustomer(@RequestBody UserLoginDto customerDto) throws ResourceNotFoundException {
+    public ResponseEntity<String> loginCustomer(@RequestBody UserLoginDto customerDto) throws AuthenticationFailedException {
 
         String response = customerService.loginCustomer(customerDto);
         return new ResponseEntity<>(response, HttpStatus.OK);

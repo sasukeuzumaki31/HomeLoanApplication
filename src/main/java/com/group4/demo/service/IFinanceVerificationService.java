@@ -1,5 +1,6 @@
 package com.group4.demo.service;
 
+import com.group4.demo.advices.AuthenticationFailedException;
 import com.group4.demo.advices.CouldNotBeAddedException;
 import com.group4.demo.dto.FinanceVerificationDto;
 import com.group4.demo.dto.UserLoginDto;
@@ -12,5 +13,5 @@ public interface IFinanceVerificationService {
 
     FinanceVerificationOfficer addFinanceVerificationOfficer(FinanceVerificationDto financeVerificationDto) throws CouldNotBeAddedException;
 
-    String loginFinanceVerificationOfficer(UserLoginDto user) throws ResourceNotFoundException;
+    String loginFinanceVerificationOfficer(UserLoginDto user) throws AuthenticationFailedException;
 }

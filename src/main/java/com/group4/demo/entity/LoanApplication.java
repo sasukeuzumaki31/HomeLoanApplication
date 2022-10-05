@@ -1,6 +1,5 @@
 package com.group4.demo.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -38,7 +37,9 @@ public class LoanApplication {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "fk_customer_id", referencedColumnName = "userId")
-    @JsonBackReference
     Customer customer;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "fk_loanagrmnt_id",referencedColumnName = "loanAgreementId")
+    LoanAgreement loanAgreement;
 }

@@ -1,5 +1,6 @@
 package com.group4.demo.service;
 
+import com.group4.demo.advices.AuthenticationFailedException;
 import com.group4.demo.advices.CouldNotBeAddedException;
 import com.group4.demo.dto.LandVerificationOfficerDto;
 import com.group4.demo.dto.UserLoginDto;
@@ -12,5 +13,5 @@ public interface ILandVerificationService {
 
     LandVerificationOfficer addLandVerificationOfficer(LandVerificationOfficerDto landVerificationOfficerDto) throws CouldNotBeAddedException;
 
-    String loginLandOfficer(UserLoginDto userLoginDto) throws ResourceNotFoundException;
+    String loginLandOfficer(UserLoginDto userLoginDto) throws AuthenticationFailedException;
 }
