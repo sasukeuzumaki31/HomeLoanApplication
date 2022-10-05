@@ -134,11 +134,4 @@ public class AdminController {
         return new ResponseEntity<>(loanAgreement,HttpStatus.OK);
     }
 
-    @DeleteMapping("/loanagreement/{id}")
-    public ResponseEntity<LoanAgreement> deleteLoanAgreementById(@PathVariable Long id) throws ResourceNotFoundException
-    {
-        LoanAgreement loanAgreement = iLoanAgreementService.deleteLoanAgreement(id);
-        return new ResponseEntity<>(loanAgreement,HttpStatus.OK);
-    }
-
 }
