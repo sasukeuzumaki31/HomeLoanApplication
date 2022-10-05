@@ -1,5 +1,6 @@
 package com.group4.demo.service.impl;
 
+import com.group4.demo.advices.AuthenticationFailedException;
 import com.group4.demo.advices.CouldNotBeAddedException;
 import com.group4.demo.dto.CustomerDto;
 import com.group4.demo.dto.DocsDto;
@@ -118,10 +119,9 @@ public class ICustomerServiceImpl implements ICustomerService {
     }
 
     @Override
-    public String loginCustomer(UserLoginDto userLoginDto) throws ResourceNotFoundException {
+    public String loginCustomer(UserLoginDto userLoginDto) throws AuthenticationFailedException {
 
-
-        Customer customer = custRepo.findById(userLoginDto.getUserId()).orElseThrow(() -> new ResourceNotFoundException("Invalid Credentials "));
+        Customer customer = custRepo.findById(userLoginDto.getUserId()).orElseThrow(() -> new AuthenticationFailedException("Invalid Credentials "));
         String password = userLoginDto.getPassword();
 
         if (bcryptEncoder.matches(password, customer.getPassword())) {

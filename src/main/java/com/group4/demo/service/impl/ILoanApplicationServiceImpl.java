@@ -120,9 +120,6 @@ public class ILoanApplicationServiceImpl implements ILoanApplicationService {
                  Making Loan Agreement with Customer  after loan is approved
              */
 
-        LoanAgreement loanAgreement = new LoanAgreement();
-        loanAgreement.setLoanApplication(loanApplication);
-
         EMI emi = new EMI();
         LocalDate dueDate = loanApplication.getApplicationDate().plusYears(loanApplication.getScheme().getTenure());
         emi.setDeuDate(dueDate); //calculate due date
@@ -138,11 +135,17 @@ public class ILoanApplicationServiceImpl implements ILoanApplicationService {
 
         emi.setInterestAmount(Double.parseDouble(String.format("%.2f", interestAmount)));
 
-        emi.setLoanAgreement(loanAgreement);
             /*
             Saving EMI Object into Repo
              */
         repository.save(emi);
+
+        LoanAgreement loanAgreement = new LoanAgreement();
+        loanAgreement.setEmi(emi);
+
+        loanApplication.setLoanAgreement(loanAgreement);
+
+
 
 
         return loanRepo.save(loanApplication);

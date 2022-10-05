@@ -10,6 +10,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.group4.demo.advices.ResourceNotFoundException;
 import com.group4.demo.dto.SchemeDto;
 import com.group4.demo.entity.Customer;
+import com.group4.demo.entity.EMI;
 import com.group4.demo.entity.LoanAgreement;
 import com.group4.demo.entity.LoanApplication;
 import com.group4.demo.entity.Scheme;
@@ -25,7 +26,6 @@ import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
@@ -56,12 +56,9 @@ class AdminControllerTest {
     @MockBean
     private ISchemeService iSchemeService;
 
-    /**
-     * Method under test: {@link AdminController#viewCustomerList(String)}
-     */
     @Test
     void testViewCustomerList() throws Exception {
-        when(iCustomerService.viewCustomerList(any())).thenReturn(new ArrayList<>());
+        when(iCustomerService.viewCustomerList((String) any())).thenReturn(new ArrayList<>());
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/admin/users/{date}", "2020-03-01");
         MockMvcBuilders.standaloneSetup(adminController)
                 .build()
@@ -71,13 +68,10 @@ class AdminControllerTest {
                 .andExpect(MockMvcResultMatchers.content().string("[]"));
     }
 
-    /**
-     * Method under test: {@link AdminController#viewCustomerList(String)}
-     */
     @Test
     void testViewCustomerList2() throws Exception {
         when(iCustomerService.viewAllCustomers()).thenReturn(new ArrayList<>());
-        when(iCustomerService.viewCustomerList(any()))
+        when(iCustomerService.viewCustomerList((String) any()))
                 .thenThrow(new ResourceNotFoundException("An error occurred"));
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/admin/users/{date}", "",
                 "Uri Variables");
@@ -89,9 +83,7 @@ class AdminControllerTest {
                 .andExpect(MockMvcResultMatchers.content().string("[]"));
     }
 
-    /**
-     * Method under test: {@link AdminController#viewCustomer(int)}
-     */
+
     @Test
     void testViewCustomer() throws Exception {
         Customer customer = new Customer();
@@ -120,9 +112,7 @@ class AdminControllerTest {
                                         + "\",\"aadharNumber\":\"42\",\"panNumber\":\"42\"}"));
     }
 
-    /**
-     * Method under test: {@link AdminController#deleteCustomerById(int)}
-     */
+
     @Test
     void testDeleteCustomerById() throws Exception {
         Customer customer = new Customer();
@@ -151,9 +141,7 @@ class AdminControllerTest {
                                         + "\",\"aadharNumber\":\"42\",\"panNumber\":\"42\"}"));
     }
 
-    /**
-     * Method under test: {@link AdminController#retrieveAllLoanApplication()}
-     */
+
     @Test
     void testRetrieveAllLoanApplication() throws Exception {
         when(iLoanApplicationService.retrieveAllLoanApplication()).thenReturn(new ArrayList<>());
@@ -166,9 +154,7 @@ class AdminControllerTest {
                 .andExpect(MockMvcResultMatchers.content().string("[]"));
     }
 
-    /**
-     * Method under test: {@link AdminController#retrieveAllLoanApplication()}
-     */
+
     @Test
     void testRetrieveAllLoanApplication2() throws Exception {
         when(iLoanApplicationService.retrieveAllLoanApplication()).thenReturn(new ArrayList<>());
@@ -182,9 +168,7 @@ class AdminControllerTest {
                 .andExpect(MockMvcResultMatchers.content().string("[]"));
     }
 
-    /**
-     * Method under test: {@link AdminController#getAllSchemes()}
-     */
+
     @Test
     void testGetAllSchemes() throws Exception {
         when(iSchemeService.getAllSchemes()).thenReturn(new ArrayList<>());
@@ -197,9 +181,6 @@ class AdminControllerTest {
                 .andExpect(MockMvcResultMatchers.content().string("[]"));
     }
 
-    /**
-     * Method under test: {@link AdminController#getAllSchemes()}
-     */
     @Test
     void testGetAllSchemes2() throws Exception {
         when(iSchemeService.getAllSchemes()).thenReturn(new ArrayList<>());
@@ -213,9 +194,7 @@ class AdminControllerTest {
                 .andExpect(MockMvcResultMatchers.content().string("[]"));
     }
 
-    /**
-     * Method under test: {@link AdminController#getSchemeById(int)}
-     */
+
     @Test
     void testGetSchemeById() throws Exception {
         Scheme scheme = new Scheme();
@@ -232,16 +211,14 @@ class AdminControllerTest {
                 .andExpect(MockMvcResultMatchers.content().string("{\"schemeId\":123,\"interestRate\":10.0,\"tenure\":1}"));
     }
 
-    /**
-     * Method under test: {@link AdminController#addScheme(SchemeDto)}
-     */
+
     @Test
     void testAddScheme() throws Exception {
         Scheme scheme = new Scheme();
         scheme.setInterestRate(10.0d);
         scheme.setSchemeId(123);
         scheme.setTenure(1);
-        when(iSchemeService.addScheme(any())).thenReturn(scheme);
+        when(iSchemeService.addScheme((SchemeDto) any())).thenReturn(scheme);
 
         SchemeDto schemeDto = new SchemeDto();
         schemeDto.setInterestRate(10.0d);
@@ -259,9 +236,6 @@ class AdminControllerTest {
                 .andExpect(MockMvcResultMatchers.content().string("{\"schemeId\":123,\"interestRate\":10.0,\"tenure\":1}"));
     }
 
-    /**
-     * Method under test: {@link AdminController#deleteSchemeById(int)}
-     */
     @Test
     void testDeleteSchemeById() throws Exception {
         Scheme scheme = new Scheme();
@@ -278,16 +252,13 @@ class AdminControllerTest {
                 .andExpect(MockMvcResultMatchers.content().string("{\"schemeId\":123,\"interestRate\":10.0,\"tenure\":1}"));
     }
 
-    /**
-     * Method under test: {@link AdminController#updateScheme(int, SchemeDto)}
-     */
     @Test
     void testUpdateScheme() throws Exception {
         Scheme scheme = new Scheme();
         scheme.setInterestRate(10.0d);
         scheme.setSchemeId(123);
         scheme.setTenure(1);
-        when(iSchemeService.updateScheme(anyInt(),any())).thenReturn(scheme);
+        when(iSchemeService.updateScheme(anyInt(), (SchemeDto) any())).thenReturn(scheme);
 
         SchemeDto schemeDto = new SchemeDto();
         schemeDto.setInterestRate(10.0d);
@@ -305,60 +276,25 @@ class AdminControllerTest {
                 .andExpect(MockMvcResultMatchers.content().string("{\"schemeId\":123,\"interestRate\":10.0,\"tenure\":1}"));
     }
 
-    /**
-     * Methods under test:
-     *
-     * <ul>
-     *   <li>default or parameterless constructor of {@link AdminController}
-     *   <li>{@link AdminController#getLoanApplicationService()}
-     * </ul>
-     */
+
     @Test
     void testConstructor() {
         assertNull((new AdminController()).getLoanApplicationService());
     }
 
-    /**
-     * Method under test: {@link AdminController#deleteLoanAgreementById(Long)}
-     */
+
     @Test
     void testDeleteLoanAgreementById() throws Exception {
-        Customer customer = new Customer();
-        customer.setAadharNumber("42");
-        customer.setCustomerName("Customer Name");
-        customer.setDateOfBirth(LocalDate.ofEpochDay(1L));
-        customer.setEmail("jane.doe@example.org");
-        customer.setGender("Gender");
-        customer.setMobileNumber("42");
-        customer.setNationality("Nationality");
-        customer.setPanNumber("42");
-        customer.setPassword("iloveyou");
-        customer.setRole("Role");
-        customer.setUserId(123);
-
-        Scheme scheme = new Scheme();
-        scheme.setInterestRate(10.0d);
-        scheme.setSchemeId(123);
-        scheme.setTenure(1);
-
-        LoanApplication loanApplication = new LoanApplication();
-        loanApplication.setAdminApproval(true);
-        loanApplication.setApplicationDate(LocalDate.ofEpochDay(1L));
-        loanApplication.setApplicationId(123L);
-        loanApplication.setCustomer(customer);
-        loanApplication.setFinanceVerificationApproval(true);
-        loanApplication.setLandVerificationApproval(true);
-        loanApplication.setLoanAppliedAmount(10.0d);
-        loanApplication.setLoanApprovedAmount(10.0d);
-        loanApplication.setMonthlyExpenses(10.0d);
-        loanApplication.setOtherMonthlyExpenses(10.0d);
-        loanApplication.setScheme(scheme);
-        loanApplication.setStatus("Status");
-        loanApplication.setTotalAnnualIncome(10.0d);
+        EMI emi = new EMI();
+        emi.setDeuDate(LocalDate.ofEpochDay(1L));
+        emi.setEmiAmount(10.0d);
+        emi.setEmiId(123L);
+        emi.setInterestAmount(10.0d);
+        emi.setLoanAmount(10.0d);
 
         LoanAgreement loanAgreement = new LoanAgreement();
+        loanAgreement.setEmi(emi);
         loanAgreement.setLoanAgreementId(123L);
-        loanAgreement.setLoanApplication(loanApplication);
         when(iLoanAgreementServiceImpl.deleteLoanAgreement(anyLong())).thenReturn(loanAgreement);
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.delete("/admin/loanagreement/{id}", 123L);
         MockMvcBuilders.standaloneSetup(adminController)
@@ -368,15 +304,11 @@ class AdminControllerTest {
                 .andExpect(MockMvcResultMatchers.content().contentType("application/json"))
                 .andExpect(MockMvcResultMatchers.content()
                         .string(
-                                "{\"loanAgreementId\":123,\"loanApplication\":{\"applicationId\":123,\"applicationDate\":[1970,1,2],\"loanAppliedAmount"
-                                        + "\":10.0,\"loanApprovedAmount\":10.0,\"landVerificationApproval\":true,\"financeVerificationApproval\":true,"
-                                        + "\"adminApproval\":true,\"status\":\"Status\",\"totalAnnualIncome\":10.0,\"monthlyExpenses\":10.0,\"otherMonthlyExpenses"
-                                        + "\":10.0,\"scheme\":{\"schemeId\":123,\"interestRate\":10.0,\"tenure\":1}}}"));
+                                "{\"loanAgreementId\":123,\"emi\":{\"emiId\":123,\"deuDate\":[1970,1,2],\"emiAmount\":10.0,\"loanAmount\":10.0,"
+                                        + "\"interestAmount\":10.0}}"));
     }
 
-    /**
-     * Method under test: {@link AdminController#getApplicationById(long)}
-     */
+
     @Test
     void testGetApplicationById() throws Exception {
         Customer customer = new Customer();
@@ -392,6 +324,17 @@ class AdminControllerTest {
         customer.setRole("Role");
         customer.setUserId(123);
 
+        EMI emi = new EMI();
+        emi.setDeuDate(LocalDate.ofEpochDay(1L));
+        emi.setEmiAmount(10.0d);
+        emi.setEmiId(123L);
+        emi.setInterestAmount(10.0d);
+        emi.setLoanAmount(10.0d);
+
+        LoanAgreement loanAgreement = new LoanAgreement();
+        loanAgreement.setEmi(emi);
+        loanAgreement.setLoanAgreementId(123L);
+
         Scheme scheme = new Scheme();
         scheme.setInterestRate(10.0d);
         scheme.setSchemeId(123);
@@ -404,6 +347,7 @@ class AdminControllerTest {
         loanApplication.setCustomer(customer);
         loanApplication.setFinanceVerificationApproval(true);
         loanApplication.setLandVerificationApproval(true);
+        loanApplication.setLoanAgreement(loanAgreement);
         loanApplication.setLoanAppliedAmount(10.0d);
         loanApplication.setLoanApprovedAmount(10.0d);
         loanApplication.setMonthlyExpenses(10.0d);
@@ -411,7 +355,7 @@ class AdminControllerTest {
         loanApplication.setScheme(scheme);
         loanApplication.setStatus("Status");
         loanApplication.setTotalAnnualIncome(10.0d);
-        when(iLoanApplicationService.retrieveLoanApplicationById(any())).thenReturn(loanApplication);
+        when(iLoanApplicationService.retrieveLoanApplicationById((Long) any())).thenReturn(loanApplication);
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/admin/application/{id}", 123L);
         MockMvcBuilders.standaloneSetup(adminController)
                 .build()
@@ -423,15 +367,17 @@ class AdminControllerTest {
                                 "{\"applicationId\":123,\"applicationDate\":[1970,1,2],\"loanAppliedAmount\":10.0,\"loanApprovedAmount\":10.0"
                                         + ",\"landVerificationApproval\":true,\"financeVerificationApproval\":true,\"adminApproval\":true,\"status\":"
                                         + "\"Status\",\"totalAnnualIncome\":10.0,\"monthlyExpenses\":10.0,\"otherMonthlyExpenses\":10.0,\"scheme\":{\"schemeId"
-                                        + "\":123,\"interestRate\":10.0,\"tenure\":1}}"));
+                                        + "\":123,\"interestRate\":10.0,\"tenure\":1},\"customer\":{\"userId\":123,\"password\":\"iloveyou\",\"role\":\"Role\","
+                                        + "\"customerName\":\"Customer Name\",\"mobileNumber\":\"42\",\"email\":\"jane.doe@example.org\",\"dateOfBirth\":[1970"
+                                        + ",1,2],\"gender\":\"Gender\",\"nationality\":\"Nationality\",\"aadharNumber\":\"42\",\"panNumber\":\"42\"},\"loanAgreement"
+                                        + "\":{\"loanAgreementId\":123,\"emi\":{\"emiId\":123,\"deuDate\":[1970,1,2],\"emiAmount\":10.0,\"loanAmount\":10.0,"
+                                        + "\"interestAmount\":10.0}}}"));
     }
 
-    /**
-     * Method under test: {@link AdminController#getDocumentUploaded()}
-     */
+
     @Test
     void testGetDocumentUploaded() throws Exception {
-        when(iLoanApplicationService.retrieveLoanApplicationByStatus(any())).thenReturn(new ArrayList<>());
+        when(iLoanApplicationService.retrieveLoanApplicationByStatus((String) any())).thenReturn(new ArrayList<>());
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
                 .get("/admin/applications/documentsuploaded");
         MockMvcBuilders.standaloneSetup(adminController)
@@ -442,12 +388,9 @@ class AdminControllerTest {
                 .andExpect(MockMvcResultMatchers.content().string("[]"));
     }
 
-    /**
-     * Method under test: {@link AdminController#getDocumentUploaded()}
-     */
     @Test
     void testGetDocumentUploaded2() throws Exception {
-        when(iLoanApplicationService.retrieveLoanApplicationByStatus( any())).thenReturn(new ArrayList<>());
+        when(iLoanApplicationService.retrieveLoanApplicationByStatus((String) any())).thenReturn(new ArrayList<>());
         MockHttpServletRequestBuilder getResult = MockMvcRequestBuilders.get("/admin/applications/documentsuploaded");
         getResult.characterEncoding("Encoding");
         MockMvcBuilders.standaloneSetup(adminController)
@@ -458,12 +401,9 @@ class AdminControllerTest {
                 .andExpect(MockMvcResultMatchers.content().string("[]"));
     }
 
-    /**
-     * Method under test: {@link AdminController#getPendingApplications()}
-     */
     @Test
     void testGetPendingApplications() throws Exception {
-        when(iLoanApplicationService.retrieveLoanApplicationByStatus( any())).thenReturn(new ArrayList<>());
+        when(iLoanApplicationService.retrieveLoanApplicationByStatus((String) any())).thenReturn(new ArrayList<>());
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/admin/application/pending");
         MockMvcBuilders.standaloneSetup(adminController)
                 .build()
@@ -473,12 +413,10 @@ class AdminControllerTest {
                 .andExpect(MockMvcResultMatchers.content().string("[]"));
     }
 
-    /**
-     * Method under test: {@link AdminController#getPendingApplications()}
-     */
+
     @Test
     void testGetPendingApplications2() throws Exception {
-        when(iLoanApplicationService.retrieveLoanApplicationByStatus(any())).thenReturn(new ArrayList<>());
+        when(iLoanApplicationService.retrieveLoanApplicationByStatus((String) any())).thenReturn(new ArrayList<>());
         MockHttpServletRequestBuilder getResult = MockMvcRequestBuilders.get("/admin/application/pending");
         getResult.characterEncoding("Encoding");
         MockMvcBuilders.standaloneSetup(adminController)
@@ -489,9 +427,6 @@ class AdminControllerTest {
                 .andExpect(MockMvcResultMatchers.content().string("[]"));
     }
 
-    /**
-     * Method under test: {@link AdminController#getUsers()}
-     */
     @Test
     void testGetUsers() throws Exception {
         when(iCustomerService.viewAllCustomers()).thenReturn(new ArrayList<>());
@@ -504,9 +439,7 @@ class AdminControllerTest {
                 .andExpect(MockMvcResultMatchers.content().string("[]"));
     }
 
-    /**
-     * Method under test: {@link AdminController#raiseLandOfficerTicket(long)}
-     */
+
     @Test
     void testRaiseLandOfficerTicket() throws Exception {
         Customer customer = new Customer();
@@ -522,6 +455,17 @@ class AdminControllerTest {
         customer.setRole("Role");
         customer.setUserId(123);
 
+        EMI emi = new EMI();
+        emi.setDeuDate(LocalDate.ofEpochDay(1L));
+        emi.setEmiAmount(10.0d);
+        emi.setEmiId(123L);
+        emi.setInterestAmount(10.0d);
+        emi.setLoanAmount(10.0d);
+
+        LoanAgreement loanAgreement = new LoanAgreement();
+        loanAgreement.setEmi(emi);
+        loanAgreement.setLoanAgreementId(123L);
+
         Scheme scheme = new Scheme();
         scheme.setInterestRate(10.0d);
         scheme.setSchemeId(123);
@@ -534,6 +478,7 @@ class AdminControllerTest {
         loanApplication.setCustomer(customer);
         loanApplication.setFinanceVerificationApproval(true);
         loanApplication.setLandVerificationApproval(true);
+        loanApplication.setLoanAgreement(loanAgreement);
         loanApplication.setLoanAppliedAmount(10.0d);
         loanApplication.setLoanApprovedAmount(10.0d);
         loanApplication.setMonthlyExpenses(10.0d);
@@ -554,50 +499,25 @@ class AdminControllerTest {
                                 "{\"applicationId\":123,\"applicationDate\":[1970,1,2],\"loanAppliedAmount\":10.0,\"loanApprovedAmount\":10.0"
                                         + ",\"landVerificationApproval\":true,\"financeVerificationApproval\":true,\"adminApproval\":true,\"status\":"
                                         + "\"Status\",\"totalAnnualIncome\":10.0,\"monthlyExpenses\":10.0,\"otherMonthlyExpenses\":10.0,\"scheme\":{\"schemeId"
-                                        + "\":123,\"interestRate\":10.0,\"tenure\":1}}"));
+                                        + "\":123,\"interestRate\":10.0,\"tenure\":1},\"customer\":{\"userId\":123,\"password\":\"iloveyou\",\"role\":\"Role\","
+                                        + "\"customerName\":\"Customer Name\",\"mobileNumber\":\"42\",\"email\":\"jane.doe@example.org\",\"dateOfBirth\":[1970"
+                                        + ",1,2],\"gender\":\"Gender\",\"nationality\":\"Nationality\",\"aadharNumber\":\"42\",\"panNumber\":\"42\"},\"loanAgreement"
+                                        + "\":{\"loanAgreementId\":123,\"emi\":{\"emiId\":123,\"deuDate\":[1970,1,2],\"emiAmount\":10.0,\"loanAmount\":10.0,"
+                                        + "\"interestAmount\":10.0}}}"));
     }
 
-    /**
-     * Method under test: {@link AdminController#retrieveLoanAgreementById(Long)}
-     */
     @Test
     void testRetrieveLoanAgreementById() throws Exception {
-        Customer customer = new Customer();
-        customer.setAadharNumber("42");
-        customer.setCustomerName("Customer Name");
-        customer.setDateOfBirth(LocalDate.ofEpochDay(1L));
-        customer.setEmail("jane.doe@example.org");
-        customer.setGender("Gender");
-        customer.setMobileNumber("42");
-        customer.setNationality("Nationality");
-        customer.setPanNumber("42");
-        customer.setPassword("iloveyou");
-        customer.setRole("Role");
-        customer.setUserId(123);
-
-        Scheme scheme = new Scheme();
-        scheme.setInterestRate(10.0d);
-        scheme.setSchemeId(123);
-        scheme.setTenure(1);
-
-        LoanApplication loanApplication = new LoanApplication();
-        loanApplication.setAdminApproval(true);
-        loanApplication.setApplicationDate(LocalDate.ofEpochDay(1L));
-        loanApplication.setApplicationId(123L);
-        loanApplication.setCustomer(customer);
-        loanApplication.setFinanceVerificationApproval(true);
-        loanApplication.setLandVerificationApproval(true);
-        loanApplication.setLoanAppliedAmount(10.0d);
-        loanApplication.setLoanApprovedAmount(10.0d);
-        loanApplication.setMonthlyExpenses(10.0d);
-        loanApplication.setOtherMonthlyExpenses(10.0d);
-        loanApplication.setScheme(scheme);
-        loanApplication.setStatus("Status");
-        loanApplication.setTotalAnnualIncome(10.0d);
+        EMI emi = new EMI();
+        emi.setDeuDate(LocalDate.ofEpochDay(1L));
+        emi.setEmiAmount(10.0d);
+        emi.setEmiId(123L);
+        emi.setInterestAmount(10.0d);
+        emi.setLoanAmount(10.0d);
 
         LoanAgreement loanAgreement = new LoanAgreement();
+        loanAgreement.setEmi(emi);
         loanAgreement.setLoanAgreementId(123L);
-        loanAgreement.setLoanApplication(loanApplication);
         when(iLoanAgreementServiceImpl.retrieveAgreementById(anyLong())).thenReturn(loanAgreement);
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/admin/loanagreement/{id}", 123L);
         MockMvcBuilders.standaloneSetup(adminController)
@@ -607,15 +527,11 @@ class AdminControllerTest {
                 .andExpect(MockMvcResultMatchers.content().contentType("application/json"))
                 .andExpect(MockMvcResultMatchers.content()
                         .string(
-                                "{\"loanAgreementId\":123,\"loanApplication\":{\"applicationId\":123,\"applicationDate\":[1970,1,2],\"loanAppliedAmount"
-                                        + "\":10.0,\"loanApprovedAmount\":10.0,\"landVerificationApproval\":true,\"financeVerificationApproval\":true,"
-                                        + "\"adminApproval\":true,\"status\":\"Status\",\"totalAnnualIncome\":10.0,\"monthlyExpenses\":10.0,\"otherMonthlyExpenses"
-                                        + "\":10.0,\"scheme\":{\"schemeId\":123,\"interestRate\":10.0,\"tenure\":1}}}"));
+                                "{\"loanAgreementId\":123,\"emi\":{\"emiId\":123,\"deuDate\":[1970,1,2],\"emiAmount\":10.0,\"loanAmount\":10.0,"
+                                        + "\"interestAmount\":10.0}}"));
     }
 
-    /**
-     * Method under test: {@link AdminController#updateApplicationById(long)}
-     */
+
     @Test
     void testUpdateApplicationById() throws Exception {
         Customer customer = new Customer();
@@ -631,6 +547,17 @@ class AdminControllerTest {
         customer.setRole("Role");
         customer.setUserId(123);
 
+        EMI emi = new EMI();
+        emi.setDeuDate(LocalDate.ofEpochDay(1L));
+        emi.setEmiAmount(10.0d);
+        emi.setEmiId(123L);
+        emi.setInterestAmount(10.0d);
+        emi.setLoanAmount(10.0d);
+
+        LoanAgreement loanAgreement = new LoanAgreement();
+        loanAgreement.setEmi(emi);
+        loanAgreement.setLoanAgreementId(123L);
+
         Scheme scheme = new Scheme();
         scheme.setInterestRate(10.0d);
         scheme.setSchemeId(123);
@@ -643,6 +570,7 @@ class AdminControllerTest {
         loanApplication.setCustomer(customer);
         loanApplication.setFinanceVerificationApproval(true);
         loanApplication.setLandVerificationApproval(true);
+        loanApplication.setLoanAgreement(loanAgreement);
         loanApplication.setLoanAppliedAmount(10.0d);
         loanApplication.setLoanApprovedAmount(10.0d);
         loanApplication.setMonthlyExpenses(10.0d);
@@ -662,7 +590,11 @@ class AdminControllerTest {
                                 "{\"applicationId\":123,\"applicationDate\":[1970,1,2],\"loanAppliedAmount\":10.0,\"loanApprovedAmount\":10.0"
                                         + ",\"landVerificationApproval\":true,\"financeVerificationApproval\":true,\"adminApproval\":true,\"status\":"
                                         + "\"Status\",\"totalAnnualIncome\":10.0,\"monthlyExpenses\":10.0,\"otherMonthlyExpenses\":10.0,\"scheme\":{\"schemeId"
-                                        + "\":123,\"interestRate\":10.0,\"tenure\":1}}"));
+                                        + "\":123,\"interestRate\":10.0,\"tenure\":1},\"customer\":{\"userId\":123,\"password\":\"iloveyou\",\"role\":\"Role\","
+                                        + "\"customerName\":\"Customer Name\",\"mobileNumber\":\"42\",\"email\":\"jane.doe@example.org\",\"dateOfBirth\":[1970"
+                                        + ",1,2],\"gender\":\"Gender\",\"nationality\":\"Nationality\",\"aadharNumber\":\"42\",\"panNumber\":\"42\"},\"loanAgreement"
+                                        + "\":{\"loanAgreementId\":123,\"emi\":{\"emiId\":123,\"deuDate\":[1970,1,2],\"emiAmount\":10.0,\"loanAmount\":10.0,"
+                                        + "\"interestAmount\":10.0}}}"));
     }
 }
 

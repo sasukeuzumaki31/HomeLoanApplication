@@ -1,5 +1,6 @@
 package com.group4.demo.service;
 
+import com.group4.demo.advices.AuthenticationFailedException;
 import com.group4.demo.advices.CouldNotBeAddedException;
 import com.group4.demo.dto.CustomerDto;
 import com.group4.demo.dto.DocsDto;
@@ -24,5 +25,5 @@ public interface ICustomerService {
     Customer deleteCustomerById(int custId) throws ResourceNotFoundException;
 
 
-    String loginCustomer(UserLoginDto userLoginDto) throws ResourceNotFoundException;
+    String loginCustomer(UserLoginDto userLoginDto) throws AuthenticationFailedException;
 }

@@ -54,11 +54,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         httpSecurity.csrf().disable()
                 // don't authenticate this particular request
-                .authorizeRequests().antMatchers("/authenticate", "/admin/signup", "/customer/signup", "/customer/login"
-                        , "/landofficer/signup", "/financeofficer/signup"
-                        , "/customer/apply", "/customer/loan/{loanApplicationId}", "/customer/document/{id}", "/customer/schemes", "/customer/emi", "/customer/loanagreement/{id}",
-                        "/financeofficer/loan/{id}", "/financeofficer/loans/pending",
-                        "/landofficer/loan/{id}", "/landofficer/loans/pending","/landofficer/login",
+                .authorizeRequests().antMatchers("/authenticate", "/admin/signup", "/customer/apply","/customer/signup","/customer/login",
+                        "/customer/document/{id}","/customer/loan/{loanApplicationId}","/customer/schemes","/customer/loanagreement/{id}",
+                        "/financeofficer/signup","/financeofficer/loan/{id}","/financeofficer/login","/financeofficer/loans/pending",
+                        "/landofficer/login","/landofficer/signup","/landofficer/loans/pending","/landofficer/loan/{id}",
                         "/v3/api-docs/**"
                         , "/swagger-ui/**", "/swagger-resources/**", "/swagger-ui.html", "/webjars/**", "/v2/api-docs/**").permitAll().
                 // all other requests need to be authenticated

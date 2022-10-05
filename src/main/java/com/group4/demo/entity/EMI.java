@@ -23,7 +23,4 @@ public class EMI {
 	private double loanAmount;
 	private double interestAmount;
 
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "fk_loanagrmnt_id",referencedColumnName = "loanAgreementId")
-	LoanAgreement loanAgreement;
 }

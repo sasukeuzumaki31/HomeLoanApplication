@@ -29,5 +29,4 @@ public class LandVerificationOfficerDto {
             + "(?=\\S+$).{8,20}$",message = "Password Invalid : password should contain atleast one of the " +
             "following:- Uppercase alphabet, Lowercase alpabet, Digit,Special charecter, Minimum length of password should be 8 charecters")
     private String password;
-    private String role;
 }
