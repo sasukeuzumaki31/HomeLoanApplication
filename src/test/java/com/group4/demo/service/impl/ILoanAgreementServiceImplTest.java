@@ -31,37 +31,7 @@ class ILoanAgreementServiceImplTest {
     @Autowired
     private ILoanAgreementServiceImpl iLoanAgreementServiceImpl;
 
-    
-    @Test
-    void testDeleteLoanAgreement() throws ResourceNotFoundException {
-        EMI emi = new EMI();
-        emi.setDeuDate(LocalDate.ofEpochDay(1L));
-        emi.setEmiAmount(10.0d);
-        emi.setEmiId(123L);
-        emi.setInterestAmount(10.0d);
-        emi.setLoanAmount(10.0d);
 
-        LoanAgreement loanAgreement = new LoanAgreement();
-        loanAgreement.setEmi(emi);
-        loanAgreement.setLoanAgreementId(123L);
-        Optional<LoanAgreement> ofResult = Optional.of(loanAgreement);
-        doNothing().when(iLoanAgreementRepository).delete(any());
-        when(iLoanAgreementRepository.findById(any())).thenReturn(ofResult);
-        assertSame(loanAgreement, iLoanAgreementServiceImpl.deleteLoanAgreement(123L));
-        verify(iLoanAgreementRepository).findById(any());
-        verify(iLoanAgreementRepository).delete(any());
-    }
-
-    
-    @Test
-    void testDeleteLoanAgreement2() {
-        doNothing().when(iLoanAgreementRepository).delete(any());
-        when(iLoanAgreementRepository.findById(any())).thenReturn(Optional.empty());
-        assertThrows(ResourceNotFoundException.class, () -> iLoanAgreementServiceImpl.deleteLoanAgreement(123L));
-        verify(iLoanAgreementRepository).findById(any());
-    }
-
-    
     @Test
     void testRetrieveAllLoanAgreement() {
         ArrayList<LoanAgreement> loanAgreementList = new ArrayList<>();
@@ -72,7 +42,7 @@ class ILoanAgreementServiceImplTest {
         verify(iLoanAgreementRepository).findAll();
     }
 
-    
+
     @Test
     void testRetrieveAgreementById() throws ResourceNotFoundException {
         EMI emi = new EMI();
@@ -91,15 +61,15 @@ class ILoanAgreementServiceImplTest {
         verify(iLoanAgreementRepository).findById(any());
     }
 
-    
+
     @Test
-    void testRetrieveAgreementById2()  {
+    void testRetrieveAgreementById2() {
         when(iLoanAgreementRepository.findById(any())).thenReturn(Optional.empty());
         assertThrows(ResourceNotFoundException.class, () -> iLoanAgreementServiceImpl.retrieveAgreementById(123L));
         verify(iLoanAgreementRepository).findById(any());
     }
 
-    
+
     @Test
     void testAddLoanAgreement() {
         EMI emi = new EMI();
@@ -128,7 +98,7 @@ class ILoanAgreementServiceImplTest {
         verify(iLoanAgreementRepository).save(any());
     }
 
-   
+
     @Test
     void testUpdateLoanAgreement() {
         EMI emi = new EMI();

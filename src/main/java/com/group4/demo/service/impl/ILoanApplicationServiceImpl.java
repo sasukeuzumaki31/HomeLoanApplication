@@ -37,6 +37,7 @@ public class ILoanApplicationServiceImpl implements ILoanApplicationService {
 
 
     String notFoundMessage = "No Loan Application found";
+
     @Override
     public LoanApplication deleteLoanApplicationId(long loanApplicationId) throws ResourceNotFoundException {
         logger.info("In deleteLoanApplicationById function in LoanApplicationServiceImpl");
@@ -61,7 +62,7 @@ public class ILoanApplicationServiceImpl implements ILoanApplicationService {
     @Override
     public LoanApplication addLoanApplication(LoanApplicationDto loanApplication) throws ResourceNotFoundException, CouldNotBeAddedException {
         logger.info("In addLoanApplication function in LoanApplicationServiceImpl");
-        if(loanRepo.findByCustomerId(loanApplication.getCustomerId()) != null){
+        if (loanRepo.findByCustomerId(loanApplication.getCustomerId()) != null) {
             throw new CouldNotBeAddedException("Loan application exists with the customer ID:" + loanApplication.getCustomerId());
         }
         LoanApplication loanApplication1 = new LoanApplication();
@@ -106,14 +107,17 @@ public class ILoanApplicationServiceImpl implements ILoanApplicationService {
         LoanApplication loanApplication = loanRepo.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(notFoundMessage));
 
-        if(loanApplication.getStatus().equals(String.valueOf(Status.DOCUMENTS_UPLOADED))){
+        if (loanApplication.getStatus().equals(String.valueOf(Status.DOCUMENTS_UPLOADED))) {
             loanApplication.setStatus(String.valueOf(Status.WAITING_FOR_LAND_VERIFICATION_OFFICE_APPROVAL));
             return loanRepo.save(loanApplication);
-        }else {
+        } else if (loanApplication.getStatus().equals(String.valueOf(Status.PENDING))) {
             boolean verify = loanApplication.isLandVerificationApproval() && loanApplication.isFinanceVerificationApproval();
             loanApplication.setAdminApproval(verify);
 
             loanApplication.setStatus(String.valueOf(verify ? Status.APPROVED : Status.REJECTED));
+
+        } else {
+            throw new ResourceNotFoundException("The application is still under processing stage");
         }
 
             /*
@@ -146,8 +150,6 @@ public class ILoanApplicationServiceImpl implements ILoanApplicationService {
         loanApplication.setLoanAgreement(loanAgreement);
 
 
-
-
         return loanRepo.save(loanApplication);
     }
 
@@ -156,9 +158,13 @@ public class ILoanApplicationServiceImpl implements ILoanApplicationService {
         logger.info("In updateStatusOfLoanApplication function in LoanApplicationServiceImpl");
         LoanApplication application = loanRepo.findById(loanApplicationId)
                 .orElseThrow(() -> new ResourceNotFoundException(notFoundMessage));
-        application.setStatus(String.valueOf(status));
-        application.setLandVerificationApproval(true);
-        return loanRepo.save(application);
+        if (application.getStatus().equals(Status.WAITING_FOR_LAND_VERIFICATION_OFFICE_APPROVAL.toString())) {
+            application.setStatus(String.valueOf(status));
+            application.setLandVerificationApproval(true);
+            return loanRepo.save(application);
+        } else {
+            throw new ResourceNotFoundException("This application is not under your authority");
+        }
     }
 
     @Override

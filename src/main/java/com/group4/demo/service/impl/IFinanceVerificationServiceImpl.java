@@ -36,7 +36,7 @@ public class IFinanceVerificationServiceImpl implements IFinanceVerificationServ
     @Override
     public FinanceVerificationOfficer addFinanceVerificationOfficer(FinanceVerificationDto financeVerificationDto) throws CouldNotBeAddedException {
         logger.info("Entered in addFinanceVerificationOfficer method in IFinanceVerificationServiceImpl");
-        if(financeVerificationRepository.findByFinOfficerContact(financeVerificationDto.getFinOfficerContact()) != null){
+        if (financeVerificationRepository.findByFinOfficerContact(financeVerificationDto.getFinOfficerContact()) != null) {
             throw new CouldNotBeAddedException("Officer already exists");
         }
         FinanceVerificationOfficer financeVerificationOfficer = new FinanceVerificationOfficer();
@@ -57,30 +57,34 @@ public class IFinanceVerificationServiceImpl implements IFinanceVerificationServ
 
         LoanApplication loanApplicationOp = loanApplicationRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User Not found for Id " + id));
+        if (loanApplicationOp.getStatus().equals(Status.WAITING_FOR_FINANCE_APPROVAL.toString())) {
 
-        LoanApplication loanApplication = loanApplicationOp;
-        HomeLoanBorrowingAmountCalculator homeLoanBorrowingAmountCalculator =
-                new HomeLoanBorrowingAmountCalculator(loanApplication.getLoanAppliedAmount()
-                        , loanApplication.getScheme().getInterestRate(), loanApplication.getScheme().getTenure()
-                        , loanApplication.getTotalAnnualIncome(), loanApplication.getMonthlyExpenses()
-                        , loanApplication.getOtherMonthlyExpenses());
 
-        double acceptedAmount = homeLoanBorrowingAmountCalculator.getHomeLoanBorrowingAmount();
-        loanApplication.setLoanApprovedAmount(acceptedAmount);
-        if (acceptedAmount == 0.0) {
-            loanApplication.setFinanceVerificationApproval(false);
-            loanApplication.setStatus(String.valueOf(Status.REJECTED));
+            LoanApplication loanApplication = loanApplicationOp;
+            HomeLoanBorrowingAmountCalculator homeLoanBorrowingAmountCalculator =
+                    new HomeLoanBorrowingAmountCalculator(loanApplication.getLoanAppliedAmount()
+                            , loanApplication.getScheme().getInterestRate(), loanApplication.getScheme().getTenure()
+                            , loanApplication.getTotalAnnualIncome(), loanApplication.getMonthlyExpenses()
+                            , loanApplication.getOtherMonthlyExpenses());
+
+            double acceptedAmount = homeLoanBorrowingAmountCalculator.getHomeLoanBorrowingAmount();
+            loanApplication.setLoanApprovedAmount(acceptedAmount);
+            if (acceptedAmount == 0.0) {
+                loanApplication.setFinanceVerificationApproval(false);
+                loanApplication.setStatus(String.valueOf(Status.REJECTED));
+            } else {
+                loanApplication.setFinanceVerificationApproval(true);
+                loanApplication.setStatus(String.valueOf(Status.PENDING));
+            }
+            loanApplicationRepository.save(loanApplication);
+            return loanApplication;
         } else {
-            loanApplication.setFinanceVerificationApproval(true);
-            loanApplication.setStatus(String.valueOf(Status.PENDING));
+            throw new ResourceNotFoundException("This application is not under your authority");
         }
-        loanApplicationRepository.save(loanApplication);
-        return loanApplication;
     }
 
     @Override
-    public String loginFinanceVerificationOfficer(@RequestBody UserLoginDto user) throws AuthenticationFailedException
-    {
+    public String loginFinanceVerificationOfficer(@RequestBody UserLoginDto user) throws AuthenticationFailedException {
         FinanceVerificationOfficer financeVerificationOfficer = financeVerificationRepository.findById(user.getUserId())
                 .orElseThrow(() -> new AuthenticationFailedException("Invalid Credentials"));
 
