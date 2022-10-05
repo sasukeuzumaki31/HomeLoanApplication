@@ -20,16 +20,6 @@ public class ILoanAgreementServiceImpl implements ILoanAgreementService {
     ILoanAgreementRepository loanAggRepo;
 
     @Override
-    public LoanAgreement deleteLoanAgreement(long loanAgreementId) throws ResourceNotFoundException {
-        logger.info("Entered into deleteLoanAgreement method");
-        LoanAgreement agreement = loanAggRepo.findById(loanAgreementId).orElseThrow(() -> new ResourceNotFoundException("Loan Agreement does not exists with id : " + loanAgreementId));
-        loanAggRepo.delete(agreement);
-        logger.info("Exit from deleteLoanAgreement method");
-
-        return agreement;
-    }
-
-    @Override
     public List<LoanAgreement> retrieveAllLoanAgreement() {
         logger.info("Entered into retrieveAllLoanAgreement method");
         return loanAggRepo.findAll();
