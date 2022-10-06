@@ -19,6 +19,9 @@ public class ILoanAgreementServiceImpl implements ILoanAgreementService {
     @Autowired
     ILoanAgreementRepository loanAggRepo;
 
+    /*
+    Retrieve All the Loan Agreements which are in the database
+     */
     @Override
     public List<LoanAgreement> retrieveAllLoanAgreement() {
         logger.info("Entered into retrieveAllLoanAgreement method");
@@ -26,6 +29,9 @@ public class ILoanAgreementServiceImpl implements ILoanAgreementService {
 
     }
 
+    /*
+    Retrieve Loan Agreement through Loan Agreement Id from the database
+     */
     @Override
     public LoanAgreement retrieveAgreementById(long loanAgreementId) throws ResourceNotFoundException {
         logger.info("Entered into retrieveAgreementById method" + loanAgreementId);
