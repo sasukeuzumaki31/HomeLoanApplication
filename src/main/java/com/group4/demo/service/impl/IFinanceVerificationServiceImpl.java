@@ -50,6 +50,11 @@ public class IFinanceVerificationServiceImpl implements IFinanceVerificationServ
 
     }
 
+    /*
+    Finance Verification Officer is checking the eligibility of customer
+    based on annual income and expenses
+    and updating the loan application status accordingly.
+     */
     @Override
     public LoanApplication updateStatus(Long id) throws ResourceNotFoundException {
 
