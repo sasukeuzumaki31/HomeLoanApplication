@@ -173,9 +173,6 @@ class ILoanApplicationServiceImplTest {
         verify(iLoanApplicationRepository).findById((Long) any());
     }
 
-    /**
-     * Method under test: {@link ILoanApplicationServiceImpl#deleteLoanApplicationId(long)}
-     */
     @Test
     void testDeleteLoanApplicationId4() throws ResourceNotFoundException {
         when(iLoanApplicationRepository.findById((Long) any())).thenReturn(Optional.empty());
@@ -257,9 +254,6 @@ class ILoanApplicationServiceImplTest {
         verify(iLoanApplicationRepository).findById(any());
     }
 
-    /**
-     * Method under test: {@link ILoanApplicationServiceImpl#retrieveLoanApplicationById(Long)}
-     */
     @Test
     void testRetrieveLoanApplicationById3() throws ResourceNotFoundException {
         Customer customer = new Customer();
@@ -312,9 +306,6 @@ class ILoanApplicationServiceImplTest {
         verify(iLoanApplicationRepository).findById((Long) any());
     }
 
-    /**
-     * Method under test: {@link ILoanApplicationServiceImpl#retrieveLoanApplicationById(Long)}
-     */
     @Test
     void testRetrieveLoanApplicationById4() throws ResourceNotFoundException {
         when(iLoanApplicationRepository.findById((Long) any())).thenReturn(Optional.empty());
@@ -391,9 +382,6 @@ class ILoanApplicationServiceImplTest {
         verify(iLoanApplicationRepository).findByCustomerId(anyInt());
     }
 
-    /**
-     * Method under test: {@link ILoanApplicationServiceImpl#addLoanApplication(LoanApplicationDto)}
-     */
     @Test
     void testAddLoanApplication2() throws CouldNotBeAddedException, ResourceNotFoundException {
         Customer customer = new Customer();
@@ -461,9 +449,6 @@ class ILoanApplicationServiceImplTest {
         verify(iLoanApplicationRepository).findByCustomerId(anyInt());
     }
 
-    /**
-     * Method under test: {@link ILoanApplicationServiceImpl#updateLoanApplication(long)}
-     */
     @Test
     void testUpdateLoanApplication() throws ResourceNotFoundException {
         Customer customer = new Customer();
@@ -516,9 +501,6 @@ class ILoanApplicationServiceImplTest {
         verify(iLoanApplicationRepository).findById((Long) any());
     }
 
-    /**
-     * Method under test: {@link ILoanApplicationServiceImpl#updateLoanApplication(long)}
-     */
     @Test
     void testUpdateLoanApplication2() throws ResourceNotFoundException {
         when(iLoanApplicationRepository.findById((Long) any())).thenReturn(Optional.empty());
@@ -599,9 +581,6 @@ class ILoanApplicationServiceImplTest {
         verify(loanApplication).setTotalAnnualIncome(anyDouble());
     }
 
-    /**
-     * Method under test: {@link ILoanApplicationServiceImpl#updateStatusOfLoanApplication(Long, Status)}
-     */
     @Test
     void testUpdateStatusOfLoanApplication() throws ResourceNotFoundException {
         Customer customer = new Customer();
@@ -655,9 +634,6 @@ class ILoanApplicationServiceImplTest {
         verify(iLoanApplicationRepository).findById((Long) any());
     }
 
-    /**
-     * Method under test: {@link ILoanApplicationServiceImpl#updateStatusOfLoanApplication(Long, Status)}
-     */
     @Test
     void testUpdateStatusOfLoanApplication2() throws ResourceNotFoundException {
         when(iLoanApplicationRepository.findById((Long) any())).thenReturn(Optional.empty());
@@ -739,9 +715,6 @@ class ILoanApplicationServiceImplTest {
         verify(loanApplication).setTotalAnnualIncome(anyDouble());
     }
 
-    /**
-     * Method under test: {@link ILoanApplicationServiceImpl#updateStatusOfLoanApplication(Long, Status)}
-     */
     @Test
     void testUpdateStatusOfLoanApplication3() throws ResourceNotFoundException {
         Customer customer = new Customer();
@@ -824,9 +797,6 @@ class ILoanApplicationServiceImplTest {
         verify(loanApplication).setTotalAnnualIncome(anyDouble());
     }
 
-    /**
-     * Method under test: {@link ILoanApplicationServiceImpl#updateStatusOfLoanApplication(Long, Status)}
-     */
     @Test
     void testUpdateStatusOfLoanApplication4() throws ResourceNotFoundException {
         Customer customer = new Customer();
@@ -909,9 +879,6 @@ class ILoanApplicationServiceImplTest {
         verify(loanApplication).setTotalAnnualIncome(anyDouble());
     }
 
-    /**
-     * Method under test: {@link ILoanApplicationServiceImpl#updateStatusOfLoanApplication(Long, Status)}
-     */
     @Test
     void testUpdateStatusOfLoanApplication5() throws ResourceNotFoundException {
         Customer customer = new Customer();
@@ -994,9 +961,6 @@ class ILoanApplicationServiceImplTest {
         verify(loanApplication).setTotalAnnualIncome(anyDouble());
     }
 
-    /**
-     * Method under test: {@link ILoanApplicationServiceImpl#updateStatusOfLoanApplication(Long, Status)}
-     */
     @Test
     void testUpdateStatusOfLoanApplication6() throws ResourceNotFoundException {
         Customer customer = new Customer();
@@ -1079,9 +1043,6 @@ class ILoanApplicationServiceImplTest {
         verify(loanApplication).setTotalAnnualIncome(anyDouble());
     }
 
-    /**
-     * Method under test: {@link ILoanApplicationServiceImpl#updateStatusOfLoanApplication(Long, Status)}
-     */
     @Test
     void testUpdateStatusOfLoanApplication7() throws ResourceNotFoundException {
         Customer customer = new Customer();
@@ -1164,9 +1125,6 @@ class ILoanApplicationServiceImplTest {
         verify(loanApplication).setTotalAnnualIncome(anyDouble());
     }
 
-    /**
-     * Method under test: {@link ILoanApplicationServiceImpl#updateStatusOfLoanApplication(Long, Status)}
-     */
     @Test
     void testUpdateStatusOfLoanApplication8() throws ResourceNotFoundException {
         Customer customer = new Customer();
@@ -1261,9 +1219,6 @@ class ILoanApplicationServiceImplTest {
         verify(iLoanApplicationRepository).findByStatus(any());
     }
 
-    /**
-     * Method under test: {@link ILoanApplicationServiceImpl#retrieveLoanApplicationByStatus(String)}
-     */
     @Test
     void testRetrieveLoanApplicationByStatus2() {
         ArrayList<LoanApplication> loanApplicationList = new ArrayList<>();

@@ -85,9 +85,6 @@ class ICustomerServiceImplTest {
         verify(iCustomerRepository).findById(any());
     }
 
-    /**
-     * Method under test: {@link ICustomerServiceImpl#viewCustomer(int)}
-     */
     @Test
     void testViewCustomer3() throws ResourceNotFoundException {
         Customer customer = new Customer();
@@ -108,9 +105,6 @@ class ICustomerServiceImplTest {
         verify(iCustomerRepository).findById((Integer) any());
     }
 
-    /**
-     * Method under test: {@link ICustomerServiceImpl#viewCustomer(int)}
-     */
     @Test
     void testViewCustomer4() throws ResourceNotFoundException {
         when(iCustomerRepository.findById((Integer) any())).thenReturn(Optional.empty());
@@ -151,9 +145,6 @@ class ICustomerServiceImplTest {
         verify(iCustomerRepository, atLeast(1)).findAll();
     }
 
-    /**
-     * Method under test: {@link ICustomerServiceImpl#viewAllCustomers()}
-     */
     @Test
     void testViewAllCustomers3() throws ResourceNotFoundException {
         Customer customer = new Customer();
@@ -199,9 +190,6 @@ class ICustomerServiceImplTest {
         verify(iCustomerRepository).findByMobileNumber(any());
     }
 
-    /**
-     * Method under test: {@link ICustomerServiceImpl#addCustomer(CustomerDto)}
-     */
     @Test
     void testAddCustomer2() throws CouldNotBeAddedException {
         Customer customer = new Customer();
@@ -467,9 +455,6 @@ class ICustomerServiceImplTest {
         verify(iCustomerRepository).findById(any());
     }
 
-    /**
-     * Method under test: {@link ICustomerServiceImpl#updateCustomer(int, DocsDto)}
-     */
     @Test
     void testUpdateCustomer3() throws ResourceNotFoundException {
         Customer customer = new Customer();
@@ -599,9 +584,6 @@ class ICustomerServiceImplTest {
         verify(iLoanApplicationRepository).save((LoanApplication) any());
     }
 
-    /**
-     * Method under test: {@link ICustomerServiceImpl#updateCustomer(int, DocsDto)}
-     */
     @Test
     void testUpdateCustomer4() throws ResourceNotFoundException {
         Customer customer = new Customer();
@@ -748,9 +730,6 @@ class ICustomerServiceImplTest {
         verify(iCustomerRepository).findByDateOfApplication(any());
     }
 
-    /**
-     * Method under test: {@link ICustomerServiceImpl#viewCustomerList(String)}
-     */
     @Test
     void testViewCustomerList3() throws ResourceNotFoundException {
         when(iCustomerRepository.findByDateOfApplication((LocalDate) any())).thenReturn(new ArrayList<>());
@@ -758,9 +737,6 @@ class ICustomerServiceImplTest {
         verify(iCustomerRepository).findByDateOfApplication((LocalDate) any());
     }
 
-    /**
-     * Method under test: {@link ICustomerServiceImpl#viewCustomerList(String)}
-     */
     @Test
     void testViewCustomerList4() throws ResourceNotFoundException {
         Customer customer = new Customer();
@@ -817,9 +793,6 @@ class ICustomerServiceImplTest {
         verify(iCustomerRepository).findById(any());
     }
 
-    /**
-     * Method under test: {@link ICustomerServiceImpl#deleteCustomerById(int)}
-     */
     @Test
     void testDeleteCustomerById3() throws ResourceNotFoundException {
         Customer customer = new Customer();
@@ -842,9 +815,6 @@ class ICustomerServiceImplTest {
         verify(iCustomerRepository).deleteById((Integer) any());
     }
 
-    /**
-     * Method under test: {@link ICustomerServiceImpl#deleteCustomerById(int)}
-     */
     @Test
     void testDeleteCustomerById4() throws ResourceNotFoundException {
         doNothing().when(iCustomerRepository).deleteById((Integer) any());
@@ -920,9 +890,6 @@ class ICustomerServiceImplTest {
         verify(passwordEncoder).matches(any(), any());
     }
 
-    /**
-     * Method under test: {@link ICustomerServiceImpl#loginCustomer(UserLoginDto)}
-     */
     @Test
     void testLoginCustomer4() throws AuthenticationFailedException {
         Customer customer = new Customer();
@@ -949,9 +916,6 @@ class ICustomerServiceImplTest {
         verify(passwordEncoder).matches((CharSequence) any(), (String) any());
     }
 
-    /**
-     * Method under test: {@link ICustomerServiceImpl#loginCustomer(UserLoginDto)}
-     */
     @Test
     void testLoginCustomer5() throws AuthenticationFailedException {
         when(iCustomerRepository.findById((Integer) any())).thenReturn(Optional.empty());
@@ -964,9 +928,6 @@ class ICustomerServiceImplTest {
         verify(iCustomerRepository).findById((Integer) any());
     }
 
-    /**
-     * Method under test: {@link ICustomerServiceImpl#loginCustomer(UserLoginDto)}
-     */
     @Test
     void testLoginCustomer6() throws AuthenticationFailedException {
         Customer customer = new Customer();
