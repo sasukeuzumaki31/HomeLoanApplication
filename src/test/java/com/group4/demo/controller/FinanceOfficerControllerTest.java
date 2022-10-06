@@ -19,20 +19,18 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-@ContextConfiguration(classes = {FinanceOfficerController.class})
-@ExtendWith(SpringExtension.class)
+@SpringBootTest
 class FinanceOfficerControllerTest {
     @Autowired
     private FinanceOfficerController financeOfficerController;
@@ -43,21 +41,19 @@ class FinanceOfficerControllerTest {
     @MockBean
     private ILoanApplicationService iLoanApplicationService;
 
-    /**
-     * Method under test: {@link FinanceOfficerController#retrieveLoanApplicationById(Long)}
-     */
+
     @Test
     void testRetrieveLoanApplicationById() throws Exception {
         Customer customer = new Customer();
-        customer.setAadharNumber("42");
-        customer.setCustomerName("Customer Name");
+        customer.setAadharNumber("123456789012");
+        customer.setCustomerName("Ramesh");
         customer.setDateOfBirth(LocalDate.ofEpochDay(1L));
-        customer.setEmail("jane.doe@example.org");
-        customer.setGender("Gender");
-        customer.setMobileNumber("42");
-        customer.setNationality("Nationality");
-        customer.setPanNumber("42");
-        customer.setPassword("iloveyou");
+        customer.setEmail("ramesh123@example.com");
+        customer.setGender("M");
+        customer.setMobileNumber("1234567890");
+        customer.setNationality("Indian");
+        customer.setPanNumber("123456789");
+        customer.setPassword("Pass@123");
         customer.setRole("Role");
         customer.setUserId(123);
 
@@ -92,7 +88,7 @@ class FinanceOfficerControllerTest {
         loanApplication.setScheme(scheme);
         loanApplication.setStatus("Status");
         loanApplication.setTotalAnnualIncome(10.0d);
-        when(iLoanApplicationService.retrieveLoanApplicationById((Long) any())).thenReturn(loanApplication);
+        when(iLoanApplicationService.retrieveLoanApplicationById( any())).thenReturn(loanApplication);
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/financeofficer/loan/{id}", 123L);
         MockMvcBuilders.standaloneSetup(financeOfficerController)
                 .build()
@@ -104,22 +100,20 @@ class FinanceOfficerControllerTest {
                                 "{\"applicationId\":123,\"applicationDate\":[1970,1,2],\"loanAppliedAmount\":10.0,\"loanApprovedAmount\":10.0"
                                         + ",\"landVerificationApproval\":true,\"financeVerificationApproval\":true,\"adminApproval\":true,\"status\":"
                                         + "\"Status\",\"totalAnnualIncome\":10.0,\"monthlyExpenses\":10.0,\"otherMonthlyExpenses\":10.0,\"scheme\":{\"schemeId"
-                                        + "\":123,\"interestRate\":10.0,\"tenure\":1},\"customer\":{\"userId\":123,\"password\":\"iloveyou\",\"role\":\"Role\","
-                                        + "\"customerName\":\"Customer Name\",\"mobileNumber\":\"42\",\"email\":\"jane.doe@example.org\",\"dateOfBirth\":[1970"
-                                        + ",1,2],\"gender\":\"Gender\",\"nationality\":\"Nationality\",\"aadharNumber\":\"42\",\"panNumber\":\"42\"},\"loanAgreement"
+                                        + "\":123,\"interestRate\":10.0,\"tenure\":1},\"customer\":{\"userId\":123,\"password\":\"Pass@123\",\"role\":\"Role\","
+                                        + "\"customerName\":\"Ramesh\",\"mobileNumber\":\"1234567890\",\"email\":\"ramesh123@example.com\",\"dateOfBirth\":[1970"
+                                        + ",1,2],\"gender\":\"M\",\"nationality\":\"Indian\",\"aadharNumber\":\"123456789012\",\"panNumber\":\"123456789\"},\"loanAgreement"
                                         + "\":{\"loanAgreementId\":123,\"emi\":{\"emiId\":123,\"deuDate\":[1970,1,2],\"emiAmount\":10.0,\"loanAmount\":10.0,"
                                         + "\"interestAmount\":10.0}}}"));
     }
 
-    /**
-     * Method under test: {@link FinanceOfficerController#createNewFinanceVerificationOfficer(FinanceVerificationDto)}
-     */
+
     @Test
     void testCreateNewFinanceVerificationOfficer() throws Exception {
         FinanceVerificationDto financeVerificationDto = new FinanceVerificationDto();
-        financeVerificationDto.setFinOfficerContact("Fin Officer Contact");
-        financeVerificationDto.setFinOfficerName("Fin Officer Name");
-        financeVerificationDto.setPassword("iloveyou");
+        financeVerificationDto.setFinOfficerContact("1234567890");
+        financeVerificationDto.setFinOfficerName("Rajesh");
+        financeVerificationDto.setPassword("pass@123");
         financeVerificationDto.setUserId(123);
         String content = (new ObjectMapper()).writeValueAsString(financeVerificationDto);
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.post("/financeofficer/signup")
@@ -131,16 +125,13 @@ class FinanceOfficerControllerTest {
         actualPerformResult.andExpect(MockMvcResultMatchers.status().is(400));
     }
 
-    /**
-     * Method under test: {@link FinanceOfficerController#loginFinanceVerificationOfficer(UserLoginDto)}
-     */
     @Test
     void testLoginFinanceVerificationOfficer() throws Exception {
-        when(iFinanceVerificationService.loginFinanceVerificationOfficer((UserLoginDto) any()))
+        when(iFinanceVerificationService.loginFinanceVerificationOfficer( any()))
                 .thenReturn("Login Finance Verification Officer");
 
         UserLoginDto userLoginDto = new UserLoginDto();
-        userLoginDto.setPassword("iloveyou");
+        userLoginDto.setPassword("Pass@123");
         userLoginDto.setUserId(123);
         String content = (new ObjectMapper()).writeValueAsString(userLoginDto);
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.post("/financeofficer/login")
@@ -154,12 +145,9 @@ class FinanceOfficerControllerTest {
                 .andExpect(MockMvcResultMatchers.content().string("Login Finance Verification Officer"));
     }
 
-    /**
-     * Method under test: {@link FinanceOfficerController#getPendingApplications()}
-     */
     @Test
     void testGetPendingApplications() throws Exception {
-        when(iLoanApplicationService.retrieveLoanApplicationByStatus((String) any())).thenReturn(new ArrayList<>());
+        when(iLoanApplicationService.retrieveLoanApplicationByStatus( any())).thenReturn(new ArrayList<>());
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/financeofficer/loans/pending");
         MockMvcBuilders.standaloneSetup(financeOfficerController)
                 .build()
@@ -169,12 +157,9 @@ class FinanceOfficerControllerTest {
                 .andExpect(MockMvcResultMatchers.content().string("[]"));
     }
 
-    /**
-     * Method under test: {@link FinanceOfficerController#getPendingApplications()}
-     */
     @Test
     void testGetPendingApplications2() throws Exception {
-        when(iLoanApplicationService.retrieveLoanApplicationByStatus((String) any())).thenReturn(new ArrayList<>());
+        when(iLoanApplicationService.retrieveLoanApplicationByStatus(any())).thenReturn(new ArrayList<>());
         MockHttpServletRequestBuilder getResult = MockMvcRequestBuilders.get("/financeofficer/loans/pending");
         getResult.characterEncoding("Encoding");
         MockMvcBuilders.standaloneSetup(financeOfficerController)
@@ -185,21 +170,18 @@ class FinanceOfficerControllerTest {
                 .andExpect(MockMvcResultMatchers.content().string("[]"));
     }
 
-    /**
-     * Method under test: {@link FinanceOfficerController#updateStatusOfLoanApplication(Long)}
-     */
     @Test
     void testUpdateStatusOfLoanApplication() throws Exception {
         Customer customer = new Customer();
-        customer.setAadharNumber("42");
-        customer.setCustomerName("Customer Name");
+        customer.setAadharNumber("123456789012");
+        customer.setCustomerName("Ramesh");
         customer.setDateOfBirth(LocalDate.ofEpochDay(1L));
-        customer.setEmail("jane.doe@example.org");
-        customer.setGender("Gender");
-        customer.setMobileNumber("42");
-        customer.setNationality("Nationality");
-        customer.setPanNumber("42");
-        customer.setPassword("iloveyou");
+        customer.setEmail("ramesh123@example.com");
+        customer.setGender("M");
+        customer.setMobileNumber("1234567890");
+        customer.setNationality("Indian");
+        customer.setPanNumber("123456789");
+        customer.setPassword("Pass@123");
         customer.setRole("Role");
         customer.setUserId(123);
 
@@ -234,7 +216,7 @@ class FinanceOfficerControllerTest {
         loanApplication.setScheme(scheme);
         loanApplication.setStatus("Status");
         loanApplication.setTotalAnnualIncome(10.0d);
-        when(iFinanceVerificationService.updateStatus((Long) any())).thenReturn(loanApplication);
+        when(iFinanceVerificationService.updateStatus( any())).thenReturn(loanApplication);
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.put("/financeofficer/loan/{id}", 123L);
         MockMvcBuilders.standaloneSetup(financeOfficerController)
                 .build()
@@ -246,9 +228,9 @@ class FinanceOfficerControllerTest {
                                 "{\"applicationId\":123,\"applicationDate\":[1970,1,2],\"loanAppliedAmount\":10.0,\"loanApprovedAmount\":10.0"
                                         + ",\"landVerificationApproval\":true,\"financeVerificationApproval\":true,\"adminApproval\":true,\"status\":"
                                         + "\"Status\",\"totalAnnualIncome\":10.0,\"monthlyExpenses\":10.0,\"otherMonthlyExpenses\":10.0,\"scheme\":{\"schemeId"
-                                        + "\":123,\"interestRate\":10.0,\"tenure\":1},\"customer\":{\"userId\":123,\"password\":\"iloveyou\",\"role\":\"Role\","
-                                        + "\"customerName\":\"Customer Name\",\"mobileNumber\":\"42\",\"email\":\"jane.doe@example.org\",\"dateOfBirth\":[1970"
-                                        + ",1,2],\"gender\":\"Gender\",\"nationality\":\"Nationality\",\"aadharNumber\":\"42\",\"panNumber\":\"42\"},\"loanAgreement"
+                                        + "\":123,\"interestRate\":10.0,\"tenure\":1},\"customer\":{\"userId\":123,\"password\":\"Pass@123\",\"role\":\"Role\","
+                                        + "\"customerName\":\"Ramesh\",\"mobileNumber\":\"1234567890\",\"email\":\"ramesh123@example.com\",\"dateOfBirth\":[1970"
+                                        + ",1,2],\"gender\":\"M\",\"nationality\":\"Indian\",\"aadharNumber\":\"123456789012\",\"panNumber\":\"123456789\"},\"loanAgreement"
                                         + "\":{\"loanAgreementId\":123,\"emi\":{\"emiId\":123,\"deuDate\":[1970,1,2],\"emiAmount\":10.0,\"loanAmount\":10.0,"
                                         + "\"interestAmount\":10.0}}}"));
     }

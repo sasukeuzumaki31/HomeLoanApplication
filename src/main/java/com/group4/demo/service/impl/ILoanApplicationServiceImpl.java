@@ -49,12 +49,18 @@ public class ILoanApplicationServiceImpl implements ILoanApplicationService {
     @Override
     public List<LoanApplication> retrieveAllLoanApplication() {
         logger.info("In retrieveAllLoanApplication function in LoanApplicationServiceImpl");
+        /*
+         * Finding all loan applications
+         */
         return loanRepo.findAll();
     }
 
     @Override
     public LoanApplication retrieveLoanApplicationById(Long loanApplicationId) throws ResourceNotFoundException {
         logger.info("In retrieveLoanApplicationById function in LoanApplicationServiceImpl");
+        /*
+         * Finding loan applications by Id
+         */
         return loanRepo.findById(loanApplicationId)
                 .orElseThrow(() -> new ResourceNotFoundException(notFoundMessage));
     }
@@ -106,7 +112,11 @@ public class ILoanApplicationServiceImpl implements ILoanApplicationService {
 
         LoanApplication loanApplication = loanRepo.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(notFoundMessage));
-
+        /*
+         * If status is Documents uploaded then changing to LVO Approval.
+         * if status is Pending then Approve Or Reject the loan
+         * else throw exception
+         */
         if (loanApplication.getStatus().equals(String.valueOf(Status.DOCUMENTS_UPLOADED))) {
             loanApplication.setStatus(String.valueOf(Status.WAITING_FOR_LAND_VERIFICATION_OFFICE_APPROVAL));
             return loanRepo.save(loanApplication);
@@ -120,21 +130,20 @@ public class ILoanApplicationServiceImpl implements ILoanApplicationService {
             throw new ResourceNotFoundException("The application is still under processing stage");
         }
 
-            /*
-                 Making Loan Agreement with Customer  after loan is approved
-             */
 
         EMI emi = new EMI();
-        LocalDate dueDate = loanApplication.getApplicationDate().plusYears(loanApplication.getScheme().getTenure());
+        double approvedAmount = loanApplication.getLoanApprovedAmount();
+        int tenure = loanApplication.getScheme().getTenure();
+        LocalDate dueDate = loanApplication.getApplicationDate().plusYears(tenure);
         emi.setDeuDate(dueDate); //calculate due date
 
-        emi.setLoanAmount(loanApplication.getLoanApprovedAmount());
+        emi.setLoanAmount(approvedAmount);
 
-        EMICalculator emiCalculator = new EMICalculator(loanApplication.getLoanApprovedAmount(), loanApplication.getScheme().getInterestRate(), loanApplication.getScheme().getTenure());
+        EMICalculator emiCalculator = new EMICalculator(approvedAmount, loanApplication.getScheme().getInterestRate(),tenure);
 
         emi.setEmiAmount(emiCalculator.getEMIAmount()); // find EMI using EMiclass
 
-        double interestAmount = (emi.getEmiAmount() * loanApplication.getScheme().getTenure() * 12)
+        double interestAmount = (emi.getEmiAmount() * tenure* 12)
                 - emi.getLoanAmount(); //find interest
 
         emi.setInterestAmount(Double.parseDouble(String.format("%.2f", interestAmount)));
@@ -143,7 +152,9 @@ public class ILoanApplicationServiceImpl implements ILoanApplicationService {
             Saving EMI Object into Repo
              */
         repository.save(emi);
-
+             /*
+                 Making Loan Agreement with Customer  after loan is approved
+             */
         LoanAgreement loanAgreement = new LoanAgreement();
         loanAgreement.setEmi(emi);
 
