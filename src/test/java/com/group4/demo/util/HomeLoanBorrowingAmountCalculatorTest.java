@@ -5,9 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
 class HomeLoanBorrowingAmountCalculatorTest {
-    /**
-     * Method under test: {@link HomeLoanBorrowingAmountCalculator#getHomeLoanBorrowingAmount()}
-     */
+
     @Test
     void testGetHomeLoanBorrowingAmount() {
         assertEquals(0.0d,
