@@ -61,10 +61,12 @@ public class ICustomerServiceImpl implements ICustomerService {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
         String date = customer.getDateOfBirth();
 
-
         //convert String to LocalDate
         LocalDate dob = LocalDate.parse(date, formatter);
 
+        /*
+        checking for age > 18 years
+         */
         LocalDate now = LocalDate.now();
         long age = ChronoUnit.YEARS.between(dob, now);
         if (age < 18) {
@@ -82,10 +84,6 @@ public class ICustomerServiceImpl implements ICustomerService {
         newCustomer.setPanNumber(customer.getPanNumber());
         newCustomer.setNationality(customer.getNationality());
         newCustomer.setRole("CUSTOMER");
-
-        /*
-        Converting Date from String to LocalDate
-         */
         newCustomer.setDateOfBirth(LocalDate.parse(customer.getDateOfBirth(), formatter));
 
         return custRepo.save(newCustomer);
